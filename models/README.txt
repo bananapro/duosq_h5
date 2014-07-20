@@ -1,0 +1,1 @@
+不再使用cakePHP自带model，而是统一调用DAL()数据层获取数据对象(/data目录)
