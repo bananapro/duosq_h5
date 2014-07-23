@@ -27,7 +27,7 @@
 	<br />
 	<br />
 	<div style="text-align:center">
-		<a href="/"><img src="http://www.duosq.com/img/logo_s.png" align="absmiddle"></a>
+		<a href="/"><img src="http://www.duosq.com/img/logo.png" align="absmiddle"></a>
 		<div style="padding:25px;margin:0 auto; margin-top:20px;background-color:#FFF;display:inline;border-radius:10px; border:1px solid #CBCBCB; line-height:40px">
 		<a href="<?php echo $url?>"><?php echo $message?></a>&nbsp; <span id="count" style="font-size:27px;font-family:arial"><?=$pause?></span>
 		</div>

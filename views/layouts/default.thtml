@@ -1,51 +1,17 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-	<?=$html->charset('utf-8')?>
 	<title><?php echo $title_for_layout;?></title>
-	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-	<script type="text/javascript" src="http://www.duosq.com/js/jq.min.js"></script>
-	<style>
-		* { margin: 0px; padding: 0px;}
-		a { text-decoration: none; color: #0093DC}
-		a:hover,a:active { color: #F60}
-		input[type="text"]:empty { padding-left: 5px; }
-		body { font-size:12px; background-color: #ECECEC; font-family: tahoma,arial,Microsoft Yahei,\5b8b\4f53; color:#333;}
-		table { border-collapse: collapse; border-spacing: 0;}
-		fieldset { margin: 10px 0;padding: 13px;border-radius: 5px;border: 1px solid #CCCCCC;font-weight: normal;}
-		legend { font-weight: normal;}
-
-
-		#content { margin: 0 auto; width: 800px; background-color: #FFF; border: 3px solid #CBCBCB; text-align: left; padding: 20px 30px;}
-
-		.upload { width: 200px}
-		.cell { margin: 0px 0px 25px; line-height: 20px}
-		.grey { color: #A5A5A5}
-		.red { color: red}
-		.orange { color: #F60}
-		.green { color: #00B200}
-		.btn-button {
-			display: inline-block;
-			text-align: center;
-			text-decoration: none;
-			vertical-align: middle;
-			cursor: pointer;
-			font-family: verdana,Hiragino Sans GB;
-			font-size: 20px;
-			border-radius: 5px;
-			color: #fff;
-			border: 1px solid #d66500;
-			background-color: #f57403;
-			line-height: 44px;
-			height: 44px;
-			padding: 0 20px;
-		}
-	</style>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="format-detection" content="telephone=no;address=no;email=no"/>
+	<link rel="shortcut icon" href="http://www.duosq.com/favicon.ico" />
+	<link rel="apple-touch-icon" href="<?=MY_STATIC_URL?>/img/icon_apple_touch.png?<?=MY_STATIC_TIME?>" />
+	<link rel="stylesheet" href="<?=MY_STATIC_URL?>/css/h5.css?<?=MY_STATIC_TIME?>" />
+	<script src="<?=MY_STATIC_URL?>/js/h5_zepto.js?<?=MY_STATIC_TIME?>"></script>
+	<script src="<?=MY_STATIC_URL?>/js/h5_main.js?<?=MY_STATIC_TIME?>"></script>
 </head>
-<body>
-	<div id="content">
+	<body>
 		<?=$content_for_layout;?>
-	</div>
-	<?=$cakeDebug?>
-</body>
+	</body>
 </html>

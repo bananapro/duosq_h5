@@ -37,7 +37,7 @@ if (!defined('DEBUG')){
 	}
 }
 
-if (!defined('CACHE_CHECK'))define('CACHE_CHECK', true);
+if (!defined('CACHE_CHECK'))define('CACHE_CHECK', false);
 /**
  * Error constant. Used for differentiating error logging and debugging.
  * Currently PHP supports LOG_DEBUG

@@ -10,18 +10,13 @@ class AppController extends Controller {
 	function beforeFilter() {
 
 		parent::beforeFilter();
+		$this->set('title', '特卖订阅');
 		header('Content-Type: text/html; charset=UTF-8');
 
 		if ($this->loginValide && !D('myuser')->isLogined()) {
 			if ($this->action == 'index' && $this->name == 'Default') $this->redirect('/Login');
 			else $this->flash('您尚未登陆多省钱，或已经超时，请重新登陆!', '/', 5);
 		}
-	}
-
-	function beforeRender() {
-
-		parent::beforeRender();
-		die();
 	}
 
 	//自动识别ajax
@@ -136,6 +131,7 @@ class AppController extends Controller {
 	}
 
 	function appError($type, $message){
+
 		if(!DEBUG) //调试模式将会抛出错误
 			$this->flash('您查找的链接不存在，系统将自动返回首页', '/', 5);
 	}
