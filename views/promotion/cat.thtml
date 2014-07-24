@@ -1,7 +1,7 @@
 <div class="second-nav clearfix">
-	<div>
+	<div id="J_first_nav">
 		<ul class="ui-navigator-list">
-			<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="/promotion/cat/<?=urlencode($cat)?>">今日<?=$cat?>特卖</a></li>
+			<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="/promotion/cat/<?=urlencode($cat)?>">今日特卖</a></li>
 			<?php foreach($all_goods_cat[$cat] as $i_midcat => $subcats):?>
 			<li><a class="J-nav-classify<?php if($midcat == $i_midcat):?> cur<?php endif?>" href="/promotion/cat/<?=urlencode($cat)?>/<?=urlencode($i_midcat)?>"><?=$i_midcat?></a></li>
 			<?php endforeach?>
@@ -36,12 +36,16 @@
 				$count_promo = intval($count_today_promo * $count_midcat / $count_all_midcat)*10;
 			}
 		?>
-		<h3 class="t">24小时内从实时监控的<font class="purple"><?=$count_all_goods?></font>件品牌商品中，发现<font class="purple"><?=$count_promo?></font>个<?=$midcat?$midcat:$cat?>大降<font class="green">30%</font>以上</h3>
+		<h3 class="t">今日从<font class="purple"><?=$count_all_goods?></font>品牌中发现<font class="purple"><?=$count_promo?></font>个<?=$midcat?$midcat:$cat?>特卖</h3>
 	</div>
 	<div style="display:block;">
 		<?php foreach($lists as $promo):?>
 		<div class="super-item-mod super-brand-mod">
-			<a href="<?=D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'])?>">
+			<?php if($promo['sp']=='jd'):?>
+				<a href="jump:http://m.jd.com/product/<?=$promo['url_id']?>.html">
+			<?php else:?>
+				<a href="jump:<?=D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'])?>">
+			<?php endif?>
 				<div class="mod-img">
 					<?php if(isset($promo['is_new']) && !isset($promo['week_sales'])):?>
 						<div class="mod-mark mark-new"><img src="<?=MY_STATIC_URL?>/img/promotion/new.png"></div>
@@ -56,7 +60,7 @@
 					<div class="price-info">
 						<small>&yen;</small>
 						<strong><?=price_yuan($promo['price_now'])?></strong>
-						<del>90天均价 ¥<?=price_yuan($promo['price_avg'])?></del>
+						<del>90天均价¥<?=price_yuan($promo['price_avg'])?></del>
 					</div>
 					<div class="get-fl color">
 						<strong>今日省<?=rate_diff($promo['price_now'], $promo['price_avg'])?>%</strong>
