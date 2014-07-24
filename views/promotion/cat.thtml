@@ -1,4 +1,4 @@
-<div class="second-nav clearfix">
+<div class="second-nav J_super_top clearfix">
 	<div id="J_first_nav">
 		<ul class="ui-navigator-list">
 			<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="/promotion/cat/<?=urlencode($cat)?>">今日特卖</a></li>
@@ -41,11 +41,7 @@
 	<div style="display:block;">
 		<?php foreach($lists as $promo):?>
 		<div class="super-item-mod super-brand-mod">
-			<?php if($promo['sp']=='jd'):?>
-				<a href="jump:http://m.jd.com/product/<?=$promo['url_id']?>.html">
-			<?php else:?>
-				<a href="jump:<?=D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'])?>">
-			<?php endif?>
+			<a href="jump:<?=D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi')?>">
 				<div class="mod-img">
 					<?php if(isset($promo['is_new']) && !isset($promo['week_sales'])):?>
 						<div class="mod-mark mark-new"><img src="<?=MY_STATIC_URL?>/img/promotion/new.png"></div>
