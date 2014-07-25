@@ -40,6 +40,7 @@
 	</div>
 	<div style="display:block;">
 		<?php foreach($lists as $promo):?>
+		<?php if($promo['invalid'])continue?>
 		<div class="super-item-mod super-brand-mod">
 			<a href="jump:<?=D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi')?>">
 				<div class="mod-img">

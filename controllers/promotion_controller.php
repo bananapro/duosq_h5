@@ -4,7 +4,7 @@ class PromotionController extends AppController {
 
 	var $name = 'Promotion';
 	var $components = array('Pagination');
-	var $cacheAction = array('cat'=>60);
+	var $cacheAction = array('cat'=> MINUTE);
 
 	function cat($cat, $midcat=''){
 
@@ -21,7 +21,7 @@ class PromotionController extends AppController {
 			$cond['subcat'] = D('promotion')->midcat2subcat($midcat);
 		}
 
-		$lists = D('promotion')->getList($this->Pagination, $cond, C('comm', 'h5_promo_cat_goods_pre_page'));
+		$lists = D('promotion')->getList($this->Pagination, $cond, C('comm', 'h5_promo_cat_goods_pre_page'), false);
 
 		if($midcat){
 			$this->set('title', '今日'.$midcat.'特卖');
