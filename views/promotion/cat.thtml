@@ -9,7 +9,7 @@
 	</div>
 </div>
 <section class="place-holder-nav"></section>
-<div class="super-bd">
+<div class="promo-bd">
 	<div class="limit-hd clearfix">
 		<?php
 			$count_all_goods = array_sum($stat['num_goods'])+3;
@@ -41,48 +41,25 @@
 	<div style="display:block;">
 		<?php foreach($lists as $promo):?>
 		<?php if($promo['invalid'])continue?>
-		<div class="super-item-mod super-brand-mod">
-			<a href="jump:<?=D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi')?>">
-				<div class="mod-img">
-					<?php if(isset($promo['is_new']) && !isset($promo['week_sales'])):?>
-						<div class="mod-mark mark-new"><img src="<?=MY_STATIC_URL?>/img/promotion/new.png"></div>
-					<?php endif?>
-					<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>
-					<img class="ui-imglazyload" src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl(r('460x460', '960x960', $promo['pic_url']))?>" />
-				</div>
-				<div class="mod-desc border-not">
-					<?=strtotime($promo['hd_expire'])>0?'<span class="color">【限时'.date('n月d',strtotime($promo['hd_expire'])).'】</span>':''?><?=$promo['name']?>
-				</div>
-				<div class="mod-price clearfix">
-					<div class="price-info">
-						<small>&yen;</small>
-						<strong><?=price_yuan($promo['price_now'])?></strong>
-						<del>90天均价¥<?=price_yuan($promo['price_avg'])?></del>
-					</div>
-					<div class="get-fl color">
-						<strong>今日省<?=rate_diff($promo['price_now'], $promo['price_avg'])?>%</strong>
-					</div>
-				</div>
-			</a>
-		</div>
+			<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
 		<?php endforeach?>
 		<!--
-		<a class="super-cat-link" href="/super/?idx=1&id=5">
+		<a class="promo-cat-link" href="/super/?idx=1&id=5">
 			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-fs.jpg" alt="服饰" style="width:100%" class="ui-imglazyload" />
 		</a>
-		<a class="super-cat-link" href="/super/?idx=2&id=7">
+		<a class="promo-cat-link" href="/super/?idx=2&id=7">
 			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-mz.jpg" alt="美妆" style="width:100%" class="ui-imglazyload" />
 		</a>
-		<a class="super-cat-link" href="/super/?idx=3&id=101">
+		<a class="promo-cat-link" href="/super/?idx=3&id=101">
 			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-jj.jpg" alt="家居" style="width:100%" class="ui-imglazyload" />
 		</a>
-		<a class="super-cat-link" href="/super/?idx=4&id=15">
+		<a class="promo-cat-link" href="/super/?idx=4&id=15">
 			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-sm.jpg" alt="家电" style="width:100%" class="ui-imglazyload" />
 		</a>
-		<a class="super-cat-link" href="/super/?idx=5&id=13">
+		<a class="promo-cat-link" href="/super/?idx=5&id=13">
 			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-sp.jpg" alt="食品" style="width:100%" class="ui-imglazyload" />
 		</a>
-		<a class="super-cat-link" href="/super/?idx=6&id=9">
+		<a class="promo-cat-link" href="/super/?idx=6&id=9">
 			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-my.jpg" alt="母婴" style="width:100%" class="ui-imglazyload" />
 		</a>
 		-->

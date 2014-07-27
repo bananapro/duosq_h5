@@ -1,0 +1,20 @@
+<div class="promo-bd">
+	<div class="limit-hd clearfix">
+
+		<?php if(!@$error):?>
+			<?php if($promo_goods):?>
+				<div class="limit-hd clearfix">
+					<h3 class="t">一共发现<font class="purple"><?=count($promo_goods)?></font>个匹配 "<font class="purple"><?=$keyword?></font>" 的特卖：</h3>
+				</div>
+				<div>
+					<?php foreach($promo_goods as $promo):?>
+						<?php if($promo['invalid'])continue?>
+							<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
+					<?php endforeach?>
+				</div>
+			<?php endif?>
+		<?php else:?>
+			<div class="notice"><img src="<?=MY_STATIC_URL?>/img/logo.png" width="40px" align="absmiddle"> &nbsp;<?=$error?></div>
+		<?php endif?>
+	</div>
+</div>

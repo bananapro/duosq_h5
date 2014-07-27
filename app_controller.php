@@ -40,6 +40,7 @@ class AppController extends Controller {
 		}
 	}
 
+	//判断是否jsonp请求
 	function isJsonp() {
 
 		$jsoncallback = isset($_REQUEST['jsoncallback']) ? $_REQUEST['jsoncallback'] : '';
@@ -76,6 +77,7 @@ class AppController extends Controller {
 		return intval($num);
 	}
 
+	//接口返回成功信息
 	function _success($message = '', $force_api = false) {
 
 		if ($message === '') $message = '操作成功!';
@@ -96,6 +98,7 @@ class AppController extends Controller {
 		die();
 	}
 
+	//接口返回错误信息
 	function _error($message = '', $force_api = false) {
 
 		if (!$message) $message = '系统发生错误，请重试!';

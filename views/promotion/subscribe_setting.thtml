@@ -1,0 +1,277 @@
+<div class="subscribe-suggest-view hide">
+	<section class="promo-search-box">
+		<div class="promo-input-flex"> <i class="ico-search"></i>
+			<input type="search" id="brand-input" autocomplete="off" onmouseover="this.focus()" onfocus="this.select()" class="promo-input-search" placeholder="请输入品牌关键词" />
+		</div>
+		<a href="javascript:void(0);" onclick="brandSuggestLeave()" class="promo-search-btn-cancel">取消</a>
+	</section>
+	<section class="subscribe-list">
+		<div id="suggest">
+			<div id="brand-suggest" class="hide">
+			<ul id="brand-suggest-ct"></ul>
+			</div>
+		</div>
+		<div class="ft">
+			<a href="javascript:void(0);" onclick="brandSuggestLeave()" class="subscribe-submit">返回特卖订阅</a>
+		</div>
+	</section>
+</div>
+
+<div class="subscribe-options">
+	<?php if(@$error):?>
+		<div style="text-align:center; line-height:250px; font-size:20px"><?=$error?></div>
+	<?php else:?>
+		<h1 class="purple">❤ 根据喜好，一旦有合适的特卖，将会给您推送</h1>
+		<fieldset>
+			<legend>指定品牌</legend>
+			<div style="margin-bottom:10px"><input type="button" onclick="brandSuggestEnter()" value="+选择品牌" /></div>
+			<div id="brand-list">
+				<?php if(@$setting && $setting['setting_brand']):?>
+				<?php foreach($setting['setting_brand'] as $brand_id):?>
+					<a id='brand_<?=$brand_id?>' href="javascript:void(0)" onclick="removeBrand(this,'<?=$brand_id?>')"><?=D('brand')->getName($brand_id)?><em></em></a> &nbsp;
+				<?php endforeach?>
+			<?php endif?>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend>指定品类</legend>
+			<div class="cat-options">
+				<ul>
+				<?php foreach($all_goods_cat as $cat => $midcats):?>
+				<li class="clearfix"><span><?=$cat?></span>
+					<div>
+					<?php $tmp = array()?>
+					<?php foreach($midcats as $midcat => $value):?>
+					<?php if(@$setting && in_array($midcat, $setting['setting_midcat'])):?>
+						<?php $tmp[] = '<a href="javascript:void(0)" class="selected" onclick="selectMidcat(this, \''.$midcat.'\')"><em></em>'.$midcat.'</a>'?>
+					<?php else:?>
+						<?php $tmp[] = '<a href="javascript:void(0)" onclick="selectMidcat(this, \''.$midcat.'\')"><em></em>'.$midcat.'</a>'?>
+					<?php endif?>
+					<?php endforeach?>
+					<?=join(' | ', $tmp)?>
+					</div>
+				<?php endforeach?>
+				</ul>
+			</div>
+		</fieldset>
+
+		<div class="ft">
+			<a id="submit-btn-enable" href="javascript:void(0);" onclick="saveSetting()" class="subscribe-submit save">保存订阅设置</a>
+			<a id="submit-btn-disable" class="subscribe-submit" style="display:none">正在保存中 ...</a>
+		</div>
+	<?php endif?>
+</div>
+<script>
+var subscribe_sess_id = '<?=$sess_id?>';
+var subscribe_device_id = '<?=$device_id?>';
+var subscribe_platform = '<?=$platform?>';
+
+function setSuggestHeight(){
+	$('#suggest').height($(window).height() - 148);
+	$('.subscribe-suggest-view').width($(window).width());
+	$('.subscribe-suggest-view').height($(window).height());
+}
+
+//品牌suggest
+var brand_time_id;
+var brand_last_keyword='';
+
+//键盘敲击触发，累计一定输入数据后发送请求，减少ajax请求
+function brandEventDown(obj){
+
+	clearTimeout(brand_time_id);
+	var val = $('#brand-input').val();
+
+	if(val == ''){
+		$('#brand-suggest-ct').html('');
+		brandSuggestHide();
+	}else{
+		brandSuggestShow();
+	}
+
+	if(val != '' && val != brand_last_keyword){
+		brandSuggestInit();
+		brand_time_id = setTimeout(function(){
+			brand_last_keyword = val;
+			brandFireAjax(brand_last_keyword);
+		},300);
+	}
+}
+
+//进入品牌选择模式
+function brandSuggestEnter(){
+	$('.subscribe-suggest-view').show();
+	$('.subscribe-options').hide();
+	$('#brand-input')[0].focus();
+}
+
+//退出品牌选择模式
+function brandSuggestLeave(){
+	$('.subscribe-suggest-view').hide();
+	$('.subscribe-options').show();
+	brandSuggestClear();
+}
+
+//显示品牌suggest
+function brandSuggestShow(){
+	$('#brand-suggest').show();
+}
+
+//隐藏品牌suggest
+function brandSuggestHide(){
+	$('#brand-suggest').hide();
+}
+
+//品牌suggest出现后进行提示框初始化
+function brandSuggestInit(){
+
+	$('#brand-suggest-ct').html('<li id="suggest_first" class="hover">正在搜索 “<span id="suggest_k"></span>” 品牌信息 >></li>');
+	var val = $('#brand-input').val();
+	$('#suggest_k').html(val);
+}
+
+//清除品牌suggest
+function brandSuggestClear(){
+	$('#brand-input').val('');
+	brandSuggestInit();
+	brandSuggestHide();
+	brand_last_keyword = '';//防止清空后，再次搜索上次keyword，eventDown没正常响应
+}
+
+//品牌suggest向后端请求搜索结果
+function brandFireAjax(keyword){
+
+	//提供suggest
+	$.ajax({
+		url: '/ajaxSubscribe/suggestBrand/select',
+		dataType: 'json',
+		data: {'k':keyword},
+		type: 'POST',
+		success: function(e){
+			if(e.status == 1){
+				$('#brand-suggest-ct').html(e.message.content);
+				$('li').each(function(){
+					$(this).mouseover(function(){
+						$('li').removeClass('hover');
+						$(this).addClass('hover');
+					})
+				})
+			}
+		}
+	})
+}
+
+//绑定品牌搜索框
+function bindBrandSuggest(){
+
+	$('#brand-input').focus(function(){
+		brandEventDown();
+	})
+
+	$('#brand-input').keyup(function(){
+		brandEventDown();
+	})
+
+	$('#brand-input').blur(function(){
+		//失去焦点稍微延迟，防止suggest消失比点击快，导致点击不到
+		setTimeout(function(){brandSuggestHide();brandSuggestLeave();}, 200);
+	})
+}
+
+//选择option subcat
+function selectMidcat(obj, subcat){
+
+	if($(obj).attr('class') == 'selected'){
+		saveOption('setting_midcat', $(obj).html(), 'del', function(){$(obj).removeClass('selected');})
+	}else{
+		saveOption('setting_midcat', $(obj).html(), 'add', function(){$(obj).addClass('selected');})
+	}
+}
+
+//选择option 品牌
+function selectBrand(brand_id, brand_name){
+
+	saveOption('setting_brand', brand_id, 'add', function(){
+		if(!document.getElementById('brand_'+brand_id)){
+			$('#brand-list').append('<a id=\'brand_'+brand_id+'\' href="javascript:void(0)" onclick="removeBrand(this,\''+brand_id+'\')">'+brand_name+'<em></em> &nbsp; </a>');
+		}
+		brandSuggestHide();
+		brandSuggestLeave();
+	})
+}
+
+//去除option 品牌
+function removeBrand(obj, brand_id){
+
+	saveOption('setting_brand', brand_id, 'del', function(){
+		$(obj).remove();
+	})
+}
+
+//保存配置到订阅会话
+function saveOption(option, value, action, succ_callbak){
+
+	$.ajax({
+		url: '/ajaxSubscribe/saveOption',
+		data: {'sess_id':subscribe_sess_id, 'option':option, 'value':value, 'action':action},
+		dataType: 'json',
+		type: 'GET',
+		success: function(e){
+			if(e.status == 1){
+				//option保存成功则显示可提交按钮，Load历史配置时，按钮为不可提交状态，但可以选择option
+				succ_callbak();
+			}else{
+				alert(e.message);
+			}
+		}
+	})
+}
+
+function enableSubmit(){
+	$('#submit-btn-enable').show();
+	$('#submit-btn-disable').hide();
+}
+
+function disableSubmit(){
+
+	$('#submit-btn-enable').hide();
+	$('#submit-btn-disable').show();
+}
+
+//保存订阅邮件设置
+function saveSetting(){
+
+	disableSubmit();
+
+	$.ajax({
+		url: '/ajaxSubscribe/saveSetting',
+		data: {'sess_id':subscribe_sess_id, 'device_id':subscribe_device_id, 'platform':subscribe_platform},
+		dataType: 'json',
+		type: 'GET',
+		success: function(e){
+			if(e.status == 1){
+				$('.subscribe-options').html('<div class="notice"><img src="<?=MY_STATIC_URL?>/img/logo.png" width="40px" align="absmiddle"> &nbsp; 订阅设置保存成功！</div>');
+			}else{
+				alert(e.message);
+			}
+			enableSubmit();
+		},
+		error: function(){
+			enableSubmit();
+		}
+	})
+}
+
+$(function(){
+
+	$(window).resize( function() {
+		setSuggestHeight();
+	});
+
+	setSuggestHeight();
+
+	//绑定品牌搜索框
+	bindBrandSuggest();
+})
+</script>

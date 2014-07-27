@@ -1,0 +1,24 @@
+<div class="promo-item-mod promo-brand-mod">
+	<a href="jump:<?=D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi')?>">
+		<div class="mod-img">
+			<?php if(1 || isset($promo['is_new']) && !isset($promo['week_sales'])):?>
+				<div class="mod-mark mark-new">new</div>
+			<?php endif?>
+			<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>
+			<img class="ui-imglazyload" src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $promo['pic_url']), '600x600')?>" />
+		</div>
+		<div class="mod-desc border-not">
+			<?=strtotime($promo['hd_expire'])>0?'<span class="color">【限时'.date('n月d',strtotime($promo['hd_expire'])).'】</span>':''?><?=$promo['name']?>
+		</div>
+		<div class="mod-price clearfix">
+			<div class="price-info">
+				<small>&yen;</small>
+				<strong><?=price_yuan($promo['price_now'])?></strong>
+				<del>90天均价¥<?=price_yuan($promo['price_avg'])?></del>
+			</div>
+			<div class="get-fl color">
+				<strong>今日省<?=rate_diff($promo['price_now'], $promo['price_avg'])?>%</strong>
+			</div>
+		</div>
+	</a>
+</div>
