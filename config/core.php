@@ -23,7 +23,6 @@ if (isset($_SERVER['argv']) && $_SERVER['argc'] >= 2) {
 		$ac++;
 	}
 }
-
 if (!defined('DEBUG')){
 	if (isset($_GET['debug'])) {
 

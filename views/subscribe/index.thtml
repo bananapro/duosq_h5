@@ -1,0 +1,50 @@
+<div class="subscribe-message">
+	<?php if(@$error):?>
+		<div style="text-align:center; line-height:250px; font-size:20px"><?=$error?></div>
+	<?php else:?>
+		<?php if($messages):?>
+			<?php foreach($messages as $message):?>
+			<fieldset>
+				<?php
+					if($message['pushtime'] == '0000-00-00 00:00:00'){
+						$pushtime = $message['createtime'];
+					}else{
+						$pushtime = $message['pushtime'];
+					}
+				?>
+				<legend><?=$global->toReadableTime($message['pushtime'])?> - <?=$message['title']?></legend>
+				<ul>
+					<?php $messages = unserialize($message['message']);?>
+					<?php $last = count($messages)?>
+					<?php $now = 0?>
+					<?php foreach($messages as $m):?>
+					<?php $promo = D('promotion')->promoDetail($m['sp'], $m['goods_id']);?>
+					<?php $goods = D('promotion')->goodsDetail($m['sp'], $m['goods_id']);?>
+					<li class="clearfix<?php if($now==$last-1):?> noborder<?php endif?>">
+						<a href="jump:<?=D('promotion')->buildUrl($goods['url_tpl'], $goods['url_id'], 'mobi')?>">
+						<div class="goods-img"><img class="ui-imglazyload" src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl($goods['pic_url'], '200x200')?>" /></div>
+						<div class="goods-content">
+							<div class="goods-title"><?=$goods['name']?></div>
+							<div class="goods-price clearfix">
+								<div class="price-info">
+									<small>&yen;</small>
+									<strong><?=price_yuan($promo['price_now'])?></strong>
+									<del>90天均价</del>
+								</div>
+								<div class="price-discount green">
+									<strong>今日省<?=rate_diff($promo['price_now'], $promo['price_avg'])?>%</strong>
+								</div>
+							</div>
+						</div>
+						</a>
+					</li>
+					<?php $now++?>
+					<?php endforeach?>
+				</ul>
+			</fieldset>
+			<?php endforeach?>
+		<?else:?>
+			<div class="notice"><img src="<?=MY_STATIC_URL?>/img/logo.png" width="40px" align="absmiddle"> &nbsp; 暂无适合的特卖！<br />请确保 <font class="purple">设置-通知中心</font> 打开通知</div>
+		<?endif?>
+	<?php endif?>
+</div>

@@ -14,7 +14,7 @@
 			<div class="price-info">
 				<small>&yen;</small>
 				<strong><?=price_yuan($promo['price_now'])?></strong>
-				<del>90天均价¥<?=price_yuan($promo['price_avg'])?></del>
+				<del>90天均价&yen;<?=price_yuan($promo['price_avg'])?></del>
 			</div>
 			<div class="get-fl color">
 				<strong>今日省<?=rate_diff($promo['price_now'], $promo['price_avg'])?>%</strong>
