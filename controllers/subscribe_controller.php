@@ -13,7 +13,7 @@ class SubscribeController extends AppController {
 		$device_id = @$_GET['device_id'];
 		$platform = @$_GET['platform'];
 		if(!$device_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
-			$this->set('error', '服务异常，请重新打开应用！');
+			$this->set('error', '<div class="notice">请在手机 <font class="purple">设置-通知中心</font> 打开通知<br />强制退出应用后，重新打开</div>');
 		}else{
 
 			//首次指向订阅设置
@@ -31,7 +31,7 @@ class SubscribeController extends AppController {
 				foreach($messages as $message){
 					$ids[] = $message['id'];
 				}
-				D('subscribe')->markOpened($device_id, $platform, join(',', $ids));
+				D('subscribe')->markMessageOpened($device_id, $platform, join(',', $ids));
 			}
 			$this->set('messages', $messages);
 		}

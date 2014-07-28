@@ -44,7 +44,7 @@
 			</fieldset>
 			<?php endforeach?>
 		<?else:?>
-			<div class="notice"><img src="<?=MY_STATIC_URL?>/img/logo.png" width="40px" align="absmiddle"> &nbsp; 暂无适合的特卖！<br />请确保 <font class="purple">设置-通知中心</font> 打开通知</div>
+			<div class="notice"><img src="<?=MY_STATIC_URL?>/img/logo.png" width="40px" align="absmiddle"> &nbsp; 暂无适合的新特卖！</div>
 		<?endif?>
 	<?php endif?>
 </div>
