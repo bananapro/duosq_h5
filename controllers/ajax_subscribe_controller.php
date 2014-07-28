@@ -37,34 +37,6 @@ class ajaxSubscribeController extends AppController {
 		}
 	}
 
-	//提交APP订阅
-	function saveSetting(){
-
-		//IP速控
-		if(D('speed')->subscribe()){
-			$this->_error('您的操作太频繁，请过10分钟再尝试！');
-		}
-
-		$sess_id = $_GET['sess_id'];
-		$device_id = $_GET['device_id'];
-		$platform = @$_GET['platform'];
-
-		if(!D('subscribe')->sessCheck($sess_id)){
-			$this->_error('网络故障200，请退出应用重试！');
-		}
-
-		if(!valid($device_id, 'device_id')  || !in_array($platform, array('ios','android'))){
-			$this->_error('网络故障201，请退出应用重试！');
-		}
-
-		$ret = D('subscribe')->sessSave($sess_id, $device_id, $platform);
-		if(!$ret){
-			$this->_error('网络故障202，请退出应用重试！');
-		}else{
-			$this->_success();
-		}
-	}
-
 	//保存订阅会话信息
 	function saveOption(){
 
@@ -84,5 +56,33 @@ class ajaxSubscribeController extends AppController {
 			$this->_error('网络故障101，请重试！');
 	}
 
+	//提交APP订阅
+	function saveSetting(){
+
+		//IP速控
+		if(D('speed')->subscribe()){
+			$this->_error('您的操作太频繁，请过10分钟再尝试！');
+		}
+
+		$sess_id = $_GET['sess_id'];
+		$device_id = $_GET['device_id'];
+		$platform = @$_GET['platform'];
+		$push_token = @$_GET['push_token'];
+
+		if(!D('subscribe')->sessCheck($sess_id)){
+			$this->_error('网络故障200，请退出应用重试！');
+		}
+
+		if(!valid($device_id, 'device_id') || !valid($push_token, 'push_token')  || !in_array($platform, array('ios','android'))){
+			$this->_error('请确认手机设置-通知权限后，请退出应用重试！');
+		}
+
+		$ret = D('subscribe')->sessSave($sess_id, $device_id, $platform);
+		if(!$ret){
+			$this->_error('网络故障202，请退出应用重试！');
+		}else{
+			$this->_success();
+		}
+	}
 }
 ?>

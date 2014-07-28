@@ -44,11 +44,13 @@ class SubscribeController extends AppController {
 
 		$device_id = @$_GET['device_id'];
 		$platform = @$_GET['platform'];
-		if(!$device_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
-			$this->set('error', '服务异常，请重新打开应用！');
+		$push_token = @$_GET['push_token'];
+		if(!$device_id || !valid($device_id, 'device_id') || !valid($push_token, 'push_token') || !in_array($platform, array('ios','android'))){
+			$this->set('error', '<div class="notice">请在手机 <font class="purple">设置-通知中心</font> 打开通知<br />强制退出应用后，重新打开</div>');
 		}else{
 			$this->set('device_id', $device_id);
 			$this->set('platform', $platform);
+			$this->set('push_token', $push_token);
 		}
 
 		$sess_id = D('subscribe')->sessCreate();

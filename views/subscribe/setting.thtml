@@ -66,6 +66,7 @@
 var subscribe_sess_id = '<?=$sess_id?>';
 var subscribe_device_id = '<?=$device_id?>';
 var subscribe_platform = '<?=$platform?>';
+var subscribe_push_token = '<?=$push_token?>';
 
 function setSuggestHeight(){
 	$('#suggest').height($(window).height() - 148);
@@ -246,7 +247,7 @@ function saveSetting(){
 
 	$.ajax({
 		url: '/ajaxSubscribe/saveSetting',
-		data: {'sess_id':subscribe_sess_id, 'device_id':subscribe_device_id, 'platform':subscribe_platform},
+		data: {'sess_id':subscribe_sess_id, 'device_id':subscribe_device_id, 'push_token':subscribe_push_token, 'platform':subscribe_platform},
 		dataType: 'json',
 		type: 'GET',
 		success: function(e){
