@@ -14,7 +14,7 @@
 		<?php
 			$count_all_goods = array_sum($stat['num_goods'])+3;
 			$count_all_cat = count($all_goods_cat);
-			$count_today_promo = array_sum($stat['num_promo_today']);
+			$count_today_promo = array_sum($stat['num_promo_sp_today']);
 			if($midcat){
 
 				$count_all_cat_subcat = 0;
