@@ -25,9 +25,9 @@ class PromotionController extends AppController {
 		$lists = D('promotion')->getList($this->Pagination, $cond, C('comm', 'h5_promo_cat_goods_pre_page'), false);
 
 		if($midcat){
-			$this->set('title', '今日'.$midcat.'特卖');
+			$this->set('title', '今日品牌'.$midcat.'特卖');
 		}else{
-			$this->set('title', '今日'.$cat.'特卖');
+			$this->set('title', '今日品牌'.$cat.'特卖');
 		}
 
 		$this->set('lists', $lists);
