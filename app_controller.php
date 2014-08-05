@@ -15,7 +15,7 @@ class AppController extends Controller {
 
 		if ($this->loginValide && !D('myuser')->isLogined()) {
 			if ($this->action == 'index' && $this->name == 'Default') $this->redirect('/Login');
-			else $this->flash('您尚未登陆多省钱，或已经超时，请重新登陆!', '/', 5);
+			else $this->flash('您尚未登陆，或已经超时，请重新登陆!', '/', 5);
 		}
 	}
 
