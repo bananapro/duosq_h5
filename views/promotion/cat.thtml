@@ -1,3 +1,5 @@
+<input type="hidden" id="setting_title" value="+订阅">
+<input type="hidden" id="setting_url" value="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting')?>">
 <div class="second-nav J_super_top clearfix">
 	<div id="J_first_nav">
 		<ul class="ui-navigator-list">

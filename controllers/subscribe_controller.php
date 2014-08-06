@@ -14,7 +14,7 @@ class SubscribeController extends AppController {
 		$platform = @$_GET['platform'];
 		$push_token = @$_GET['push_token'];
 		if(!$device_id || !valid($device_id, 'device_id') || !valid($push_token, 'push_token') || !in_array($platform, array('ios','android'))){
-			$this->set('error', '<div class="notice">请在手机：<font class="purple">设置-通知中心</font> 打开通知<br />强制退出应用后，重新打开</div>');
+			$this->set('error', '<div class="notice">请在<font class="purple">手机设置-通知中心</font> 打开通知<br />强制退出应用后，重新打开</div>');
 		}else{
 
 			//首次指向订阅设置
