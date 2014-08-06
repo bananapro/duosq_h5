@@ -19,7 +19,7 @@
 
 <div class="subscribe-options">
 	<?php if(@$error):?>
-		<div style="text-align:center; line-height:250px; font-size:20px"><?=$error?></div>
+		<div style="text-align:center; font-size:20px"><?=$error?></div>
 	<?php else:?>
 		<h1 class="purple">❤ 根据喜好，一旦有合适的特卖，将会给您推送</h1>
 		<fieldset>
