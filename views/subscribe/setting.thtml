@@ -59,6 +59,7 @@
 		<div class="ft">
 			<a id="submit-btn-enable" href="javascript:void(0);" onclick="saveSetting()" class="subscribe-submit save">保存订阅设置</a>
 			<a id="submit-btn-disable" class="subscribe-submit" style="display:none">正在保存中 ...</a>
+			<a class="subscribe-submit" href="jump:feedback" class="subscribe-submit save">反馈意见</a>
 		</div>
 	<?php endif?>
 </div>

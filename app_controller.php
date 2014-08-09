@@ -72,11 +72,6 @@ class AppController extends Controller {
 		return $string;
 	}
 
-	//格式化数字参数
-	function _fNum($num=0){
-		return intval($num);
-	}
-
 	//接口返回成功信息
 	function _success($message = '', $force_api = false) {
 
