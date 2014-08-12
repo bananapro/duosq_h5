@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<meta name="format-detection" content="telephone=no;address=no;email=no"/>
-	<link rel="shortcut icon" href="http://www.duosq.com/favicon.ico" />
+	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="apple-touch-icon" href="<?=MY_STATIC_URL?>/img/icon_apple_touch.png?<?=MY_STATIC_TIME?>" />
 	<link rel="stylesheet" href="<?=MY_STATIC_URL?>/css/h5.css?<?=MY_STATIC_TIME?>" />
 	<script src="<?=MY_STATIC_URL?>/js/h5_zepto.js?<?=MY_STATIC_TIME?>"></script>

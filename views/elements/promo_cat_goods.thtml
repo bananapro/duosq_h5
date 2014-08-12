@@ -1,7 +1,7 @@
 <div class="promo-item-mod promo-brand-mod">
 	<a href="jump:<?=D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi')?>">
 		<div class="mod-img">
-			<?php if(1 || isset($promo['is_new']) && !isset($promo['week_sales'])):?>
+			<?php if(isset($promo['is_new'])):?>
 				<div class="mod-mark mark-new">new</div>
 			<?php endif?>
 			<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>

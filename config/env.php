@@ -14,7 +14,8 @@ define('CACHE_DATA', true); //启用DATA缓存模块
 //自定义系统变量，MY_打头
 define('MY_CACHE_OCP', true); //动态压缩图片，缓存压缩结果
 define('MY_ENV', 'DEV'); //当前环境
-define('MY_HOMEPAGE_URL', 'http://h5.duo.com:8080'); //后台首页
+define('MY_HOMEPAGE_URL', 'http://h5.duo.com:8080'); //H5首页
+define('MY_WWW_URL', 'http://www.duo.com'); //全局网站首页
 define('MY_STATIC_URL', 'http://www.duo.com'); //静态CDN域名
 define('MY_STATIC_TIME', '20140715'); //静态资源时间戳
 define('MY_DEFAULT_ERROR_URL', MY_HOMEPAGE_URL.'/error.html');

@@ -1,7 +1,7 @@
 <input type="hidden" id="setting_title" value="+订阅">
 <input type="hidden" id="setting_url" value="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting')?>">
 <div class="second-nav J_super_top clearfix">
-	<div id="J_first_nav">
+	<div id="J_tab_nav">
 		<ul class="ui-navigator-list">
 			<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="/promotion/cat/<?=urlencode($cat)?>">全部</a></li>
 			<?php foreach($all_goods_cat[$cat] as $i_midcat => $subcats):?>
