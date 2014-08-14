@@ -1,0 +1,31 @@
+<style>
+h1 {display:block; text-align:center; line-height:40px; font-size:18px; font-weight:bold; margin-top:15px;color:#7A0046}
+p { border-bottom:1px dotted #BFBFBF; padding-bottom:10px}
+body{background-color:#F35AB4}
+.guide{border-radius:10px; background-color:#F3E1EB; margin:10px; padding:0 20px 20px; overflow:hidden}
+.guide{font-size:14px; line-height:28px}
+</style>
+<div><img src="<?=MY_STATIC_URL?>/img/adv/h5_guide_header.png" width="100%"></div>
+<div class="guide">
+<h1>品牌商品，有多少利润空间？</h1>
+<p>一般按商品原价，商家能获利<font class="orange" style="font-size:16px">60%</font>以上</p>
+
+<h1>什么情况下会大降价？</h1>
+<p>换季期、新品上市期、年末促销期、良心发现期、心血来潮期、神马XX期</p>
+
+<h1>促销期降价可靠程度有多高？</h1>
+<p>我们统计，超过<font class="orange" style="font-size:16px">30%</font>的商品在促销前，故意提高价格，再降低，造成<font class="orange" style="font-size:16px">6折</font>甚至更低的假象</p>
+
+<h1>如何找到真实的降价正货？</h1>
+<p>
+1) <font class="orange" style="font-size:18px">每天</font>逛几次唯品会、聚美、天猫、京东等正品商城，以防错过降价期<br />
+
+2) <font class="orange" style="font-size:18px">每天</font>记下商品价格，以防商家造成假降价<br />
+
+3) <font class="orange" style="font-size:18px">每天</font>认真核对每个商家退货数、差评数，以免买到假货
+</p>
+
+<h1>有没有简单的方法？</h1>
+<a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting')?>" class="subscribe-submit subscribe-submit-save">马上订阅特卖</a>
+
+</div>

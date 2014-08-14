@@ -45,25 +45,5 @@
 		<?php if($promo['invalid'])continue?>
 			<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
 		<?php endforeach?>
-		<!--
-		<a class="promo-cat-link" href="/super/?idx=1&id=5">
-			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-fs.jpg" alt="服饰" style="width:100%" class="ui-imglazyload" />
-		</a>
-		<a class="promo-cat-link" href="/super/?idx=2&id=7">
-			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-mz.jpg" alt="美妆" style="width:100%" class="ui-imglazyload" />
-		</a>
-		<a class="promo-cat-link" href="/super/?idx=3&id=101">
-			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-jj.jpg" alt="家居" style="width:100%" class="ui-imglazyload" />
-		</a>
-		<a class="promo-cat-link" href="/super/?idx=4&id=15">
-			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-sm.jpg" alt="家电" style="width:100%" class="ui-imglazyload" />
-		</a>
-		<a class="promo-cat-link" href="/super/?idx=5&id=13">
-			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-sp.jpg" alt="食品" style="width:100%" class="ui-imglazyload" />
-		</a>
-		<a class="promo-cat-link" href="/super/?idx=6&id=9">
-			<img src="http://static2.51fanli.net/webapp/images/super/cat/cat-spacer.png" data-url="http://static2.51fanli.net/webapp/images/super/cat/cat-my.jpg" alt="母婴" style="width:100%" class="ui-imglazyload" />
-		</a>
-		-->
 	</div>
 </div>

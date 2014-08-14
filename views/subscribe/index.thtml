@@ -29,9 +29,9 @@
 							<div class="goods-title"><?=$goods['name']?></div>
 							<div class="goods-price clearfix">
 								<div class="price-info">
-									<small>&yen;</small>
-									<strong><?=price_yuan($promo['price_now'])?></strong>
-									<del>90天均价</del>
+									<small class="purple">&yen;</small>
+									<strong class="purple"><?=price_yuan($promo['price_now'])?></strong>
+									<del>90天监控</del>
 								</div>
 								<div class="price-discount green">
 									<strong>今日省<?=rate_diff($promo['price_now'], $promo['price_avg'])?>%</strong>
