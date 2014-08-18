@@ -20,6 +20,20 @@ class PromotionController extends AppController {
 		if($midcat){
 			$midcat = urldecode($midcat);
 			$cond['subcat'] = D('promotion')->midcat2subcat($midcat);
+
+			//临时屏蔽成人内容
+			if($key = array_search('女睡衣内衣', $cond['subcat'])){
+				unset($cond['subcat'][$key]);
+			}
+			if($key = array_search('男睡衣内衣', $cond['subcat'])){
+				unset($cond['subcat'][$key]);
+			}
+			if($key = array_search('女裤子', $cond['subcat'])){
+				unset($cond['subcat'][$key]);
+			}
+		}else{
+			//临时屏蔽成人内容
+			$cond['subcat'] = "not in ('女睡衣内衣', '女裤子', '男裤子', '男睡衣内衣')";
 		}
 
 		$lists = D('promotion')->getList($this->Pagination, $cond, C('comm', 'h5_promo_cat_goods_pre_page'), false);
