@@ -7,9 +7,9 @@
 	<meta name="format-detection" content="telephone=no;address=no;email=no"/>
 	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="apple-touch-icon" href="<?=MY_STATIC_URL?>/img/icon_apple_touch.png?<?=MY_STATIC_TIME?>" />
-	<link rel="stylesheet" href="<?=MY_STATIC_URL?>/css/h5.css?<?=MY_STATIC_TIME?>" />
-	<script src="<?=MY_STATIC_URL?>/js/h5_zepto.js?<?=MY_STATIC_TIME?>"></script>
-	<script src="<?=MY_STATIC_URL?>/js/h5_main.js?<?=MY_STATIC_TIME?>"></script>
+	<?php echo $html->css(MY_STATIC_URL.'/css/h5');?>
+	<?php echo $javascript->link(MY_STATIC_URL.'/js/h5_zepto');?>
+	<?php echo $javascript->link(MY_STATIC_URL.'/js/h5_main');?>
 </head>
 	<body>
 		<?=$content_for_layout;?>
