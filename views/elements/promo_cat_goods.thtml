@@ -6,6 +6,7 @@
 			<?php endif?>
 			<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>
 			<img class="ui-imglazyload" src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $promo['pic_url']), '600x600')?>" />
+			<?php if($promo['invalid']):?><div class="st"><img src="<?=MY_STATIC_URL?>/img/promotion/st_<?=$promo['invalid']?>.png" /></div><?php endif?>
 		</div>
 		<div class="mod-desc border-not">
 			<?=strtotime($promo['hd_expire'])>0?'<span class="color">【限时'.date('n月d',strtotime($promo['hd_expire'])).'】</span>':''?><?=$promo['name']?>
@@ -14,7 +15,7 @@
 			<div class="price-info">
 				<small>&yen;</small>
 				<strong><?=price_yuan($promo['price_now'])?></strong>
-				<del>90天均价&yen;<?=price_yuan($promo['price_avg'])?></del>
+				<del>90天实售&yen;<?=price_yuan($promo['price_avg'])?></del>
 			</div>
 			<div class="get-fl color">
 				<strong>今日省<?=rate_diff($promo['price_now'], $promo['price_avg'])?>%</strong>
