@@ -1,7 +1,7 @@
 <div class="subscribe-suggest-view hide">
 	<section class="promo-search-box">
 		<div class="promo-input-flex"> <i class="ico-search"></i>
-			<input type="search" id="brand-input" autocomplete="off" onmouseover="this.focus()" onfocus="this.select()" class="promo-input-search" placeholder="请输入品牌关键词" />
+			<input type="search" id="brand-input" autocomplete="off" oninput="brandEventDown()" onmouseover="this.focus()" onfocus="this.select()" class="promo-input-search" placeholder="请输入品牌关键词" />
 		</div>
 		<a href="javascript:void(0);" onclick="brandSuggestLeave()" class="promo-search-btn-cancel">取消</a>
 	</section>
@@ -168,10 +168,6 @@ function brandFireAjax(keyword){
 function bindBrandSuggest(){
 
 	$('#brand-input').focus(function(){
-		brandEventDown();
-	})
-
-	$('#brand-input').keyup(function(){
 		brandEventDown();
 	})
 
