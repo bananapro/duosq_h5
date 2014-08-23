@@ -21,7 +21,7 @@
 	<?php if(@$error):?>
 		<div style="text-align:center; font-size:20px"><?=$error?></div>
 	<?php else:?>
-		<h1 class="purple">❤ 根据喜好，一旦有合适的特卖，将会给您推送</h1>
+		<h1 class="purple">❤ 根据喜好，仅当有合适的特卖，才会给您推送</h1>
 		<fieldset>
 			<legend>指定品牌</legend>
 			<div style="margin-bottom:10px"><input type="button" onclick="brandSuggestEnter()" value="+选择品牌" /></div>
@@ -38,28 +38,103 @@
 			<legend>指定品类</legend>
 			<div class="cat-options">
 				<ul>
+				<?php $count = count($all_goods_cat);?>
+				<?php $i=0;?>
 				<?php foreach($all_goods_cat as $cat => $midcats):?>
-				<li class="clearfix"><span><?=$cat?></span>
-					<div>
-					<?php $tmp = array()?>
-					<?php foreach($midcats as $midcat => $value):?>
-					<?php if(@$setting && in_array($midcat, $setting['setting_midcat'])):?>
-						<?php $tmp[] = '<a href="javascript:void(0)" class="selected" onclick="selectMidcat(this, \''.$midcat.'\')"><em></em>'.$midcat.'</a>'?>
-					<?php else:?>
-						<?php $tmp[] = '<a href="javascript:void(0)" onclick="selectMidcat(this, \''.$midcat.'\')"><em></em>'.$midcat.'</a>'?>
-					<?php endif?>
-					<?php endforeach?>
-					<?=join(' | ', $tmp)?>
-					</div>
+					<li class="clearfix<?php if($count == $i+1)echo ' last';?>"><span><?=$cat?></span>
+						<div class="list-cell">
+						<?php $tmp = array()?>
+						<?php foreach($midcats as $midcat => $value):?>
+						<?php if(@$setting && in_array($midcat, $setting['setting_midcat'])):?>
+							<?php $tmp[] = '<a href="javascript:void(0)" class="selected" onclick="selectMidcat(this, \''.$midcat.'\')"><em></em>'.r('品牌', '', $midcat).'</a>'?>
+						<?php else:?>
+							<?php $tmp[] = '<a href="javascript:void(0)" onclick="selectMidcat(this, \''.$midcat.'\')"><em></em>'.r('品牌', '', $midcat).'</a>'?>
+						<?php endif?>
+						<?php endforeach?>
+						<?=join(' | ', $tmp)?>
+						</div>
+					</li>
+					<?php $i++?>
 				<?php endforeach?>
 				</ul>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend>指定颜色尺码</legend>
+			<div class="cat-options">
+			<ul>
+				<li>
+					<span>衣服颜色（颜色多选）</span>
+					<div class="list-cell">
+					<?php $color_option = C('options', 'subscribe_setting_color')?>
+					<?php $color_option_map = C('options', 'subscribe_setting_color_map')?>
+					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(in_array(1, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '1')"><div style="background-color:<?=$color_option_map[1]?>" class="color"></div><em></em></a>
+					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(in_array(2, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '2')"><div style="background-color:<?=$color_option_map[2]?>" class="color"></div><em></em></a>
+					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(in_array(3, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '3')"><div style="background-color:<?=$color_option_map[3]?>" class="color"></div><em></em></a>
+					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(in_array(4, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '4')"><div style="background-color:<?=$color_option_map[4]?>" class="color"></div><em></em></a>
+					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(in_array(5, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '5')"><div style="background-color:<?=$color_option_map[5]?>" class="color"></div><em></em></a>
+					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(in_array(6, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '6')"><div style="background-color:<?=$color_option_map[6]?>" class="color"></div><em></em></a>
+					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(in_array(7, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '7')"><div style="background-color:<?=$color_option_map[7]?>" class="color"></div><em></em></a>
+					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(in_array(8, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '8')"><div style="background-color:<?=$color_option_map[8]?>" class="color"></div><em></em></a>
+					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(in_array(9, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '9')"><div style="background-color:<?=$color_option_map[9]?>" class="color"></div><em></em></a>
+					</div>
+
+				</li>
+				<li>
+					<span>女衣尺码</span>
+					<div class="list-cell">
+					<a href="javascript:void(0)" ref="setting_clothes_size_girl" class="setting_clothes_size_girl<?php if(@$setting['setting_clothes_size_girl']=='s')echo ' selected'?>" onclick="selectProfile(this, 's')">S (小)</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_clothes_size_girl" class="setting_clothes_size_girl<?php if(@$setting['setting_clothes_size_girl']=='m')echo ' selected'?>" onclick="selectProfile(this, 'm')">M (中)</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_clothes_size_girl" class="setting_clothes_size_girl<?php if(@$setting['setting_clothes_size_girl']=='l')echo ' selected'?>" onclick="selectProfile(this, 'l')">L (大)</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_clothes_size_girl" class="setting_clothes_size_girl<?php if(@$setting['setting_clothes_size_girl']=='xl')echo ' selected'?>" onclick="selectProfile(this, 'xl')">XL (加大)</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_clothes_size_girl" class="setting_clothes_size_girl<?php if(@$setting['setting_clothes_size_girl']=='xxl')echo ' selected'?>" onclick="selectProfile(this, 'xxl')">XXL (加加大)</a> &nbsp;
+					</div>
+				</li>
+				<li>
+					<span>女鞋尺码</span>
+					<div class="list-cell">
+					<a href="javascript:void(0)" ref="setting_shoes_size_girl" class="setting_shoes_size_girl<?php if(@$setting['setting_shoes_size_girl']=='34')echo ' selected'?>" onclick="selectProfile(this, '34')">34</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_girl" class="setting_shoes_size_girl<?php if(@$setting['setting_shoes_size_girl']=='35')echo ' selected'?>" onclick="selectProfile(this, '35')">35</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_girl" class="setting_shoes_size_girl<?php if(@$setting['setting_shoes_size_girl']=='36')echo ' selected'?>" onclick="selectProfile(this, '36')">36</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_girl" class="setting_shoes_size_girl<?php if(@$setting['setting_shoes_size_girl']=='37')echo ' selected'?>" onclick="selectProfile(this, '37')">37</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_girl" class="setting_shoes_size_girl<?php if(@$setting['setting_shoes_size_girl']=='38')echo ' selected'?>" onclick="selectProfile(this, '38')">38</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_girl" class="setting_shoes_size_girl<?php if(@$setting['setting_shoes_size_girl']=='39')echo ' selected'?>" onclick="selectProfile(this, '39')">39</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_girl" class="setting_shoes_size_girl<?php if(@$setting['setting_shoes_size_girl']=='40')echo ' selected'?>" onclick="selectProfile(this, '40')">40</a> &nbsp;
+					</div>
+				</li>
+				<li>
+					<span>男衣尺码</span>
+					<div class="list-cell">
+					<a href="javascript:void(0)" ref="setting_clothes_size_boy" class="setting_clothes_size_boy<?php if(@$setting['setting_clothes_size_boy']=='s')echo ' selected'?>" onclick="selectProfile(this, 's')">S (小)</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_clothes_size_boy" class="setting_clothes_size_boy<?php if(@$setting['setting_clothes_size_boy']=='m')echo ' selected'?>" onclick="selectProfile(this, 'm')" >M (中)</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_clothes_size_boy" class="setting_clothes_size_boy<?php if(@$setting['setting_clothes_size_boy']=='l')echo ' selected'?>" onclick="selectProfile(this, 'l')">L (大)</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_clothes_size_boy" class="setting_clothes_size_boy<?php if(@$setting['setting_clothes_size_boy']=='xl')echo ' selected'?>" onclick="selectProfile(this, 'xl')">XL (加大)</a> &nbsp;
+					<a href="javascript:void(0)" ref="setting_clothes_size_boy" class="setting_clothes_size_boy<?php if(@$setting['setting_clothes_size_boy']=='xxl')echo ' selected'?>" onclick="selectProfile(this, 'xxl')">XXL (加加大)</a> &nbsp;
+					</div>
+				</li>
+				<li>
+					<span>男鞋尺码</span>
+					<div class="list-cell">
+					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='37')echo ' selected'?>" onclick="selectProfile(this, '37')">37</a>&nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='38')echo ' selected'?>" onclick="selectProfile(this, '38')">38</a>&nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='39')echo ' selected'?>" onclick="selectProfile(this, '39')">39</a>&nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='40')echo ' selected'?>" onclick="selectProfile(this, '40')">40</a>&nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='41')echo ' selected'?>" onclick="selectProfile(this, '41')">41</a>&nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='42')echo ' selected'?>" onclick="selectProfile(this, '42')">42</a>&nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='43')echo ' selected'?>" onclick="selectProfile(this, '43')">43</a>&nbsp;
+					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='44')echo ' selected'?>" onclick="selectProfile(this, '44')">44</a>&nbsp;
+					</div>
+				</li>
+			</ul>
+			<div class="hint">❤.我们会尽量根据您的颜色尺码，为您推荐!</div>
 			</div>
 		</fieldset>
 
 		<div class="ft">
 			<a id="submit-btn-enable" href="javascript:void(0);" onclick="saveSetting()" class="subscribe-submit subscribe-submit-save">保存订阅设置</a>
 			<a id="submit-btn-disable" class="subscribe-submit" style="display:none">正在保存中 ...</a>
-			<a class="subscribe-submit" href="jump:feedback" class="subscribe-submit">反馈意见</a>
+			<a class="subscribe-submit" href="jump:feedback">反馈意见</a>
 		</div>
 	<?php endif?>
 </div>
@@ -106,6 +181,7 @@ function brandSuggestEnter(){
 	$('.subscribe-suggest-view').show();
 	$('.subscribe-options').hide();
 	$('#brand-input')[0].focus();
+	setSuggestHeight();
 }
 
 //退出品牌选择模式
@@ -205,6 +281,29 @@ function removeBrand(obj, brand_id){
 	saveOption('setting_brand', brand_id, 'del', function(){
 		$(obj).remove();
 	})
+}
+
+//选择option 个人信息
+function selectProfile(obj, value){
+
+	ref = $(obj).attr('ref');
+	if($(obj).attr('class').indexOf('selected') > 0){
+		saveOption(ref, value, 'del', function(){$(obj).removeClass('selected');})
+	}else{
+		$('.'+ref).removeClass('selected');
+		saveOption(ref, value, 'add', function(){$(obj).addClass('selected');})
+	}
+}
+
+//选择option 多选个人信息
+function selectProfileMulti(obj, value){
+
+	ref = $(obj).attr('ref');
+	if($(obj).attr('class').indexOf('selected') > 0){
+		saveOption(ref, value, 'del', function(){$(obj).removeClass('selected');})
+	}else{
+		saveOption(ref, value, 'add', function(){$(obj).addClass('selected');})
+	}
 }
 
 //保存配置到订阅会话
