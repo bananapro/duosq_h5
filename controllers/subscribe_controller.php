@@ -20,7 +20,7 @@ class SubscribeController extends AppController {
 			//首次指向订阅设置
 			$setting = D('subscribe')->getSetting($device_id, $platform);
 			if(!$setting){
-					$this->redirect('/subscribe/setting?platform='.$platform.'&device_id='.$device_id.'&push_token='.$push_token);
+					$this->redirect('/subscribe/setting?platform='.$platform.'&device_id='.$device_id.'&push_token='.$push_token.'&first_time=1');
 			}
 			$this->set('device_id', $device_id);
 			$this->set('platform', $platform);

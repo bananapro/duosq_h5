@@ -14,7 +14,7 @@
 						$pushtime = $message['pushtime'];
 					}
 				?>
-				<legend><?=$global->toReadableTime($message['pushtime'])?> - <?=$message['title']?></legend>
+				<legend><font class="blue"><?=$global->toReadableTime($message['pushtime'], false)?>推荐：</font><?=$message['title']?></legend>
 				<ul>
 					<?php $messages = unserialize($message['message']);?>
 					<?php $last = count($messages)?>
@@ -45,8 +45,17 @@
 				</ul>
 			</fieldset>
 			<?php endforeach?>
+			<div class="ft">
+				<a class="subscribe-submit" href="jump:feedback" style="font-size:14px">对结果不满意？请告诉我们</a>
+			</div>
 		<?else:?>
-			<div class="notice"><img src="<?=MY_STATIC_URL?>/img/logo.png" width="40px" align="absmiddle"> &nbsp; 暂无适合的新特卖！</div>
+			<fieldset>
+				<legend><font class="blue">欢迎首次使用：</font></legend>
+				<ul>
+					<li style="text-align:center">我们正在为您留意合适的特卖，请先返回！</li>
+					<li style="text-align:center" class="noborder green">~~右上角可修改 <font class="purple">“订阅设置”</font>~~</li>
+				</ul>
+			</fieldset>
 		<?endif?>
 	<?php endif?>
 </div>

@@ -9,6 +9,7 @@ class ZtController extends AppController {
 	//新人引导
 	function guide(){
 
+		$this->set('title', '特卖知识新人科普篇');
 	}
 }
 ?>
