@@ -26,7 +26,7 @@ class SubscribeController extends AppController {
 			$this->set('platform', $platform);
 
 			//读取订阅消息
-			$messages = D('subscribe')->getMessageList($device_id, $platform);
+			$messages = D('subscribe')->getMessageList($device_id, $platform, '', C('comm', 'subscribe_display_num_limit_app_cell'));
 			if($messages){
 				$ids = array();
 				foreach($messages as $message){

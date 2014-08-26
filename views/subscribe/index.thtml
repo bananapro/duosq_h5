@@ -17,6 +17,7 @@
 				<legend><font class="blue"><?=$global->toReadableTime($message['pushtime'], false)?>推荐：</font><?=$message['title']?></legend>
 				<ul>
 					<?php $messages = unserialize($message['message']);?>
+					<?php $messages = array_slice($messages, 0, C('comm', 'subscribe_display_num_limit_app_cell_goods'))?>
 					<?php $last = count($messages)?>
 					<?php $now = 0?>
 					<?php foreach($messages as $m):?>
