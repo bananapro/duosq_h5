@@ -61,7 +61,7 @@ class PromotionController extends AppController {
 
 		$k = $_GET['k'];
 		//屏蔽成人用户搜索关键词
-		if(strpos($k,'成人用品')!==false||strpos($k,'情趣')!==false||strpos($k,'神油')!==false||strpos($k,'自慰')!==false||strpos($k,'性用品')!==false){
+		if(strpos($k,'成人用品')!==false||strpos($k,'情趣')!==false||strpos($k,'神油')!==false||strpos($k,'自慰')!==false||strpos($k,'性用品')!==false||strpos($k,'内衣')!==false){
 			$k = false;
 		}
 		if(!$k){
