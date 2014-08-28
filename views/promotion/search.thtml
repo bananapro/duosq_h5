@@ -8,7 +8,6 @@
 				</div>
 				<div>
 					<?php foreach($promo_goods as $promo):?>
-						<?=pr($promo)?>
 						<?php if($promo['invalid'])continue?>
 						<?php if(strpos($promo['name'],'成人用品')||strpos($promo['name'],'情趣')||strpos($promo['name'],'神油')||strpos($promo['name'],'自慰')||strpos($promo['name'],'性用品'))continue?>
 						<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
