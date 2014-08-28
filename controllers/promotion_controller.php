@@ -31,9 +31,12 @@ class PromotionController extends AppController {
 			if($key = array_search('女裤子', $cond['subcat'])){
 				unset($cond['subcat'][$key]);
 			}
+			if($key = array_search('成人用品', $cond['subcat'])){
+				unset($cond['subcat'][$key]);
+			}
 		}else{
 			//临时屏蔽成人内容
-			$cond['subcat'] = "not in ('女睡衣内衣', '女裤子', '男裤子', '男睡衣内衣')";
+			$cond['subcat'] = "not in ('女睡衣内衣', '女裤子', '男裤子', '男睡衣内衣','成人用品')";
 		}
 
 		$lists = D('promotion')->getList($this->Pagination, $cond, C('comm', 'h5_promo_cat_goods_pre_page'), false);
@@ -57,8 +60,12 @@ class PromotionController extends AppController {
 		$this->set('title', '特卖搜索结果');
 
 		$k = $_GET['k'];
+		//屏蔽成人用户搜索关键词
+		if(strpos($k,'成人用品')!==false||strpos($k,'情趣')!==false||strpos($k,'神油')!==false||strpos($k,'自慰')!==false||strpos($k,'性用品')!==false){
+			$k = false;
+		}
 		if(!$k){
-			$this->set('error', '请重新输入关键词!');
+			$this->set('error', '关键词无效，请重新输入关键词!');
 		}else{
 			$promo_goods = array();
 
