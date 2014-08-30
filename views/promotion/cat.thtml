@@ -3,9 +3,9 @@
 <div class="second-nav J_super_top clearfix">
 	<div id="J_tab_nav">
 		<ul class="ui-navigator-list">
-			<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="/promotion/cat/<?=urlencode($cat)?>">全部</a></li>
+			<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat))?>">全部</a></li>
 			<?php foreach($all_goods_cat[$cat] as $i_midcat => $subcats):?>
-			<li><a class="J-nav-classify<?php if($midcat == $i_midcat):?> cur<?php endif?>" href="/promotion/cat/<?=urlencode($cat)?>/<?=urlencode($i_midcat)?>"><?=$i_midcat?></a></li>
+			<li><a class="J-nav-classify<?php if($midcat == $i_midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat).'/'.urlencode($i_midcat))?>"><?=$i_midcat?></a></li>
 			<?php endforeach?>
 		</ul>
 	</div>
