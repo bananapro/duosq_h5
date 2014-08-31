@@ -22,15 +22,25 @@
 		<div style="text-align:center; font-size:20px"><?=$error?></div>
 	<?php else:?>
 		<h1 class="purple">❤ 根据喜好，仅当有合适的特卖，才会给您推送</h1>
+
+		<?php if($default_midcat):?>
+			<fieldset style="background-color:#FFFCC4">
+				<legend><font class="green">已快捷选定以下分类，请确认并保存</font></legend>
+				<div style="text-align:center">
+					<?=join('、', $default_midcat)?>
+				</div>
+			</fieldset>
+		<?php endif;?>
+
 		<fieldset>
 			<legend>指定品牌</legend>
 			<div style="margin-bottom:10px"><input type="button" onclick="brandSuggestEnter()" value="+选择品牌" /> <font style="font-size:12px;color:grey">(近期无特卖时，会推荐相关品牌)</font></div>
 			<div id="brand-list">
 				<?php if(@$setting && $setting['setting_brand']):?>
-				<?php foreach($setting['setting_brand'] as $brand_id):?>
-					<a id='brand_<?=$brand_id?>' href="javascript:void(0)" onclick="removeBrand(this,'<?=$brand_id?>')"><?=D('brand')->getName($brand_id)?><em></em></a> &nbsp;
-				<?php endforeach?>
-			<?php endif?>
+					<?php foreach($setting['setting_brand'] as $brand_id):?>
+						<a id='brand_<?=$brand_id?>' href="javascript:void(0)" onclick="removeBrand(this,'<?=$brand_id?>')"><?=D('brand')->getName($brand_id)?><em></em></a> &nbsp;
+					<?php endforeach?>
+				<?php endif?>
 			</div>
 		</fieldset>
 
@@ -46,9 +56,9 @@
 						<?php $tmp = array()?>
 						<?php foreach($midcats as $midcat => $value):?>
 						<?php if(@$setting && in_array($midcat, $setting['setting_midcat'])):?>
-							<?php $tmp[] = '<a href="javascript:void(0)" class="selected" onclick="selectMidcat(this, \''.$midcat.'\')"><em></em>'.r('品牌', '', $midcat).'</a>'?>
+							<?php $tmp[] = '<a id="midcat_'.md5($midcat).'" href="javascript:void(0)" class="selected" onclick="selectMidcat(this, \''.$midcat.'\')"><em></em>'.r('品牌', '', $midcat).'</a>'?>
 						<?php else:?>
-							<?php $tmp[] = '<a href="javascript:void(0)" onclick="selectMidcat(this, \''.$midcat.'\')"><em></em>'.r('品牌', '', $midcat).'</a>'?>
+							<?php $tmp[] = '<a id="midcat_'.md5($midcat).'" href="javascript:void(0)" onclick="selectMidcat(this, \''.$midcat.'\')"><em></em>'.r('品牌', '', $midcat).'</a>'?>
 						<?php endif?>
 						<?php endforeach?>
 						<?=join(' | ', $tmp)?>
@@ -132,8 +142,8 @@
 		</fieldset>
 
 		<div class="ft" style="position:fixed;bottom:0;left:0;width:100%; padding-bottom:0; height: 45px;">
-			<a id="submit-btn-enable" href="javascript:void(0);" onclick="saveSetting()" class="subscribe-submit subscribe-submit-save">保存订阅设置</a>
-			<a id="submit-btn-disable" class="subscribe-submit" style="display:none">正在保存中 ...</a>
+			<a id="submit-btn-enable" href="javascript:void(0);" onclick="saveSetting()" class="subscribe-submit subscribe-submit-save" style="display:none">保存订阅设置</a>
+			<a id="submit-btn-disable" class="subscribe-submit">保存订阅设置</a>
 		</div>
 
 		<div class="ft" style="padding-bottom:30px">
@@ -312,6 +322,8 @@ function selectProfileMulti(obj, value){
 //保存配置到订阅会话
 function saveOption(option, value, action, succ_callbak){
 
+	enableSubmit();
+
 	$.ajax({
 		url: '/ajaxSubscribe/saveOption',
 		data: {'sess_id':subscribe_sess_id, 'option':option, 'value':value, 'action':action},
@@ -379,5 +391,11 @@ $(function(){
 
 	//绑定品牌搜索框
 	bindBrandSuggest();
+
+	<?php if($default_midcat):?>
+		<?php foreach($default_midcat as $d_midcat):?>
+			saveOption('setting_midcat', '<?=$d_midcat?>', 'add', function(){$('#midcat_<?=md5($d_midcat)?>').addClass('selected');})
+		<?php endforeach?>
+	<?php endif?>
 })
 </script>

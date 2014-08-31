@@ -1,5 +1,11 @@
 <input type="hidden" id="setting_title" value="+订阅">
-<input type="hidden" id="setting_url" value="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting')?>">
+<?php unset($_GET['default_midcat'])?>
+<?php unset($_GET['default_cat'])?>
+<?php if($midcat):?>
+	<input type="hidden" id="setting_url" value="<?=urlWithParam(am($_GET, array('default_midcat'=>$midcat)), MY_HOMEPAGE_URL.'/subscribe/setting')?>">
+<?php else:?>
+	<input type="hidden" id="setting_url" value="<?=urlWithParam(am($_GET, array('default_cat'=>$cat)), MY_HOMEPAGE_URL.'/subscribe/setting')?>">
+<?php endif?>
 <div class="second-nav J_super_top clearfix">
 	<div id="J_tab_nav">
 		<ul class="ui-navigator-list">
