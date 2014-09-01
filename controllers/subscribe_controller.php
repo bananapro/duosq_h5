@@ -3,7 +3,6 @@
 class SubscribeController extends AppController {
 
 	var $name = 'Subscribe';
-	var $components = array('Pagination');
 
 	//消息列表，第一次进入配置页面
 	function index(){
