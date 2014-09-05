@@ -88,6 +88,7 @@
 					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(@in_array(7, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '7')"><div style="background-color:<?=$color_option_map[7]?>" class="color"></div><em></em></a>
 					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(@in_array(8, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '8')"><div style="background-color:<?=$color_option_map[8]?>" class="color"></div><em></em></a>
 					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(@in_array(9, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '9')"><div style="background-color:<?=$color_option_map[9]?>" class="color"></div><em></em></a>
+					<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(@in_array(10, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '10')"><div style="background-color:<?=$color_option_map[10]?>" class="color"></div><em></em></a>
 					</div>
 
 				</li>
