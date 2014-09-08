@@ -77,6 +77,11 @@ class SubscribeController extends AppController {
 		}
 
 		$this->set('default_midcat', $default_midcat);
+
+		//新订阅或者订阅禁止状态，允许直接提交
+		if( !$setting || $setting['status'] == \DB\Subscribe::STATUS_STOP){
+			$this->set('enable_submit', true);
+		}
 	}
 }
 ?>

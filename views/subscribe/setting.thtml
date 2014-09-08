@@ -342,6 +342,7 @@ function saveOption(option, value, action, succ_callbak){
 }
 
 function enableSubmit(){
+
 	$('#submit-btn-enable').show();
 	$('#submit-btn-disable').hide();
 }
@@ -397,6 +398,10 @@ $(function(){
 		<?php foreach($default_midcat as $d_midcat):?>
 			saveOption('setting_midcat', '<?=$d_midcat?>', 'add', function(){$('#midcat_<?=md5($d_midcat)?>').addClass('selected');})
 		<?php endforeach?>
+	<?php endif?>
+
+	<?php if($enable_submit):?>
+		enableSubmit();
 	<?php endif?>
 })
 </script>
