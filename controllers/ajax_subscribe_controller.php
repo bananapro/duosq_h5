@@ -81,6 +81,7 @@ class ajaxSubscribeController extends AppController {
 		if(!$ret){
 			$this->_error('网络故障202，请退出应用重试！');
 		}else{
+			D('log')->action(1555, 1, array('data1'=>$platform, 'data2'=>$email, 'data3'=>$sess_id, 'data4'=>'app'));
 			$this->_success();
 		}
 	}
