@@ -36,7 +36,7 @@ class PromotionController extends AppController {
 			}
 		}else{
 			//临时屏蔽成人内容
-			$cond['subcat'] = "not in ('女睡衣内衣', '女裤子', '男裤子', '男睡衣内衣','成人用品')";
+			//$cond['subcat'] = "not in ('女睡衣内衣', '女裤子', '男裤子', '男睡衣内衣')";
 		}
 
 		$lists = D('promotion')->getList($this->Pagination, $cond, C('comm', 'h5_promo_cat_goods_pre_page'), false);
@@ -61,7 +61,7 @@ class PromotionController extends AppController {
 
 		$k = $_GET['k'];
 		//屏蔽成人用户搜索关键词
-		if(strpos($k,'成人用品')!==false||strpos($k,'情趣')!==false||strpos($k,'神油')!==false||strpos($k,'自慰')!==false||strpos($k,'性用品')!==false||strpos($k,'内衣')!==false){
+		if(strpos($k,'成人用品')!==false||strpos($k,'情趣')!==false||strpos($k,'神油')!==false||strpos($k,'自慰')!==false||strpos($k,'性用品')!==false){
 			$k = false;
 		}
 		if(!$k){

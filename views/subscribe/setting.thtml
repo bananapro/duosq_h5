@@ -267,13 +267,13 @@ function bindBrandSuggest(){
 	})
 }
 
-//选择option subcat
-function selectMidcat(obj, subcat){
+//选择option midcat
+function selectMidcat(obj, midcat){
 
 	if($(obj).attr('class') == 'selected'){
-		saveOption('setting_midcat', subcat, 'del', function(){$(obj).removeClass('selected');})
+		saveOption('setting_midcat', midcat, 'del', function(){$(obj).removeClass('selected');})
 	}else{
-		saveOption('setting_midcat', subcat, 'add', function(){$(obj).addClass('selected');})
+		saveOption('setting_midcat', midcat, 'add', function(){$(obj).addClass('selected');})
 	}
 }
 
