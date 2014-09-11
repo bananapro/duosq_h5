@@ -75,7 +75,7 @@
 			<div class="cat-options">
 			<ul>
 				<li>
-					<span>衣服颜色（尽量选2个以上）</span>
+					<span>衣裤颜色（尽量选2个以上）</span>
 					<div class="list-cell">
 					<?php $color_option = C('options', 'subscribe_setting_color')?>
 					<?php $color_option_map = C('options', 'subscribe_setting_color_map')?>
