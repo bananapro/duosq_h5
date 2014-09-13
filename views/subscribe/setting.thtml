@@ -127,7 +127,7 @@
 				<li>
 					<span>男鞋尺码</span>
 					<div class="list-cell">
-					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='37')echo ' selected'?>" onclick="selectProfile(this, '37')">37</a>&nbsp;
+					<!--<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='37')echo ' selected'?>" onclick="selectProfile(this, '37')">37</a>&nbsp;-->
 					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='38')echo ' selected'?>" onclick="selectProfile(this, '38')">38</a>&nbsp;
 					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='39')echo ' selected'?>" onclick="selectProfile(this, '39')">39</a>&nbsp;
 					<a href="javascript:void(0)" ref="setting_shoes_size_boy" class="setting_shoes_size_boy<?php if(@$setting['setting_shoes_size_boy']=='40')echo ' selected'?>" onclick="selectProfile(this, '40')">40</a>&nbsp;
