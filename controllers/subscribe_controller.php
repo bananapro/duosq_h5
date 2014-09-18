@@ -12,10 +12,19 @@ class SubscribeController extends AppController {
 		$device_id = @$_GET['device_id'];
 		$platform = @$_GET['platform'];
 		$push_token = @$_GET['push_token'];
-		if(!$device_id || !valid($device_id, 'device_id') || !valid($push_token, 'push_token') || !in_array($platform, array('ios','android'))){
-			$this->set('error', '<div class="notice">请在<font class="purple">手机设置-通知中心</font> 打开通知<br />强制退出应用后，重新打开</div>');
-		}else{
 
+		if(!valid($push_token, 'push_token')){
+			$push_token = '';
+			$push_token = D('subscribe')->detail($device_id, $platform, 'push_token');
+		}
+
+		if(!$push_token){
+			$this->set('warning', '请在“设置-通知”开启通知，以免错过特卖通知！');
+		}
+
+		if(!$device_id || !valid($device_id, 'device_id') || !valid($push_token, 'push_token') || !in_array($platform, array('ios','android'))){
+			$this->set('error', '<div class="notice">请下载最新应用</div>');
+		}else{
 			//首次指向订阅设置
 			$setting = D('subscribe')->getSetting($device_id, $platform);
 			if(!$setting){
@@ -45,8 +54,18 @@ class SubscribeController extends AppController {
 		$device_id = @$_GET['device_id'];
 		$platform = @$_GET['platform'];
 		$push_token = @$_GET['push_token'];
-		if(!$device_id || !valid($device_id, 'device_id') || !valid($push_token, 'push_token') || !in_array($platform, array('ios','android'))){
-			$this->set('error', '<div class="notice">请在手机 <font class="purple">设置-通知中心</font> 打开通知<br />强制退出应用后，重新打开</div>');
+
+		if(!valid($push_token, 'push_token')){
+			$push_token = '';
+			$push_token = D('subscribe')->detail($device_id, $platform, 'push_token');
+		}
+
+		if(!$push_token){
+			$this->set('warning', '请在“设置-通知”开启通知，以免错过特卖通知！');
+		}
+
+		if(!$device_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+			$this->set('error', '<div class="notice">请下载最新应用</div>');
 		}else{
 			$this->set('device_id', $device_id);
 			$this->set('platform', $platform);

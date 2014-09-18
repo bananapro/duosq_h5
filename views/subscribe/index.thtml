@@ -1,3 +1,4 @@
+<?php if(@$warning):?><div class="subscribe-waring"><?=$warning?></div><?php endif?>
 <div class="subscribe-message">
 	<?php if(@$error):?>
 		<div style="text-align:center; line-height:250px; font-size:20px"><?=$error?></div>

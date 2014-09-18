@@ -73,8 +73,8 @@ class ajaxSubscribeController extends AppController {
 			$this->_error('网络故障200，请退出应用重试！');
 		}
 
-		if(!valid($device_id, 'device_id') || !valid($push_token, 'push_token')  || !in_array($platform, array('ios','android'))){
-			$this->_error('请确认手机设置-通知权限后，请退出应用重试！');
+		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+			$this->_error('请安装最新版本应用程序！');
 		}
 
 		$ret = D('subscribe')->sessSave($sess_id, $device_id, $platform);
