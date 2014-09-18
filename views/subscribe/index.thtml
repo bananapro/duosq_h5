@@ -47,7 +47,7 @@
 			</fieldset>
 			<?php endforeach?>
 			<div class="ft">
-				<a class="subscribe-submit" href="jump:feedback" style="font-size:14px">对结果不满意？请告诉我们</a>
+				<a class="subscribe-submit subscribe-submit-save" href="jump:feedback" style="font-size:14px">对结果不满意？请告诉我们</a>
 			</div>
 		<?else:?>
 			<fieldset>

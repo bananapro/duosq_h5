@@ -148,7 +148,7 @@
 		</div>
 
 		<div class="ft" style="padding-bottom:30px">
-			<a class="subscribe-submit" href="jump:feedback" style="font-size:14px">有不懂的地方？请反馈意见</a>
+			<a class="subscribe-submit subscribe-submit-save" href="jump:feedback" style="font-size:14px">有不懂的地方？请反馈意见</a>
 		</div>
 	<?php endif?>
 </div>
