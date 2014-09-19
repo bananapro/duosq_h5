@@ -17,7 +17,7 @@
 	</section>
 </div>
 
-<?php if(@$warning):?><div class="subscribe-warning"><?=$warning?></div><?php endif?>
+<?php if(@$warning&&!@$error):?><div class="subscribe-warning"><?=$warning?></div><?php endif?>
 <div class="subscribe-options">
 	<?php if(@$error):?>
 		<div style="text-align:center; font-size:20px"><?=$error?></div>

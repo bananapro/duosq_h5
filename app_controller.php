@@ -4,7 +4,6 @@ class AppController extends Controller {
 	var $helpers = array('Pagination', 'Javascript', 'Global', 'Ajax', 'Cache');
 	var $uses = array(); //不使用默认的model，全部数据访问使用数据层DAL()
 	var $cacheAction = array(); //$_GET:del_cache 参数清理缓存| 调试模式也会自动清除缓存
-	var $loginValide = 0;
 	var $filterParam = true; //底层过滤所有入参
 
 	function beforeFilter() {
@@ -12,11 +11,12 @@ class AppController extends Controller {
 		parent::beforeFilter();
 		$this->set('title', '特卖订阅');
 		header('Content-Type: text/html; charset=UTF-8');
+		//判断push_token是否改变，进行更新
+		$device_id = @$_GET['device_id'];
+		$platform = @$_GET['platform'];
+		$push_token = @$_GET['push_token'];
 
-		if ($this->loginValide && !D('myuser')->isLogined()) {
-			if ($this->action == 'index' && $this->name == 'Default') $this->redirect('/Login');
-			else $this->flash('您尚未登陆，或已经超时，请重新登陆!', '/', 5);
-		}
+		D('subscribe')->savePushToken($device_id, $platform, $push_token);
 	}
 
 	//自动识别ajax
