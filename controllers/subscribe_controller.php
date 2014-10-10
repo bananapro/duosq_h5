@@ -4,6 +4,16 @@ class SubscribeController extends AppController {
 
 	var $name = 'Subscribe';
 
+	function beforeFilter(){
+
+		$device_id = @$_GET['device_id'];
+		$platform = @$_GET['platform'];
+
+		if(!$device_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+			die('请下载最新应用');
+		}
+	}
+
 	//消息列表，第一次进入配置页面
 	function index(){
 
@@ -22,28 +32,24 @@ class SubscribeController extends AppController {
 			$this->set('warning', '请在“设置-通知”开启通知，以免错过特卖通知！');
 		}
 
-		if(!$device_id || !valid($device_id, 'device_id') || !valid($push_token, 'push_token') || !in_array($platform, array('ios','android'))){
-			$this->set('error', '<div class="notice">请下载最新应用</div>');
-		}else{
-			//首次指向订阅设置
-			$setting = D('subscribe')->getSetting($device_id, $platform);
-			if(!$setting){
-					$this->redirect('/subscribe/setting?platform='.$platform.'&device_id='.$device_id.'&push_token='.$push_token.'&first_time=1');
-			}
-			$this->set('device_id', $device_id);
-			$this->set('platform', $platform);
-
-			//读取订阅消息
-			$messages = D('subscribe')->getMessageList($device_id, $platform, '', C('comm', 'subscribe_display_num_limit_app_cell'));
-			if($messages){
-				$ids = array();
-				foreach($messages as $message){
-					$ids[] = $message['id'];
-				}
-				D('subscribe')->markMessageOpened($device_id, $platform, join(',', $ids));
-			}
-			$this->set('messages', $messages);
+		//首次指向订阅设置
+		$setting = D('subscribe')->getSetting($device_id, $platform);
+		if(!$setting){
+				$this->redirect('/subscribe/setting?platform='.$platform.'&device_id='.$device_id.'&push_token='.$push_token.'&first_time=1');
 		}
+		$this->set('device_id', $device_id);
+		$this->set('platform', $platform);
+
+		//读取订阅消息
+		$messages = D('subscribe')->getMessageList($device_id, $platform, '', C('comm', 'subscribe_display_num_limit_app_cell'));
+		if($messages){
+			$ids = array();
+			foreach($messages as $message){
+				$ids[] = $message['id'];
+			}
+			D('subscribe')->markMessageOpened($device_id, $platform, join(',', $ids));
+		}
+		$this->set('messages', $messages);
 	}
 
 	//订阅设置
@@ -64,13 +70,9 @@ class SubscribeController extends AppController {
 			$this->set('warning', '请在“设置-通知”开启通知，以免错过特卖通知！');
 		}
 
-		if(!$device_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
-			$this->set('error', '<div class="notice">请下载最新应用</div>');
-		}else{
-			$this->set('device_id', $device_id);
-			$this->set('platform', $platform);
-			$this->set('push_token', $push_token);
-		}
+		$this->set('device_id', $device_id);
+		$this->set('platform', $platform);
+		$this->set('push_token', $push_token);
 
 		$sess_id = D('subscribe')->sessCreate();
 		if(!$sess_id){

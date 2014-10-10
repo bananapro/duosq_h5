@@ -1,0 +1,105 @@
+﻿<div class="ly-plate">
+	<div class="rotate-bg"></div>
+	<div class="lottery-star">
+		<img src="<?=MY_STATIC_URL?>/img/huodong/lottery/wap/zhizhen.png" id="lotteryBtn"></div>
+</div>
+
+<div id="login_div" style="display:none;line-height:40px;padding:10px;position:absolute;z-index:1000;top:0;background-color:#EEE" class="clearfix">
+	<form id="form" action="/huodong/getPrize" method="GET">
+		<fieldset>
+			<legend>输入支付宝，接收集分宝</legend>
+			<div style="text-align:center;font-size:20px">恭喜！抽中 <font style="font-size:20px;font-weight:bold" class="purple"><?=$jfb?></font> 个集分宝</div>
+			<input type="search" name="alipay" value="<?=@$_GET['alipay']?@$_GET['alipay']:D('myuser')->getAlipay()?>" onmouseover="this.focus()" placeholder="请填入支付宝账号" autocomplete="off" style="width: 99%;height:30px;border-radius:5px;font-size:16px;line-height:30px"/>
+			<div id="pop_alipay_hint" style="line-height:20px;color:#E45500;clear:both;display:none">
+				<i class="ico ico-error"></i><span>
+				<?php
+					if(@$_GET['hint']=='alipay_not_exist'){
+						echo '该支付宝不存在，请输入有效支付宝！';
+					}else{
+						echo @$_GET['hint'];
+					}
+				?>
+				</span>
+			</div>
+			<?php if(@$need_vcode):?>
+				<div id="vcode_div" style="font-size:12px; height:30px; line-height:30px; margin-top:10px">验证码：<input name="vcode" value="" style="width:50px;height:24px;padding:0;display:inline" autocomplete="off"/> <a href="javascript:void(0)" onclick="vcodeShow()"><img src="<?=MY_WWW_URL?>/vcode" id="vcode_img" width="70px" height="22px" align="absmiddle"/></a></div>
+			<?php endif?>
+
+			<?php if(@$_GET['hint'] == 'alipay_not_exist'):?>
+				<input type="hidden" name="ch_alipay" value=1 />
+			<?php endif?>
+			<input type="hidden" name="device_id" value="<?=$_GET['device_id']?>" />
+			<input type="hidden" name="platform" value="<?=$_GET['platform']?>" />
+			<a href="javascript:void(0)" onclick="$('#form').submit();"><div class="ft" style="padding:0"><div class="subscribe-submit subscribe-submit-save">提交信息</div></div></a>
+		</fieldset>
+	</form>
+</div>
+
+<script type="text/javascript" src="<?=MY_STATIC_URL?>/img/huodong/lottery/wap/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="<?=MY_STATIC_URL?>/img/huodong/lottery/wap/jQueryRotate.2.2.js"></script>
+<script type="text/javascript" src="<?=MY_STATIC_URL?>/img/huodong/lottery/wap/jquery.easing.min.js"></script>
+
+<script type="text/javascript">
+	$(function () {
+		var timeOut = function () {  //超时函数
+			$("#lotteryBtn").rotate({
+				angle: 0,
+				duration: 10000,
+				animateTo: 2160, //这里是设置请求超时后返回的角度，所以应该还是回到最原始的位置，2160是因为我要让它转6圈，就是360*6得来的
+				callback: function () {
+						alert('网络超时');
+				}
+			});
+		};
+		var rotateFunc = function (prize) {  //awards:奖项，angle:奖项对应的角度
+			$('#lotteryBtn').stopRotate();
+			$("#lotteryBtn").rotate({
+				angle: 0,
+				duration: 5000,
+				animateTo: prize*60 - 30 + 1440, //angle是图片上各奖项对应的角度，1440是我要让指针旋转4圈。所以最后的结束的角度就是这样子^^
+				callback: function () {
+
+					<?php if(D('subscribe')->getAlipay($_GET['device_id'], $_GET['platform'])):?>
+					var is_logined = true;
+					<?php else:?>
+					var is_logined = false;
+					<?php endif?>
+
+					if(!is_logined){
+						$('#login_div').show();
+						initAlipayDiv();
+					}else{
+						getPrize();
+					}
+				}
+			});
+		};
+
+		$("#lotteryBtn").rotate({
+			bind:
+			{
+				click: function () {
+					rotateFunc(<?=$prize?>);
+				}
+			}
+		});
+
+		<?php if(@$_GET['hint']):?>
+			$('#login_div').show();
+			$('#pop_alipay_hint').show();
+		<?php endif?>
+	})
+
+	//提交领取奖励
+	function getPrize(){
+		window.location.href = '<?=urlWithParam(array(), '/huodong/getPrize')?>';
+	}
+
+	//初始化支付宝输入弹层
+	function initAlipayDiv(){
+		$('#login_div').width($(window).width()-20);
+		$('#login_div').height($(window).height());
+	}
+
+	initAlipayDiv();
+</script>

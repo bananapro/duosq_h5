@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title><?php echo $page_title?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no;address=no;email=no"/>
+<style>
+	div { text-align:center; font:bold 20px sans-serif;}
+	a { text-decoration:underline ; color: #22A9D8}
+	a:hover,a:active { color: #F60;}
+	body { background-color: #ECECEC; font-family: tahoma,arial,Microsoft Yahei,\5b8b\4f53; color:#333;}
+</style>
+</head>
+<body>
+	<div style="text-align:center;margin-top:80px">
+		<img src="<?=MY_STATIC_URL?>/img/logo.png" align="absmiddle">
+		<div style="padding:13px;margin:0 auto;font-size:14px; margin-top:20px;background-color:#FFF;border-radius:10px; border:1px solid #CBCBCB; line-height:40px">
+		<?=$content_for_layout;?>
+		</div>
+	</div>
+</body>
+</html>

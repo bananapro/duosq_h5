@@ -4,6 +4,8 @@
 <title><?php echo $page_title?></title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no;address=no;email=no"/>
 <?php if(!DEBUG):?>
 <meta http-equiv="Refresh" content="<?=$pause?>; URL=<?=$url?>">
 <?php endif?>
@@ -16,20 +18,10 @@
 </style>
 </head>
 <body>
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<div style="text-align:center">
-		<a href="/"><img src="<?=MY_STATIC_URL?>/img/logo.png" align="absmiddle"></a>
-		<div style="padding:25px;margin:0 auto; margin-top:20px;background-color:#FFF;display:inline;border-radius:10px; border:1px solid #CBCBCB; line-height:40px">
-		<a href="<?php echo $url?>"><?php echo $message?></a>&nbsp; <span id="count" style="font-size:27px;font-family:arial"><?=$pause?></span>
+	<div style="text-align:center;margin-top:120px">
+		<img src="<?=MY_STATIC_URL?>/img/logo.png" align="absmiddle">
+		<div style="padding:15px;margin:0 auto;font-size:14px; margin-top:20px;background-color:#FFF;border-radius:10px; border:1px solid #CBCBCB; line-height:40px">
+		<a href="<?php echo $url?>"><?php echo $message?></a>&nbsp; <span id="count" style="font-size:12px;font-family:arial"><?=$pause?></span>
 		</div>
 	</div>
 <script>

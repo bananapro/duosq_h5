@@ -11,9 +11,5 @@ class ZtController extends AppController {
 
 		$this->set('title', '特卖知识新人科普篇');
 	}
-
-	function huodong(){
-		$this->set('title', '集分宝每日抽奖');
-	}
 }
 ?>

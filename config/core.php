@@ -57,7 +57,7 @@ define('CAKE_SECURITY', 'low');
 
 define('CAKE_SESSION_TIMEOUT', '120');
 
-define('CAKE_SESSION_DOMAIN', '');
+define('CAKE_SESSION_DOMAIN', r('http://www.', '', MY_WWW_URL));
 
 /**
  *  The define below is used to turn cake built webservices
