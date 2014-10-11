@@ -11,8 +11,5 @@
 	<?php echo $javascript->link(MY_STATIC_URL.'/js/h5_zepto');?>
 	<?php echo $javascript->link(MY_STATIC_URL.'/js/h5_main');?>
 </head>
-	<body>
-		<?=$content_for_layout;?>
-		<?=$cakeDebug?>
-	</body>
+	<body><?=$content_for_layout;?><?=$cakeDebug?></body>
 </html>

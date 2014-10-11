@@ -1,9 +1,16 @@
-﻿<div class="ly-plate">
-	<div class="rotate-bg"></div>
-	<div class="lottery-star">
-		<img src="<?=MY_STATIC_URL?>/img/huodong/lottery/wap/zhizhen.png" id="lotteryBtn"></div>
+<div style="background-color:#E5F5FF" class="clearfix">
+	<div style="background:url(http://static.duosq.com/img/huodong/bg_lottery.png) no-repeat;background-size:100%">
+		<div class="ly-plate">
+			<div class="rotate-bg"></div>
+			<div class="lottery-star"><img src="<?=MY_STATIC_URL?>/img/huodong/lottery/wap/zhizhen.png" id="lotteryBtn"></div>
+		</div>
+		<div style="font-size:12px; line-height:24px; padding:15px">
+			<p>❤. 抽奖细则说明：</p>
+			<p>1、集分宝是支付宝积分，淘宝购物结算时可以抵扣现金，100集分宝=1元</p>
+			<p>2、每日100%中奖，一旦识别到作弊将自动禁止账号</p>
+		</div>
+	</div>
 </div>
-
 <div id="login_div" style="display:none;line-height:40px;padding:10px;position:absolute;z-index:1000;top:0;background-color:#EEE" class="clearfix">
 	<form id="form" action="/huodong/getPrize" method="GET">
 		<fieldset>

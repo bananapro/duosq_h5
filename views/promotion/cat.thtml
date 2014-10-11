@@ -17,6 +17,7 @@
 	</div>
 </div>
 <section class="place-holder-nav"></section>
+<div><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/huodong')?>"><img src="<?=MY_STATIC_URL?>/img/adv/banner_jfb_huodong_small.png" style="width:100%"></a></div>
 <div class="promo-bd">
 	<div class="limit-hd clearfix">
 		<?php

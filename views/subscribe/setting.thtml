@@ -1,3 +1,4 @@
+<div><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/huodong')?>"><img src="<?=MY_STATIC_URL?>/img/adv/banner_jfb_huodong_small.png" style="width:100%"></a></div>
 <div class="subscribe-suggest-view hide">
 	<section class="promo-search-box">
 		<div class="promo-input-flex"> <i class="ico-search"></i>
