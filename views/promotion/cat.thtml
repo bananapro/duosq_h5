@@ -1,7 +1,7 @@
 <input type="hidden" id="setting_title" value="+订阅">
 <?php unset($_GET['default_midcat'])?>
 <?php unset($_GET['default_cat'])?>
-<?php if($midcat):?>
+<?php if(@$midcat):?>
 	<?=navButton('+订阅', urlWithParam(am($_GET, array('default_midcat'=>$midcat)), MY_HOMEPAGE_URL.'/subscribe/setting'))?>
 <?php else:?>
 	<?=navButton('+订阅', urlWithParam(am($_GET, array('default_cat'=>$cat)), MY_HOMEPAGE_URL.'/subscribe/setting'), MY_HOMEPAGE_URL.'/subscribe/setting')?>

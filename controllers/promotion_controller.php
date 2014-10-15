@@ -83,5 +83,15 @@ class PromotionController extends AppController {
 			}
 		}
 	}
+
+	//制造h5 referer头部进行淘宝hack跳转
+	function jump(){
+
+		if(!$_GET['t'])die('参数错误');
+
+		$this->layout = 'hint';
+		$this->set('title', '商品跳转中');
+		$this->set('tlink', $_GET['t']);
+	}
 }
 ?>

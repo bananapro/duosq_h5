@@ -1,0 +1,13 @@
+正在跳转到商品
+<script>
+
+if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /MSIE(\d+\.\d+);/.test(navigator.userAgent)){
+	var referLink = document.createElement('a');
+	referLink.href = '<?=$tlink?>';
+	referLink.target = '_self';
+	document.body.appendChild(referLink);
+	referLink.click();
+}else{
+	window.location.href = '<?=$tlink?>';
+}
+</script>
