@@ -5,7 +5,11 @@
 				<div class="mod-mark mark-new">new</div>
 			<?php endif?>
 			<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>
-			<img class="ui-imglazyload" src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $promo['pic_url']), '600x600')?>" />
+			<?php if($first):?>
+				<img class="ui-imglazyload" src="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $promo['pic_url']), '600x600')?>"/>
+			<?php else:?>
+				<img class="ui-imglazyload" src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $promo['pic_url']), '600x600')?>"/>
+			<?php endif?>
 			<?php if($promo['invalid']):?><div class="st"><img src="<?=MY_STATIC_URL?>/img/promotion/st_<?=$promo['invalid']?>.png" /></div><?php endif?>
 		</div>
 		<div class="mod-desc border-not">

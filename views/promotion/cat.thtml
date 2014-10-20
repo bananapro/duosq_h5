@@ -51,7 +51,13 @@
 		<?php foreach($lists as $promo):?>
 		<?php if($promo['invalid'])continue?>
 			<?php if(strpos($promo['name'],'成人用品')||strpos($promo['name'],'情趣')||strpos($promo['name'],'神油')||strpos($promo['name'],'自慰')||strpos($promo['name'],'性用品'))continue?>
-			<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
+			<?php $i=0?>
+			<?php if($i<3):?>
+				<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo, 'first'=>true))?>
+			<?php else:?>
+				<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
+			<?php endif;?>
+			<?php $i++?>
 		<?php endforeach?>
 	</div>
 </div>
