@@ -42,4 +42,11 @@ function promoUrl($sp, $goods_id, $url, $tc='app'){
 
 	return $url;
 }
+
+//获取APP版本
+function getVersion(){
+
+	$ver = intval(@$_GET['appver']);
+	return $ver;
+}
 ?>

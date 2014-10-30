@@ -133,7 +133,7 @@ class ajaxSubscribeController extends AppController {
 	function getDownAblum(){
 
 		$device_id = $_GET['device_id'];
-		$platform = @$_GET['platform'];
+		$platform = $_GET['platform'];
 		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
 			$this->_error('请安装最新版本应用程序！');
 		}
@@ -142,7 +142,57 @@ class ajaxSubscribeController extends AppController {
 		$this->_rendAblumList($lists);
 	}
 
-	private function _rendAblumList($lists=array()){
+	//添加或删除专辑收藏
+	function cangToggle(){
+
+		$ablum_id = intval($_GET['ablum_id']);
+		$device_id = $_GET['device_id'];
+		$platform = $_GET['platform'];
+		$action = $_GET['action'];
+		if(!$ablum_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+			$this->_error('请安装最新版本应用程序！');
+		}
+
+		$detail = D('subscribe')->detail($device_id, $platform);
+		if(!$detail){
+			$this->_error('请重启应用重试！');
+		}
+
+		if($action == 'add'){
+			$ret = D('cang')->add($device_id, $platform, $ablum_id);
+		}else{
+			$ret = D('cang')->del($device_id, $platform, $ablum_id);
+		}
+
+		if($ret)
+			$this->_success();
+		else
+			$this->_error('系统错误，请重试！');
+	}
+
+	//读取收藏专辑列表
+	function cangList(){
+
+		$device_id = $_GET['device_id'];
+		$platform = $_GET['platform'];
+		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+			$this->_error('请安装最新版本应用程序！');
+		}
+
+		$lists = D('cang')->getList($this->Pagination, array('account'=>$device_id, 'channel'=>$platform, 'status'=>1));
+
+		if($lists){
+			$this->_rendAblumList($lists, 'cang');
+		}else{
+			if($_GET['page']>1){
+				$this->_error('无更多收藏！');
+			}else{
+				$this->_error('您暂无收藏，点击 <img src="'.MY_STATIC_URL.'/img/app/p-cang.png" width="20" height="20" align="absmiddle" /> 即可收藏!');
+			}
+		}
+	}
+
+	private function _rendAblumList($lists=array(), $mode='index'){
 
 		$data = array();
 		$ablum_ids = array();
@@ -155,18 +205,30 @@ class ajaxSubscribeController extends AppController {
 
 		foreach($lists as $list){
 
-			if($list['more']){
+			if(@$list['more']){
 				$more = '<a class="more" ref="ablum_'.$list['id'].'" href="javascript:void(0)">more</a>';
 			}else{
 				$more = '';
 			}
 
+			if(getVersion()>1){
+				if($mode == 'cang'){
+					$selected = ' cang-selected';
+				}else{
+					$selected = false;
+					if(D('cang')->has($_GET['device_id'], $_GET['platform'], $list['id'])){
+						$selected = ' cang-selected';
+					}
+				}
+
+				$cang = '<a class="cang'.$selected.'" href="javascript:void(0)" onclick="cang(this, '.$list['id'].')">cang</a>';
+			}
 			$data[] = array(
 				'html'=>'<li>
 				<a href="jump:'.promoUrl($list['sp'], 0, $list['link']).'">
 					<div class="cover" id="ablum_'.$list['id'].'" style="'.$height.'"><img id="ablum_'.$list['id'].'_img" src="'.uploadImageUrl($list['cover_1']).'" width="100%"/></div>
 					<dl><dd class="title"><span>'.tagLogo($list['sp'], 'width="100%"').'</span>'.$list['title'].'</dd>
-					<dd class="brand"></dd></dl></a>'.$more.'</li>',
+					<dd class="brand"></dd></dl></a>'.$more.$cang.'</li>',
 				'ablum_id'=>$list['id']
 			);
 

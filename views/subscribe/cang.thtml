@@ -1,0 +1,77 @@
+<ul class="data-list">
+</ul>
+<div id="loading" style="width:100%;line-height:30px; height:30px; text-align:center; font-size:14px"></div>
+<script>
+function bindClick(me){
+	$('.more').unbind("click").click(function(){
+		if(!this.myheight){
+			this.myheight = $('#'+$(this).attr('ref')).height();
+			$('#'+$(this).attr('ref')).animate({ height: $('#'+$(this).attr('ref')+'_img').height()}, 100, 'ease-in', function(){me.afterDataLoading('down');});
+
+		}else{
+			$('#'+$(this).attr('ref')).animate({ height: this.myheight}, 100, 'ease-in', function(){me.afterDataLoading('down');});
+			this.myheight = false;
+		}
+		$(this).toggleClass('on-more');
+	})
+}
+
+var down_page = 1;
+var locked = false;
+function load(){
+
+	if(locked)return;
+	locked = true;
+	if(down_page == 'end')return;
+	$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 正在加载收藏...');
+	call_url = '<?=urlWithParam(array(),'/ajaxSubscribe/cangList')?>&width='+$('body').width()+'&page='+down_page;
+
+	$.getJSON(call_url, function (data) {
+
+		if(data.status == 1){
+
+			if(data.message.length>0){
+
+				var $list = $('.data-list'),
+					html = (function (data) {      //数据渲染
+						var liArr = [];
+						$.each(data, function () {
+							liArr.push(this.html);
+						});
+						return liArr.join('');
+					})(data.message);
+
+				$list['append'](html);
+				$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
+				down_page++;
+
+				//防止第一次加载不够拖动距离，永远出现“下拉加载更多”
+				if(data.message.length < 4){
+					$('#loading').hide();
+					down_page = 'end';
+				}
+			}else{
+				$('#loading').html('无更多收藏！');
+				down_page = 'end';
+			}
+
+		}else{
+			$('#loading').html(data.message);
+			down_page = 'end';
+		}
+
+		locked = false;
+	});
+}
+
+$(function(){
+	load();
+	$(window).scroll( function() {
+		total_height = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+
+		if ($(document).height()-10 < total_height) {  // 说明滚动条已达底部
+			load();
+		}
+	});
+})
+</script>
