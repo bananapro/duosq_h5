@@ -8,6 +8,9 @@
 	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="apple-touch-icon" href="<?=MY_STATIC_URL?>/img/icon_apple_touch.png?<?=MY_STATIC_TIME?>" />
 	<?php echo $html->css(MY_STATIC_URL.'/css/h5');?>
+
+	<?php //echo $javascript->link(MY_STATIC_URL.'/js/gmu/zepto.min');?>
+	<?php //echo $javascript->link(MY_STATIC_URL.'/js/gmu/gmu.min');?>
 	<?php echo $javascript->link(MY_STATIC_URL.'/js/h5_zepto');?>
 	<?php echo $javascript->link(MY_STATIC_URL.'/js/h5_main');?>
 </head>

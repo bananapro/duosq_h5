@@ -1,20 +1,10 @@
-<input type="hidden" id="setting_title" value="+订阅">
-<?php unset($_GET['default_midcat'])?>
-<?php unset($_GET['default_cat'])?>
-<?php if(@$midcat):?>
-	<?=navButton('+订阅', urlWithParam(am($_GET, array('default_midcat'=>$midcat)), MY_HOMEPAGE_URL.'/subscribe/setting'))?>
-<?php else:?>
-	<?=navButton('+订阅', urlWithParam(am($_GET, array('default_cat'=>$cat)), MY_HOMEPAGE_URL.'/subscribe/setting'), MY_HOMEPAGE_URL.'/subscribe/setting')?>
-<?php endif?>
-<div class="second-nav J_super_top clearfix">
-	<div id="J_tab_nav">
-		<ul class="ui-navigator-list">
-			<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat))?>">全部</a></li>
-			<?php foreach($all_goods_cat[$cat] as $i_midcat => $subcats):?>
-			<li><a class="J-nav-classify<?php if($midcat == $i_midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat).'/'.urlencode($i_midcat))?>"><?=$i_midcat?></a></li>
-			<?php endforeach?>
-		</ul>
-	</div>
+<div id="tab_nav" class="second-nav clearfix">
+	<ul class="ui-navigator-list">
+		<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat))?>">全部</a></li>
+		<?php foreach($all_goods_cat[$cat] as $i_midcat => $subcats):?>
+		<li><a class="J-nav-classify<?php if($midcat == $i_midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat).'/'.urlencode($i_midcat))?>"><?=$i_midcat?></a></li>
+		<?php endforeach?>
+	</ul>
 </div>
 <section class="place-holder-nav"></section>
 <div><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/huodong')?>"><img src="<?=MY_STATIC_URL?>/img/adv/banner_jfb_huodong_small.png" style="width:100%"></a></div>
@@ -48,10 +38,10 @@
 		<h3 class="t">今日从<font class="purple"><?=intval($count_all_goods/100)?></font>品牌中，发现<font class="purple"><?=$count_promo?></font>个<?=$midcat?$midcat:$cat?>特卖</h3>
 	</div>
 	<div style="display:block;">
+		<?php $i=0?>
 		<?php foreach($lists as $promo):?>
 		<?php if($promo['invalid'])continue?>
 			<?php if(strpos($promo['name'],'成人用品')||strpos($promo['name'],'情趣')||strpos($promo['name'],'神油')||strpos($promo['name'],'自慰')||strpos($promo['name'],'性用品'))continue?>
-			<?php $i=0?>
 			<?php if($i<3):?>
 				<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo, 'first'=>true))?>
 			<?php else:?>

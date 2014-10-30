@@ -14,11 +14,11 @@ function navButton($value, $url){
 //转换外链
 function promoUrl($sp, $goods_id, $url, $tc='app'){
 
-	//IOS跳转loading图标有BUG
+	//IOS跳转loading图标有BUG，修正后去除此处
 	if(getBrowser() == 'ios')
 		return $url;
 
-	if(!$sp || !$goods_id){
+	if(!$sp || (!$goods_id && !$url)){
 		return "javascript:alert('链接错误，请稍后尝试！');\" target='_self'";
 	}
 
@@ -27,9 +27,14 @@ function promoUrl($sp, $goods_id, $url, $tc='app'){
 	//获取跳转驱动
 	if(D('go')->getDriver($sp)){
 
-		if($sp == 'tmall' || $sp == 'taobao'){
+		if($sp == 'tmall' || $sp == 'taobao' || $sp == 'ju'){
 			//淘宝移动端hack跳转跟单
-			$url = MY_WWW_URL .'/item-'.$sp.'-'.$goods_id.'?tc='.$tc;
+			if($goods_id){
+				$url = MY_WWW_URL .'/item-'.$sp.'-'.$goods_id.'?tc='.$tc;
+			}else{
+				//sclick模式|无跟单模式
+				$url = MY_WWW_URL . "/go/{$sp}?tc={$tc}&t=".urlencode($url);
+			}
 		}else{
 			$url = MY_WWW_URL . "/go/{$sp}?tc={$tc}&t=".urlencode($url);
 		}

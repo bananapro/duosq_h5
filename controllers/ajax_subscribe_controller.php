@@ -3,6 +3,7 @@
 class ajaxSubscribeController extends AppController {
 
 	var $name = 'ajaxSubscribe';
+	var $components = array('Pagination');
 
 	/**
 	 * 实时根据关键词进行品牌匹配
@@ -49,6 +50,10 @@ class ajaxSubscribeController extends AppController {
 			$this->_error('网络故障100，请返回重试！');
 		}
 
+		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+			$this->_error('请安装最新版本应用程序！');
+		}
+
 		$ret = D('subscribe')->sessUpdate($sess_id, $option, $value, $action);
 		if($ret)
 			$this->_success('订阅信息保存成功');
@@ -84,6 +89,90 @@ class ajaxSubscribeController extends AppController {
 			D('log')->action(1555, 1, array('data1'=>$platform, 'data2'=>$email, 'data3'=>$sess_id, 'data4'=>'app'));
 			$this->_success();
 		}
+	}
+
+	//直接保存订阅选项
+	function saveOptionNew(){
+
+		$device_id = $_GET['device_id'];
+		$platform = @$_GET['platform'];
+		$option = $_GET['option'];
+		$value = $_GET['value'];
+		$action = $_GET['action'];
+
+		if(!$option || !$action){
+			$this->_error('网络故障300，请返回重试！');
+		}
+
+		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+			$this->_error('请安装最新版本应用程序！');
+		}
+
+		$ret = D('subscribe')->settingUpdate($device_id, $platform, $option, $value, $action);
+
+		if($ret)
+			$this->_success('选项保存成功');
+		else
+			$this->_error('网络故障301，请重试！');
+	}
+
+	//向上查询最新专辑
+	function getUpAblum(){
+
+		$device_id = $_GET['device_id'];
+		$platform = @$_GET['platform'];
+		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+			$this->_error('请安装最新版本应用程序！');
+		}
+
+		$lists = D('ablum')->getNewAblum($device_id, $platform, true);
+		$this->_rendAblumList($lists);
+	}
+
+	//向下查询旧专辑
+	function getDownAblum(){
+
+		$device_id = $_GET['device_id'];
+		$platform = @$_GET['platform'];
+		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+			$this->_error('请安装最新版本应用程序！');
+		}
+
+		$lists = D('ablum')->getOldAblum($device_id, $platform, $this->Pagination);
+		$this->_rendAblumList($lists);
+	}
+
+	private function _rendAblumList($lists=array()){
+
+		$data = array();
+		$ablum_ids = array();
+		if(isset($_GET['width']) && intval($_GET['width'])>0){
+			$height = intval((intval($_GET['width'])-10)*0.625);
+			$height = 'height:'.$height.'px';
+		}else{
+			$height = '';
+		}
+
+		foreach($lists as $list){
+
+			if($list['more']){
+				$more = '<a class="more" ref="ablum_'.$list['id'].'" href="javascript:void(0)">more</a>';
+			}else{
+				$more = '';
+			}
+
+			$data[] = array(
+				'html'=>'<li>
+				<a href="jump:'.promoUrl($list['sp'], 0, $list['link']).'">
+					<div class="cover" id="ablum_'.$list['id'].'" style="'.$height.'"><img id="ablum_'.$list['id'].'_img" src="'.uploadImageUrl($list['cover_1']).'" width="100%"/></div>
+					<dl><dd class="title"><span>'.tagLogo($list['sp'], 'width="100%"').'</span>'.$list['title'].'</dd>
+					<dd class="brand"></dd></dl></a>'.$more.'</li>',
+				'ablum_id'=>$list['id']
+			);
+
+		}
+
+		$this->_success($data);
 	}
 }
 ?>

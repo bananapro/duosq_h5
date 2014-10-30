@@ -18,11 +18,11 @@
 		<div class="mod-price clearfix">
 			<div class="price-info">
 				<small>&yen;</small>
-				<strong><?=price_yuan($promo['price_now'])?></strong>
-				<del>90天实售&yen;<?=price_yuan($promo['price_avg'])?></del>
+				<strong><?=priceYuan($promo['price_now'])?></strong>
+				<del>90天实售&yen;<?=priceYuan($promo['price_avg'])?></del>
 			</div>
 			<div class="get-fl color">
-				<strong>今日省<?=rate_diff($promo['price_now'], $promo['price_avg'])?>%</strong>
+				<strong>今日省<?=rateDiff($promo['price_now'], $promo['price_avg'])?>%</strong>
 			</div>
 		</div>
 	</a>
