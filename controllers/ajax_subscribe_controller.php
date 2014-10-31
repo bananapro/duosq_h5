@@ -179,7 +179,7 @@ class ajaxSubscribeController extends AppController {
 			$this->_error('请安装最新版本应用程序！');
 		}
 
-		$lists = D('cang')->getList($this->Pagination, array('account'=>$device_id, 'channel'=>$platform, 'status'=>1));
+		$lists = D('cang')->getList($this->Pagination, array('account'=>$device_id, 'channel'=>$platform, 'status'=>1), 4);
 
 		if($lists){
 			$this->_rendAblumList($lists, 'cang');
@@ -211,18 +211,17 @@ class ajaxSubscribeController extends AppController {
 				$more = '';
 			}
 
-			if(getVersion()>1){
-				if($mode == 'cang'){
+			if($mode == 'cang'){
+				$selected = ' cang-selected';
+			}else{
+				$selected = false;
+				if(D('cang')->has($_GET['device_id'], $_GET['platform'], $list['id'])){
 					$selected = ' cang-selected';
-				}else{
-					$selected = false;
-					if(D('cang')->has($_GET['device_id'], $_GET['platform'], $list['id'])){
-						$selected = ' cang-selected';
-					}
 				}
-
-				$cang = '<a class="cang'.$selected.'" href="javascript:void(0)" onclick="cang(this, '.$list['id'].')">cang</a>';
 			}
+
+			$cang = '<a class="cang'.$selected.'" href="javascript:void(0)" onclick="cang(this, '.$list['id'].')">cang</a>';
+
 			$data[] = array(
 				'html'=>'<li>
 				<a href="jump:'.promoUrl($list['sp'], 0, $list['link']).'">

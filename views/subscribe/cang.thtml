@@ -1,6 +1,6 @@
 <ul class="data-list">
 </ul>
-<div id="loading" style="width:100%;line-height:30px; height:30px; text-align:center; font-size:14px"></div>
+<div id="loading" class="more-loading"></div>
 <script>
 function bindClick(me){
 	$('.more').unbind("click").click(function(){
@@ -30,28 +30,22 @@ function load(){
 
 		if(data.status == 1){
 
-			if(data.message.length>0){
+			var $list = $('.data-list'),
+				html = (function (data) {//数据渲染
+					var liArr = [];
+					$.each(data, function () {
+						liArr.push(this.html);
+					});
+					return liArr.join('');
+				})(data.message);
 
-				var $list = $('.data-list'),
-					html = (function (data) {      //数据渲染
-						var liArr = [];
-						$.each(data, function () {
-							liArr.push(this.html);
-						});
-						return liArr.join('');
-					})(data.message);
+			$list['append'](html);
+			$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
+			down_page++;
 
-				$list['append'](html);
-				$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
-				down_page++;
-
-				//防止第一次加载不够拖动距离，永远出现“下拉加载更多”
-				if(data.message.length < 4){
-					$('#loading').hide();
-					down_page = 'end';
-				}
-			}else{
-				$('#loading').html('无更多收藏！');
+			//防止第一次加载不够拖动距离，永远出现“下拉加载更多”
+			if(data.message.length < 4){
+				$('#loading').hide();
 				down_page = 'end';
 			}
 
