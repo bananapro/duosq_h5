@@ -129,7 +129,7 @@ class ajaxSubscribeController extends AppController {
 		$this->_rendAblumList($lists);
 	}
 
-	//向下查询旧专辑
+	//向下查询旧专辑，算法改良，应该是上次看过的
 	function getDownAblum(){
 
 		$device_id = $_GET['device_id'];

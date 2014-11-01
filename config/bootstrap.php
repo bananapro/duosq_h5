@@ -46,7 +46,7 @@ function promoUrl($sp, $goods_id, $url, $tc='app'){
 //获取APP版本
 function getVersion(){
 
-	$ver = intval(@$_GET['appver']);
+	$ver = intval(@$_GET['app_ver']);
 	return $ver;
 }
 ?>

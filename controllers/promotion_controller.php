@@ -6,6 +6,11 @@ class PromotionController extends AppController {
 	var $components = array('Pagination');
 	var $cacheAction = array('cat'=> MINUTE);
 
+	//发现首页
+	function index(){
+
+	}
+
 	//特卖分类商品列表
 	function cat($cat, $midcat=''){
 

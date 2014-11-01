@@ -119,19 +119,10 @@
 	<div class="ui-refresh-down"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
 </div>
 
-<?php if(getVersion()<2):?><a class="wishlists" href="jump:<?=urlWithParam(array(), '/subscribe/cang')?>"><span></span>我的收藏</a><?php endif?>
+<?php if(getVersion()<2):?><a class="wishlists" href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/cang')?>"><span></span>我的收藏</a><?php endif?>
 <?php endif?>
 
 <script>
-function showHint(message){
-	$('.hint').show();
-	$('.hint').css('opacity', 0.7);
-	$('.hint').html(message);
-
-	setTimeout(function(){
-		$('.hint').animate({ opacity: 0},500,'ease-out');
-	}, 1000);
-}
 
 function bindClick(me){
 	$('.more').unbind("click").click(function(){
@@ -146,7 +137,7 @@ function bindClick(me){
 		$(this).toggleClass('more-on');
 	})
 }
-
+showHint('当前已没新的特卖');
 var down_page = 1;
 function initRefresh(){
 
@@ -172,7 +163,7 @@ function initRefresh(){
 
 						if(dir == 'down'){
 							down_end = false;
-							//如果发现已出现，则表示新旧闭环，因此down刷新
+							//如果发现已出现，则表示新旧闭环，因此down刷新结束
 							$.each(data.message, function () {
 								if($('#ablum_'+this.ablum_id).length>0){
 									me.disable('down', true);
@@ -187,7 +178,7 @@ function initRefresh(){
 						}
 
 						var $list = $('.data-list'),
-							html = (function (data) {      //数据渲染
+							html = (function (data) {//数据渲染
 								var liArr = [];
 								$.each(data, function () {
 									liArr.push(this.html);
@@ -210,6 +201,7 @@ function initRefresh(){
 							showHint('当前已没新的特卖');
 						}else{
 							me.disable('down', true);
+							down_end = true;
 						}
 					}
 
@@ -221,6 +213,18 @@ function initRefresh(){
 			});
 		}
 	});
+}
+
+//重新加载页面
+function doReload(){
+
+	alert('设置变更了!');
+}
+
+//点击刷新按钮
+function doRefresh(){
+
+	alert('点击了刷新!');
 }
 
 $(function(){

@@ -16,6 +16,7 @@ class SubscribeController extends AppController {
 			die('请下载最新应用');
 		}
 
+		//自动新建账号
 		$setting = D('subscribe')->getSetting($device_id, $platform);
 		if(!$setting){
 			D('subscribe')->settingAutoCreated($device_id, $platform);
