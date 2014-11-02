@@ -138,7 +138,7 @@ class ajaxSubscribeController extends AppController {
 			$this->_error('请安装最新版本应用程序！');
 		}
 
-		$lists = D('ablum')->getOldAblum($device_id, $platform, $this->Pagination);
+		$lists = D('ablum')->getOldAblum($device_id, $platform);
 		$this->_rendAblumList($lists);
 	}
 

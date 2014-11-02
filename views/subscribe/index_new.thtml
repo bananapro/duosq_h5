@@ -138,7 +138,8 @@ function bindClick(me){
 	})
 }
 showHint('当前已没新的特卖');
-var down_page = 1;
+var down_end = false;
+var display_ablums_max_id = <?=$list['id']?>;
 function initRefresh(){
 
 	//新版首页，固定好容器高度，开始支持拖动
@@ -153,35 +154,21 @@ function initRefresh(){
 		},
 		ready: function (dir, type) {
 			var me = this;
+			if(dir == 'down' && down_end)return;
 
-			call_url = dir == 'up'?'<?=urlWithParam(array(),'/ajaxSubscribe/getUpAblum')?>&width='+$('body').width() : '<?=urlWithParam(array(),'/ajaxSubscribe/getDownAblum')?>&width='+$('body').width()+'&page='+down_page;
-			$.getJSON(call_url, function (data) {
+			call_url = dir == 'up'?'<?=urlWithParam(array(),'/ajaxSubscribe/getUpAblum')?>': '<?=urlWithParam(array(),'/ajaxSubscribe/getDownAblum')?>';
+			$.getJSON(call_url, {'width':$('body').width(), 'display_ablums_max_id':display_ablums_max_id}, function (data) {
 
 				if(data.status == 1){
 
 					if(data.message.length>0){
-
-						if(dir == 'down'){
-							down_end = false;
-							//如果发现已出现，则表示新旧闭环，因此down刷新结束
-							$.each(data.message, function () {
-								if($('#ablum_'+this.ablum_id).length>0){
-									me.disable('down', true);
-									me.afterDataLoading(dir);
-									down_end = true;
-								}
-							});
-
-							if(down_end)return;
-							//page计数
-							down_page++;
-						}
 
 						var $list = $('.data-list'),
 							html = (function (data) {//数据渲染
 								var liArr = [];
 								$.each(data, function () {
 									liArr.push(this.html);
+									if(this.ablum_id < display_ablums_max_id)display_ablums_max_id = this.ablum_id;
 								});
 								return liArr.join('');
 							})(data.message);
