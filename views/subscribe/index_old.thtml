@@ -1,0 +1,59 @@
+<?php if(@$warning && !@$error):?><div class="subscribe-warning"><?=$warning?></div><?php endif?>
+<div><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/huodong')?>"><img src="<?=MY_STATIC_URL?>/img/adv/banner_jfb_huodong_small.png" style="width:100%"></a></div>
+<div class="subscribe-message">
+	<?=navButton('订阅设置', urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting'))?>
+	<?php if($messages):?>
+		<?php foreach($messages as $message):?>
+		<fieldset>
+			<?php
+				if($message['pushtime'] == '0000-00-00 00:00:00'){
+					$pushtime = $message['createtime'];
+				}else{
+					$pushtime = $message['pushtime'];
+				}
+			?>
+			<legend><font class="blue"><?=$global->toReadableTime($message['pushtime'], false)?>推荐：</font><?=$message['title']?></legend>
+			<ul>
+				<?php $messages = unserialize($message['message']);?>
+				<?php $messages = array_slice($messages, 0, C('comm', 'subscribe_display_num_limit_app_cell_goods'))?>
+				<?php $last = count($messages)?>
+				<?php $now = 0?>
+				<?php foreach($messages as $m):?>
+				<?php $promo = D('promotion')->promoDetail($m['sp'], $m['goods_id']);?>
+				<?php $goods = D('promotion')->goodsDetail($m['sp'], $m['goods_id']);?>
+				<li class="clearfix<?php if($now==$last-1):?> noborder<?php endif?>">
+					<a href="jump:<?=D('promotion')->buildUrl($goods['url_tpl'], $goods['url_id'], 'mobi')?>">
+					<div class="goods-img"><img class="ui-imglazyload" src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl($goods['pic_url'], '200x200')?>" /></div>
+					<div class="goods-content">
+						<div class="goods-title"><?=$goods['name']?></div>
+						<div class="goods-price clearfix">
+							<div class="price-info">
+								<small class="purple">&yen;</small>
+								<strong class="purple"><?=priceYuan($promo['price_now'])?></strong>
+								<del>90天监控</del>
+							</div>
+							<div class="price-discount green">
+								<strong>今日省<?=rateDiff($promo['price_now'], $promo['price_avg'])?>%</strong>
+							</div>
+						</div>
+					</div>
+					</a>
+				</li>
+				<?php $now++?>
+				<?php endforeach?>
+			</ul>
+		</fieldset>
+		<?php endforeach?>
+		<div class="ft">
+			<a class="subscribe-submit subscribe-submit-save" href="jump:feedback" style="font-size:14px">对结果不满意？请告诉我们</a>
+		</div>
+	<?else:?>
+		<fieldset>
+			<legend><font class="blue">欢迎首次使用：</font></legend>
+			<ul>
+				<li style="text-align:center">我们正在为您留意合适的特卖，请先返回！</li>
+				<li style="text-align:center" class="noborder green">~~右上角可修改 <font class="purple">“订阅设置”</font>~~</li>
+			</ul>
+		</fieldset>
+	<?endif?>
+</div>

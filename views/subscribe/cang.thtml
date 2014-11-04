@@ -1,3 +1,4 @@
+<?php if(@$warning && !@$error):?><div class="subscribe-warning"><?=$warning?></div><?php endif?>
 <ul class="data-list">
 </ul>
 <div id="loading" class="more-loading"></div>
