@@ -1,6 +1,5 @@
-<?php if(@$warning&&!@$error):?><div class="subscribe-warning"><?=$warning?></div><?php endif?>
 <div class="subscribe-options">
-	<h1 class="purple">❤ 选择您要的特卖分类</h1>
+	<!--<h1 class="purple">❤ 选择您要的特卖分类</h1>-->
 	<ul class="new-cat-options clearfix">
 		<?php $setting_type = 'setting_ablumcat'?>
 		<?php $options = C('options', 'subscribe_'.$setting_type)?>
@@ -80,10 +79,6 @@
 		</ul>
 		</div>
 	</fieldset>
-
-	<div class="ft">
-		<a class="subscribe-submit" href="jump:feedback" style="font-size:14px">使用有困难？请反馈意见</a>
-	</div>
 </div>
 <script>
 var subscribe_device_id = '<?=$device_id?>';
@@ -170,4 +165,5 @@ function saveOption(option, value, action, succ_callbak){
 		}
 	})
 }
+
 </script>

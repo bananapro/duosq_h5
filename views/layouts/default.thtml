@@ -3,7 +3,7 @@
 <head>
 	<title><?php echo $title_for_layout;?></title>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<meta name="format-detection" content="telephone=no;address=no;email=no"/>
 	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="apple-touch-icon" href="<?=MY_STATIC_URL?>/img/icon_apple_touch.png?<?=MY_STATIC_TIME?>" />

@@ -76,8 +76,8 @@
 			<li>
 				<span>衣裤颜色（尽量选2个以上）</span>
 				<div class="list-cell">
-				<?php $color_option = C('options', 'subscribe_setting_color')?>
-				<?php $color_option_map = C('options', 'subscribe_setting_color_map')?>
+				<?php $color_option = C('options', 'subscribe_setting_clothes_color')?>
+				<?php $color_option_map = C('options', 'subscribe_setting_clothes_color_map')?>
 				<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(@in_array(1, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '1')"><div style="background-color:<?=$color_option_map[1]?>" class="color"></div><em></em></a>
 				<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(@in_array(2, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '2')"><div style="background-color:<?=$color_option_map[2]?>" class="color border"></div><em></em></a>
 				<a href="javascript:void(0)" ref="setting_clothes_color" class="setting_clothes_color<?php if(@in_array(3, @$setting['setting_clothes_color']))echo ' selected'?>" onclick="selectProfileMulti(this, '3')"><div style="background-color:<?=$color_option_map[3]?>" class="color"></div><em></em></a>
