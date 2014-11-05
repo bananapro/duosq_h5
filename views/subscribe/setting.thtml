@@ -5,7 +5,7 @@
 		<?php $options = C('options', 'subscribe_'.$setting_type)?>
 		<?php foreach($options as $value => $label):?>
 		<li ref="<?=$setting_type?>" class="clearfix <?=$setting_type?><?php if(in_array($value, $setting[$setting_type]))echo ' selected'?>" onclick="selectProfileMulti(this, '<?=$value?>')">
-			<img src="<?=MY_STATIC_URL?>/img/app/setting_cateory_<?=$value?>.png" width="100%" />
+			<img src="<?=MY_STATIC_URL?>/img/app/setting_cateory_<?=$value?>.png" width="100%" style="min-height:103px"/>
 			<div class="checked"><img src="<?=MY_STATIC_URL?>/img/app/setting_category_checked.png"/></div>
 			<span><?=$label?></span>
 		</li>

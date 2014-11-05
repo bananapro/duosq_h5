@@ -15,7 +15,7 @@ function navButton($value, $url){
 function promoUrl($sp, $goods_id, $url, $tc='app'){
 
 	//IOS跳转loading图标有BUG，修正后去除此处
-	if(getBrowser() == 'ios')
+	if(getBrowser() == 'ios' && getVersion()<2)
 		return $url;
 
 	if(!$sp || (!$goods_id && !$url)){

@@ -221,10 +221,14 @@ class ajaxSubscribeController extends AppController {
 			}
 
 			$cang = '<a class="cang'.$selected.'" href="javascript:void(0)" onclick="cang(this, '.$list['id'].')">cang</a>';
-
+			if(getVersion()>1){
+				$jump = 'jump:history:';
+			}else{
+				$jump = 'jump:';
+			}
 			$data[] = array(
 				'html'=>'<li>
-				<a href="jump:'.promoUrl($list['sp'], 0, $list['link']).'">
+				<a href="'.$jump.promoUrl($list['sp'], 0, $list['link']).'">
 					<div class="cover" id="ablum_'.$list['id'].'" style="'.$height.'"><img id="ablum_'.$list['id'].'_img" src="'.uploadImageUrl($list['cover_1']).'" width="100%"/></div>
 					<dl><dd class="title"><span>'.tagLogo($list['sp'], 'width="100%"').'</span>'.$list['title'].'</dd>
 					<dd class="brand"></dd></dl></a>'.$more.$cang.'</li>',
