@@ -25,14 +25,6 @@ body{background-color:#F35AB4}
 3) <font class="orange" style="font-size:18px">每天</font>认真核对每个商家退货数、差评数，以免买到假货
 </p>
 
-<?php if(getVersion()>1):?>
-<a href="jump:sharesocial">share22</a>
-<input type="hidden" id="sharetitle" value="最强的特卖">
-<input type="hidden" id="sharesubtitle" value="一般人我不告诉他">
-<input type="hidden" id="shareurl" value="http://www.duosq.com/brand-2103">
-<input type="hidden" id="shareimg" value="http://static.duosq.com/img/brand/logo/2103.png">
-<input type="hidden" id="callback" value="callback()">
-<?php endif?>
 <h1>有没有简单的方法？</h1>
 <span class="ft"><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting')?>" class="subscribe-submit subscribe-submit-save">马上订阅特卖</a></span>
 </div>
