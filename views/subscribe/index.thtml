@@ -216,14 +216,12 @@ function initRefresh(){
 
 //重新加载页面
 function doReload(){
-
-	alert('设置变更了!');
+	location.reload();
 }
 
 //点击刷新按钮
 function doRefresh(){
-
-	alert('点击了刷新!');
+	//alert('点击了刷新!');
 }
 
 $(function(){

@@ -149,9 +149,14 @@ class ajaxSubscribeController extends AppController {
 		$device_id = $_GET['device_id'];
 		$platform = $_GET['platform'];
 		$action = $_GET['action'];
+
 		if(!$ablum_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
 			$this->_error('请安装最新版本应用程序！');
 		}
+
+		//加锁防止当天重复提取任务
+		$lock = D()->redis('lock')->getlock(\Redis\Lock::LOCK_SUBSCRIBE_CANG, $account.':'.$ablum_id);
+		if(!$lock)die();
 
 		$detail = D('subscribe')->detail($device_id, $platform);
 		if(!$detail){
