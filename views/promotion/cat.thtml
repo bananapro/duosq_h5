@@ -1,53 +1,30 @@
+<?php if($cat == '服装鞋子' || $cat == '箱包配饰'):?>
 <div id="tab_nav" class="second-nav clearfix">
 	<ul class="ui-navigator-list">
-		<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat))?>">全部</a></li>
+		<!--<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat))?>">全部</a></li>-->
 		<?php foreach($all_goods_cat[$cat] as $i_midcat => $subcats):?>
 		<li><a class="J-nav-classify<?php if($midcat == $i_midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat).'/'.urlencode($i_midcat))?>"><?=$i_midcat?></a></li>
 		<?php endforeach?>
 	</ul>
 </div>
 <section class="place-holder-nav"></section>
-<div><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/huodong')?>"><img src="<?=MY_STATIC_URL?>/img/adv/banner_jfb_huodong_small.png" style="width:100%"></a></div>
+<?php endif?>
+<div><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/huodong')?>"><img src="<?=MY_STATIC_URL?>/img/adv/11_app_category_banner.png" style="width:100%"></a></div>
 <div class="promo-bd">
 	<div class="limit-hd clearfix">
-		<?php
-			$count_all_goods = array_sum($stat['num_goods'])+3;
-			$count_all_cat = count($all_goods_cat);
-			$count_today_promo = array_sum($stat['num_promo_sp_today']);
-			if($midcat){
-
-				$count_all_cat_subcat = 0;
-				foreach($all_goods_cat[$cat] as $i_midcat => $subcats){
-					$count_all_cat_subcat+=count($subcats);
-				}
-
-				$count_cat_subcat = count($all_goods_cat[$cat][$midcat]);
-				$count_promo = intval($count_today_promo * $count_cat_subcat / $count_all_cat_subcat);
-
-			}else{
-
-				$count_all_midcat = 0;
-				foreach($all_goods_cat as $i_cat => $i_midcats){
-					$count_all_midcat+=count($i_midcats);
-				}
-
-				$count_midcat = count($all_goods_cat[$cat]);
-				$count_promo = intval($count_today_promo * $count_midcat / $count_all_midcat)*10;
-			}
-		?>
-		<h3 class="t">今日从<font class="purple"><?=intval($count_all_goods/100)?></font>品牌中，发现<font class="purple"><?=$count_promo?></font>个<?=$midcat?$midcat:$cat?>特卖</h3>
+		<h3 class="t">汇聚天猫TOP100品牌爆款，件件确保真实5折</h3>
 	</div>
 	<div style="display:block;">
 		<?php $i=0?>
 		<?php foreach($lists as $promo):?>
-		<?php if($promo['invalid'])continue?>
-			<?php if(strpos($promo['name'],'成人用品')||strpos($promo['name'],'情趣')||strpos($promo['name'],'神油')||strpos($promo['name'],'自慰')||strpos($promo['name'],'性用品'))continue?>
-			<?php if($i<3):?>
-				<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo, 'first'=>true))?>
-			<?php else:?>
-				<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
-			<?php endif;?>
-			<?php $i++?>
+		<?php //if($promo['invalid'])continue?>
+		<?php //if(strpos($promo['name'],'成人用品')||strpos($promo['name'],'情趣')||strpos($promo['name'],'神油')||strpos($promo['name'],'自慰')||strpos($promo['name'],'性用品'))continue?>
+		<?php if($i<3):?>
+			<?=$this->renderElement('promo_cat_goods_11', array('promo'=>$promo, 'first'=>true))?>
+		<?php else:?>
+			<?=$this->renderElement('promo_cat_goods_11', array('promo'=>$promo))?>
+		<?php endif;?>
+		<?php $i++?>
 		<?php endforeach?>
 	</div>
 </div>

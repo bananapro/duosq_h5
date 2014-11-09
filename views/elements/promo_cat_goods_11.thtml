@@ -1,0 +1,30 @@
+<?php
+	list($name, $sclick, $price_avg, $price_now, $pic_url) = explode('|', $promo);
+?>
+<dl class="promo-item-mod promo-brand-mod">
+	<a href="jump:<?=$sclick?>">
+		<div class="mod-img">
+			<div class="mod-mark mark-new">new</div>
+			<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/tmall.png"></span>
+			<?php if(@$first):?>
+				<img class="ui-imglazyload" src="<?=imageUrl(r(array('220x220','430x430','460x460','360x360','260x260'), '960x960', $pic_url), '362x457')?>"/>
+			<?php else:?>
+				<img class="ui-imglazyload" src="<?=imageUrl('/img/no_photo.png', '362x457')?>" data-url="<?=imageUrl(r(array('220x220','430x430','460x460','360x360','260x260'), '960x960', $pic_url), '362x457')?>"/>
+			<?php endif?>
+		</div>
+		<div class="mod-desc border-not">
+			<span class="color">【限双11】</span><?=$name?>
+		</div>
+		<div class="mod-price clearfix">
+			<div class="price-info">
+				<small>&yen;<?=priceYuan($price_now)?></small>
+				<del>&yen;<?=priceYuan($price_avg)?></del>
+			</div>
+			<?php if(!stripos($price_now, '?')):?>
+			<div class="price-rate"><?=rateDiff($price_now, $price_avg)/10?>折</div>
+			<?php else:?>
+			<div class="price-rate">双11惊喜价</div>
+			<?php endif?>
+		</div>
+	</a>
+</dl>

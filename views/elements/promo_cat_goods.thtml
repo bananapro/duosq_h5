@@ -1,14 +1,14 @@
-<div class="promo-item-mod promo-brand-mod">
-	<a href="jump:<?=promoUrl($promo['sp'], $promo['goods_id'], D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi'))?>">
+<dl class="promo-item-mod promo-brand-mod">
+	<a href="jump:<?=$promo['sclick']?$promo['sclick']:promoUrl($promo['sp'], $promo['goods_id'], D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi'))?>">
 		<div class="mod-img">
 			<?php if(isset($promo['is_new'])):?>
 				<div class="mod-mark mark-new">new</div>
 			<?php endif?>
 			<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>
 			<?php if($first):?>
-				<img class="ui-imglazyload" src="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $promo['pic_url']), '600x600')?>"/>
+				<img class="ui-imglazyload" src="<?=imageUrl(r(array('220x220','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url']), '362x457')?>"/>
 			<?php else:?>
-				<img class="ui-imglazyload" src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $promo['pic_url']), '600x600')?>"/>
+				<img class="ui-imglazyload" src="<?=imageUrl('/img/no_photo.png', '362x457')?>" data-url="<?=imageUrl(r(array('220x220','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url']), '362x457')?>"/>
 			<?php endif?>
 			<?php if($promo['invalid']):?><div class="st"><img src="<?=MY_STATIC_URL?>/img/promotion/st_<?=$promo['invalid']?>.png" /></div><?php endif?>
 		</div>
@@ -17,18 +17,15 @@
 		</div>
 		<div class="mod-price clearfix">
 			<div class="price-info">
-				<small>&yen;</small>
-				<strong><?=priceYuan($promo['price_now'])?></strong>
-				<del>90天实售&yen;<?=priceYuan($promo['price_avg'])?></del>
+				<small>&yen;<?=priceYuan($promo['price_now'])?></small>
+				<del>&yen;<?=priceYuan($promo['price_avg'])?></del>
 			</div>
-			<div class="get-fl color">
-				<strong>今日省<?=rateDiff($promo['price_now'], $promo['price_avg'])?>%</strong>
-			</div>
+			<div class="price-rate"><?=rateDiff($promo['price_now'], $promo['price_avg'])/10?>折</div>
 		</div>
 	</a>
-	<?php if(taobaoSp($promo['sp'])):?>
+	<?php if(taobaoSp($promo['sp']) && !isset($promo['sclick'])):?>
 		<div style="position:absolute;top:0;width:100%;height:100%;overflow:hidden">
 			<a data-type="0" biz-itemid="<?=$promo['url_id']?>" data-tmpl="1000x1000" data-tmplid="4548" data-rd="2" data-style="2" data-border="0" href="jump:<?=promoUrl($promo['sp'], $promo['goods_id'], D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi'))?>" style="display:block;width:100%;height:100%"></a>
 		</div>
 	<?php endif?>
-</div>
+</dl>
