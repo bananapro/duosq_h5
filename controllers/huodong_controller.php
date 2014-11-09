@@ -34,7 +34,7 @@ class HuodongController extends AppController {
 				$prize = 2;
 			}elseif($rand < 4){
 				$prize = 5;
-			}else{
+			}elseif($rand < 9){
 				$prize = 3;
 			}
 		}
@@ -53,7 +53,7 @@ class HuodongController extends AppController {
 			$this->set('need_vcode', true);
 		}
 
-		$this->set('title', '集分宝抽奖 - 每日必中哟~');
+		$this->set('title', '双11期间 - 高倍奖励全面开启！！');
 		$this->set('meta_keywords', '集分宝,集分宝签到,淘宝集分宝,支付宝集分宝,集分宝怎么用');
 		$this->set('meta_description', '每日赠送1w集分宝，大量赠送集分宝，永久有效，希望免费领集分宝的朋友赶紧来吧');
 	}

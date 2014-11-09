@@ -1,5 +1,7 @@
 <?php
 	list($name, $sclick, $price_avg, $price_now, $pic_url) = explode('|', $promo);
+	$price_avg = r(',', '', $price_avg);
+	$pic_url = r(',', '', $pic_url);
 ?>
 <dl class="promo-item-mod promo-brand-mod">
 	<a href="jump:<?=$sclick?>">
@@ -13,7 +15,7 @@
 			<?php endif?>
 		</div>
 		<div class="mod-desc border-not">
-			<span class="color">【限双11】</span><?=$name?>
+			<span class="color">【双11】</span><?=$name?>
 		</div>
 		<div class="mod-price clearfix">
 			<div class="price-info">
