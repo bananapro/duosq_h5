@@ -34,7 +34,7 @@ class HuodongController extends AppController {
 				$prize = 2;
 			}elseif($rand < 4){
 				$prize = 5;
-			}elseif($rand < 9){
+			}elseif($rand < 7){
 				$prize = 3;
 			}
 		}

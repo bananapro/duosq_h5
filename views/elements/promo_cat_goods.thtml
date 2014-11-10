@@ -20,7 +20,7 @@
 				<small>&yen;<?=priceYuan($promo['price_now'])?></small>
 				<del>&yen;<?=priceYuan($promo['price_avg'])?></del>
 			</div>
-			<div class="price-rate"><?=rateDiff($promo['price_now'], $promo['price_avg'])/10?>折</div>
+			<div class="price-rate"><?=discount($promo['price_now'], $promo['price_avg'])?>折</div>
 		</div>
 	</a>
 	<?php if(taobaoSp($promo['sp']) && !isset($promo['sclick'])):?>

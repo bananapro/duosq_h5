@@ -74,6 +74,13 @@ class PromotionController extends AppController {
 		$this->set('cat', $cat);
 		$this->set('midcat', $midcat);
 		$this->set('lists', $lists);
+
+		if($midcat){
+			$word = $midcat;
+		}else{
+			$word = $cat;
+		}
+		$this->set('title', '双11'.$word.'爆款，价格当日生效');
 		$this->render();
 	}
 

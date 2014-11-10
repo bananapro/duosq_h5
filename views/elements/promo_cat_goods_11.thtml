@@ -15,7 +15,7 @@
 			<?php endif?>
 		</div>
 		<div class="mod-desc border-not">
-			<span class="color">【双11】</span><?=$name?>
+			<span class="color"></span><?=$name?>
 		</div>
 		<div class="mod-price clearfix">
 			<div class="price-info">
@@ -23,7 +23,7 @@
 				<del>&yen;<?=priceYuan($price_avg)?></del>
 			</div>
 			<?php if(!stripos($price_now, '?')):?>
-			<div class="price-rate"><?=rateDiff($price_now, $price_avg)/10?>折</div>
+			<div class="price-rate"><?php if(isPrice($price_now)):?><?=discount($price_now, $price_avg)?>折<?php else:?>惊喜价<?php endif?></div>
 			<?php else:?>
 			<div class="price-rate">双11惊喜价</div>
 			<?php endif?>
