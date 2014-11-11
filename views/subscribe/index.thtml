@@ -1,5 +1,6 @@
 <?=navButton('订阅设置', urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting'))?>
 <style>
+body{background-color:#ECECEC;}
 .ui-loading {
 	width: 40px;
 	height: 40px;
@@ -95,7 +96,7 @@
 .ui-refresh .ui-refresh-down .ui-refresh-label{margin-left:5px;}
 </style>
 
-<?php if($lists):?>
+<div class="border-one-px"></div>
 <div class="ui-refresh">
 	<div class="ui-refresh-up"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
 	<ul class="data-list">
@@ -126,11 +127,10 @@
 	<div class="ui-refresh-down"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
 </div>
 
+
 <?php if(getVersion()<2):?><a class="wishlists" href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/cang')?>"><span></span>我的收藏</a><?php endif?>
-<?php endif?>
 
 <script>
-
 function bindClick(me){
 	$('.more').unbind("click").click(function(){
 		if(!this.myheight){

@@ -208,10 +208,11 @@ class ajaxSubscribeController extends AppController {
 			$height = '';
 		}
 
+		$i=0;
 		foreach($lists as $list){
 
 			if(@$list['more']){
-				$more = '<a class="more" ref="ablum_'.$list['id'].'" href="javascript:void(0)">more</a>';
+				$more = '<a class="more" ref="ablum_'.$list['id'].'_'.$i.'" href="javascript:void(0)">more</a>';
 			}else{
 				$more = '';
 			}
@@ -234,12 +235,12 @@ class ajaxSubscribeController extends AppController {
 			$data[] = array(
 				'html'=>'<li>
 				<a href="'.$jump.promoUrl($list['sp'], 0, $list['link']).'">
-					<div class="cover" id="ablum_'.$list['id'].'" style="'.$height.'"><img id="ablum_'.$list['id'].'_img" src="'.uploadImageUrl($list['cover_1']).'" width="100%"/></div>
+					<div class="cover" id="ablum_'.$list['id'].'_'.$i.'" style="'.$height.'"><img id="ablum_'.$list['id'].'_'.$i.'_img" src="'.uploadImageUrl($list['cover_1']).'" width="100%"/></div>
 					<dl><dd class="title"><span>'.tagLogo($list['sp'], 'width="100%"').'</span>'.$list['title'].'</dd>
 					<dd class="brand"></dd></dl></a>'.$more.$cang.'</li>',
 				'ablum_id'=>$list['id']
 			);
-
+			$i++;
 		}
 
 		$this->_success($data);
