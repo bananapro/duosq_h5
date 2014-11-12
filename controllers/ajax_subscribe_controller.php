@@ -201,29 +201,48 @@ class ajaxSubscribeController extends AppController {
 
 		$data = array();
 		$ablum_ids = array();
-		if(isset($_GET['width']) && intval($_GET['width'])>0){
-			$height = intval((intval($_GET['width'])-10)*0.625);
-			$height = 'height:'.$height.'px';
-		}else{
-			$height = '';
-		}
 
 		$i=0;
 		foreach($lists as $list){
 
-			if(@$list['more']){
-				$more = '<a class="more" ref="ablum_'.$list['id'].'_'.$i.'" href="javascript:void(0)">more</a>';
-			}else{
-				$more = '';
-			}
+			//首页模式
+			$h_mask = '';
 
-			if($mode == 'cang'){
-				$selected = ' cang-selected';
-			}else{
+			if($mode == 'index'){
+
 				$selected = false;
 				if(D('cang')->has($_GET['device_id'], $_GET['platform'], $list['id'])){
 					$selected = ' cang-selected';
 				}
+
+				if($_GET['width'] && $list['cover_width']){
+					$height = 'min-height:'.intval($list['cover_height']/($list['cover_width']/$_GET['width'])).'px';
+				}else{
+					$height = 'min-height:200px';
+				}
+
+				if($list['more']){
+					//显示长遮罩背景
+					$h_mask = 'class="h-mask"';
+				}
+
+			}else{
+				//收藏夹模式
+				/*
+				if($list['more']){
+					//显示more模式
+					$more = '<a class="more" ref="ablum_'.$list['id'].'_'.$i.'" href="javascript:void(0)">more</a>';
+				}
+				*/
+
+				if(isset($_GET['width']) && intval($_GET['width'])>0){
+					$height = intval((intval($_GET['width'])-10)*0.625);
+					$height = 'height:'.$height.'px';
+				}else{
+					$height = '';
+				}
+
+				$selected = ' cang-selected';
 			}
 
 			$cang = '<a class="cang'.$selected.'" href="javascript:void(0)" onclick="cang(this, '.$list['id'].')">cang</a>';
@@ -232,12 +251,18 @@ class ajaxSubscribeController extends AppController {
 			}else{
 				$jump = 'jump:';
 			}
+			if(isset($list['expire'])){
+				$expire = '<dd class="time">'.$list['expire'].'</dd>';
+			}else{
+				$expire_class = '<br >';
+			}
+
 			$data[] = array(
 				'html'=>'<li>
 				<a href="'.$jump.promoUrl($list['sp'], 0, $list['link']).'">
 					<div class="cover" id="ablum_'.$list['id'].'_'.$i.'" style="'.$height.'"><img id="ablum_'.$list['id'].'_'.$i.'_img" src="'.uploadImageUrl($list['cover_1']).'" width="100%"/></div>
-					<dl><dd class="title"><span>'.tagLogo($list['sp'], 'width="100%"').'</span>'.$list['title'].'</dd>
-					<dd class="brand"></dd></dl></a>'.$more.$cang.'</li>',
+					<dl '.$h_mask.'>'.$expire_class.'<dd class="brand"><span>'.tagIco($list['sp'], 'width="100%"').'</span>'.$list['brand_names'].'</dd><dd class="title">'.$list['title'].'</dd>'.$expire.'</dl>
+				</a>'.$more.$cang.'</li>',
 				'ablum_id'=>$list['id']
 			);
 			$i++;

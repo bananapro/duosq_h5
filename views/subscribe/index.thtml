@@ -110,17 +110,18 @@ body{background-color:#ECECEC;}
 				}
 			?>
 			<a href="<?=$jump?><?=promoUrl($list['sp'], 0, $list['link'])?>">
-				<div class="cover" id="ablum_<?=$list['id']?>"><img id="ablum_<?=$list['id']?>_img" src="<?=uploadImageUrl($list['cover_1'])?>" width="100%"/></div>
-				<dl>
-					<dd class="title"><span><?=tagLogo($list['sp'], 'width="100%"')?></span><?=$list['title']?></dd>
-					<dd class="brand"></dd>
+				<div class="cover" id="ablum_<?=$list['id']?>"><img id="ablum_<?=$list['id']?>_img" onload="reloadRefresh()" src="<?=uploadImageUrl($list['cover_1'])?>" width="100%"/></div>
+				<dl <?php if($list['more']):?>class="h-mask"<?php endif?>>
+					<?php if(!isset($list['expire'])):?><br /><?php endif?>
+					<dd class="brand"><span><?=tagIco($list['sp'], 'width="100%"')?></span><?=$list['brand_names']?></dd>
+					<dd class="title"><?=$list['title']?></dd>
+					<?php if(isset($list['expire'])):?>
+					<dd class="time"><?=$list['expire']?></dd>
+					<?php endif?>
 				</dl>
 			</a>
-			<?php if($list['more']):?><a class="more" ref="ablum_<?=$list['id']?>" href="javascript:void(0)">more</a><?php endif?>
+
 			<a class="cang<?php if(D('cang')->has($device_id, $platform, $list['id'])):?> cang-selected<?php endif?>" href="javascript:void(0)" onclick="cang(this, <?=$list['id']?>)">cang</a>
-			<?php if(isset($list['expire'])):?>
-			<div class="time clearfix"><div><?=$list['expire']?></div></div>
-            <?php endif?>
 		</li>
 		<?php endforeach?>
 	</ul>
@@ -144,9 +145,10 @@ function bindClick(me){
 		$(this).toggleClass('more-on');
 	})
 }
-showHint('当前已没新的特卖');
+
 var down_end = false;
 var display_ablums_min_id = <?=$list['id']?>;
+var global_reflesh = false;
 function initRefresh(){
 
 	//新版首页，固定好容器高度，开始支持拖动
@@ -214,6 +216,10 @@ function initRefresh(){
 	});
 }
 
+function reloadRefresh(){
+	global_reflesh.afterDataLoading('up');
+}
+
 //重新加载页面
 function doReload(){
 	location.reload();
@@ -227,7 +233,7 @@ function doRefresh(){
 $(function(){
 
 	//li单元自适应高度
-	$('.cover').height(($('body').width()-10)*0.625);
+	//$('.cover').height(($('body').width()-10)*0.625);
 	$('.hint').css('left', ($('body').width()/2-75)+'px');
 	initRefresh();
 })
