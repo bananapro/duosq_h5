@@ -25,7 +25,7 @@
 			<?php if(!stripos($price_now, '?')):?>
 			<div class="price-rate"><?php if(isPrice($price_now)):?><?=discount($price_now, $price_avg)?>折<?php else:?>惊喜价<?php endif?></div>
 			<?php else:?>
-			<div class="price-rate">双11惊喜价</div>
+			<div class="price-rate">惊喜价</div>
 			<?php endif?>
 		</div>
 	</a>
