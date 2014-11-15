@@ -1,6 +1,73 @@
-<div style="text-align:center;margin-top:120px">
-	<img src="<?=MY_STATIC_URL?>/img/logo.png" align="absmiddle">
-	<div style="padding:10px;margin:0 auto;font-size:14px; margin-top:20px;background-color:#FFF;border-radius:10px; border:1px solid #CBCBCB; line-height:40px; width:95%; -webkit-box-sizing: border-box;">
-	<a>发现首页筹划中!</a>&nbsp;
-	</div>
+<style>
+body{background-color:#ECECEC;}
+.faxian_b_tools{height:45px;width:100%;background-color:#FFF;padding-top:8px;box-sizing: border-box; color:#333; border-bottom:1px solid #E0E0E0}
+.faxian_b_tools .tools{width:33%;border-right:1px solid #E0E0E0;height:30px;text-align:center;line-height:30px;box-sizing: border-box;float:left; font-size:14px;}
+.faxian_b_tools .noborder{border:0}
+.faxian_b_tools img{margin-top:-2px}
+.faxian_b_tools a{color:#333}
+
+.faxian_b_jiukuaijiu{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:6px}
+.faxian_b_jiukuaijiu div{width:33%;float:left;font-size: 0;}
+
+.faxian_b_promo{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:6px;}
+</style>
+
+<div class="faxian_b_tools">
+	<a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/huodong')?>" target="_blank"><div class="tools"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-top1.png" width="18" height="18" style="vertical-align:middle" /> 每日抽奖</div></a>
+	<a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/charge')?>" target="_blank"><div class="tools"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-top2.png" width="18" height="18" style="vertical-align:middle" /> 充值</div></a>
+	<a href="jump:history:http://ai.m.taobao.com/bu.html?id=3&pid=mm_36614165_8052601_27736645"><div class="tools noborder"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-top3.png" width="18" height="18" style="vertical-align:middle" /> 彩票</div></a>
 </div>
+
+<div class="faxian_b_jiukuaijiu clearfix">
+	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9')?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c1.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode('居家'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c2.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode('女装'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c3.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode('美食'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c4.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode('男人'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c5.png" width="100%"></a></div>
+</div>
+
+<div class="faxian_b_promo">
+	<ul class="promo-list"></ul>
+</div>
+
+<div id="loading" class="more-loading"></div>
+
+<script>
+var down_page = 1;
+var locked = false;
+
+function load(){
+
+	if(locked)return;
+	locked = true;
+	if(down_page == 'end')return;
+	$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 正在加载收藏...');
+	call_url = '<?=urlWithParam(array(),'/ajaxPromotion/cat9/')?>&width='+$('body').width()+'&page='+down_page;
+
+	$.get(call_url, function (data) {
+
+		if(data != 'empty'){
+			var $list = $('.promo-list');
+			$list['append'](data);
+			$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
+			down_page++;
+		}else{
+			$('#loading').hide();
+			down_page = 'end';
+		}
+
+		locked = false;
+	});
+}
+
+$(function(){
+	load();
+	$(window).scroll( function() {
+		total_height = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+
+		if ($(document).height()-10 < total_height) {  // 说明滚动条已达底部
+			load();
+		}
+	});
+})
+</script>

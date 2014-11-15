@@ -1,0 +1,57 @@
+<div id="tab_nav" class="second-nav clearfix">
+	<ul class="ui-navigator-list">
+		<li><a class="J-nav-classify<?php if(!@$_GET['category']):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat9')?>">全部</a></li>
+		<?php $config = C('comm', 'category_9')?>
+		<?php foreach($config as $i_category => $value):?>
+		<li><a class="J-nav-classify<?php if(@$_GET['category'] == $i_category):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode($i_category))?>"><?=$i_category?></a></li>
+		<?php endforeach?>
+	</ul>
+</div>
+<section class="place-holder-nav"></section>
+<div class="promo-bd">
+	<div class="limit-hd clearfix">
+		<h3 class="t">每日10点，特卖大量上新，大量包邮</h3>
+	</div>
+	<ul class="promo-list"></ul>
+	<div id="loading" class="more-loading"></div>
+</div>
+
+<script>
+var down_page = 1;
+var locked = false;
+
+function load(){
+
+	if(locked)return;
+	locked = true;
+	if(down_page == 'end')return;
+	$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 正在加载收藏...');
+	call_url = '<?=urlWithParam(array(),'/ajaxPromotion/cat9/')?>&width='+$('body').width()+'&page='+down_page;
+
+	$.get(call_url, function (data) {
+
+		if(data != 'empty'){
+			var $list = $('.promo-list');
+			$list['append'](data);
+			$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
+			down_page++;
+		}else{
+			$('#loading').hide();
+			down_page = 'end';
+		}
+
+		locked = false;
+	});
+}
+
+$(function(){
+	load();
+	$(window).scroll( function() {
+		total_height = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+
+		if ($(document).height()-10 < total_height) {  // 说明滚动条已达底部
+			load();
+		}
+	});
+})
+</script>

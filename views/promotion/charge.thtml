@@ -1,0 +1,28 @@
+<style>
+body{background-color:#ECECEC;}
+#tk_box_1{margin: auto}
+</style>
+<div style="margin-top:80px">
+<a data-type="5" data-tmpl="300x200" data-tmplid="137" data-style="2" data-border="1" href="#"></a>
+</div>
+<script>
+(function(win,doc){
+
+	var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+	if (!win.alimamatk_show) {
+		s.charset = "gbk";
+		s.async = true;
+		s.src = "http://static.duosq.com/js/tkapi/tkapi.js";
+		h.insertBefore(s, h.firstChild);
+	};
+	var o = {
+		pid: "<?=C('keys', 'taobao_mm')?>",
+		appkey: "<?=C('keys', 'taobao_outcode_appkey')?>",
+		unid: "0",
+		rd:1
+	};
+
+	win.alimamatk_onload = win.alimamatk_onload || [];
+	win.alimamatk_onload.push(o);
+})(window,document);
+</script>

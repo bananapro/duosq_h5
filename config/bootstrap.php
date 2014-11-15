@@ -30,8 +30,7 @@ function promoUrl($sp, $goods_id, $url, $tc='app'){
 		if($sp == 'tmall' || $sp == 'taobao' || $sp == 'ju'){
 			//淘宝移动端hack跳转跟单
 			if($goods_id){
-				//$url = MY_WWW_URL .'/item-'.$sp.'-'.$goods_id.'?tc='.$tc;
-				$url = MY_WWW_URL . "/go/{$sp}?tc={$tc}&t=".urlencode($url);
+				$url = MY_WWW_URL .'/item-'.$sp.'-'.$goods_id.'?tc='.$tc;
 			}else{
 				//sclick模式|无跟单模式
 				$url = MY_WWW_URL . "/go/{$sp}?tc={$tc}&t=".urlencode($url);

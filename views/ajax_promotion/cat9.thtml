@@ -1,0 +1,3 @@
+<?php foreach($lists as $list):?>
+	<?=$this->renderElement('promo_cat_goods_9', array('promo' => $list))?>
+<?php endforeach?>

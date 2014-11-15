@@ -9,6 +9,7 @@ class PromotionController extends AppController {
 	//发现首页
 	function index(){
 
+		$this->set('title', '发现特卖');
 	}
 
 	//特卖分类商品列表
@@ -84,9 +85,24 @@ class PromotionController extends AppController {
 		$this->render();
 	}
 
+	//9.9分类列表
+	function cat9(){
+		if($_GET['category']){
+			$this->set('title', '9.9包邮 - '.urldecode($_GET['category']));
+		}else{
+			$this->set('title', '9.9包邮特惠');
+		}
+	}
+
+	//手机快速充值
+	function charge(){
+		$this->set('title', '自动匹配最优惠手机充值');
+	}
+
 	//搜索结果
 	function search(){
 
+		//直接跳转S8
 		$this->set('title', '特卖搜索结果');
 
 		$k = $_GET['k'];
@@ -97,6 +113,8 @@ class PromotionController extends AppController {
 		if(!$k){
 			$this->set('error', '关键词无效，请重新输入关键词!');
 		}else{
+
+			$this->redirect('http://s8.taobao.com/search?pid=mm_13127418_2548659_10790582&unid=0&q='.urlencode($k).'&taoke_type=1');
 			$promo_goods = array();
 
 			//模板需要用到常量

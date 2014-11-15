@@ -9,7 +9,7 @@
  */
 
 //define('DEBUG', 2); //调试用
-define('CACHE_DATA', true); //启用DATA缓存模块
+define('CACHE_DATA', false); //启用DATA缓存模块
 
 //自定义系统变量，MY_打头
 define('MY_CACHE_OCP', true); //动态压缩图片，缓存压缩结果
