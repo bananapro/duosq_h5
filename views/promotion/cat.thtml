@@ -1,54 +1,24 @@
-<?php if($cat == '服装鞋子' || $cat == '箱包配饰'):?>
 <div id="tab_nav" class="second-nav clearfix">
 	<ul class="ui-navigator-list">
-		<!--//双11临时改版-->
-		<!--<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat))?>">全部</a></li>-->
+		<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat))?>">全部</a></li>
 		<?php foreach($all_goods_cat[$cat] as $i_midcat => $subcats):?>
 		<li><a class="J-nav-classify<?php if($midcat == $i_midcat):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat).'/'.urlencode($i_midcat))?>"><?=$i_midcat?></a></li>
 		<?php endforeach?>
 	</ul>
 </div>
 <section class="place-holder-nav"></section>
-<?php endif?>
 <div><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/huodong')?>"><img src="<?=MY_STATIC_URL?>/img/adv/banner_jfb_huodong_small.png" style="width:100%"></a></div>
+<div class="limit-hd clearfix">
+	<h3 class="t">汇聚天猫TOP100品牌爆款，件件确保真实5折</h3>
+</div>
 <div class="promo-bd">
-	<div class="limit-hd clearfix">
-		<h3 class="t">汇聚天猫TOP100品牌爆款，件件确保真实5折</h3>
-	</div>
 	<div style="display:block;">
 		<?php $i=0?>
 		<?php foreach($lists as $promo):?>
-		<?php //双11临时改版?>
-		<?php //if($promo['invalid'])continue?>
-		<?php //if(strpos($promo['name'],'成人用品')||strpos($promo['name'],'情趣')||strpos($promo['name'],'神油')||strpos($promo['name'],'自慰')||strpos($promo['name'],'性用品'))continue?>
-		<?php if($i<3):?>
-			<?=$this->renderElement('promo_cat_goods_11', array('promo'=>$promo, 'first'=>true))?>
-		<?php else:?>
-			<?=$this->renderElement('promo_cat_goods_11', array('promo'=>$promo))?>
-		<?php endif;?>
+		<?php if($promo['invalid'])continue?>
+		<?php if(strpos($promo['name'],'成人用品')||strpos($promo['name'],'情趣')||strpos($promo['name'],'神油')||strpos($promo['name'],'自慰')||strpos($promo['name'],'性用品'))continue?>
+		<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
 		<?php $i++?>
 		<?php endforeach?>
 	</div>
 </div>
-
-<script>
-(function(win,doc){
-
-	var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
-	if (!win.alimamatk_show) {
-		s.charset = "gbk";
-		s.async = true;
-		s.src = "http://static.duosq.com/js/tkapi/tkapi.js";
-		h.insertBefore(s, h.firstChild);
-	};
-	var o = {
-		pid: "<?=C('keys', 'taobao_mm')?>",
-		appkey: "<?=C('keys', 'taobao_outcode_appkey')?>",
-		unid: "0",
-		rd:1
-	};
-
-	win.alimamatk_onload = win.alimamatk_onload || [];
-	win.alimamatk_onload.push(o);
-})(window,document);
-</script>

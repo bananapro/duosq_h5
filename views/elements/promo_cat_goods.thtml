@@ -1,31 +1,23 @@
 <dl class="promo-item-mod promo-brand-mod">
-	<a href="jump:<?=$promo['sclick']?$promo['sclick']:promoUrl($promo['sp'], $promo['goods_id'], D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi'))?>">
+	<a href="jump:<?=goodsUrl($promo['sp'], $promo['goods_id'])?>">
 		<div class="mod-img">
-			<?php if(isset($promo['is_new'])):?>
-				<div class="mod-mark mark-new">new</div>
-			<?php endif?>
-			<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>
-			<?php if($first):?>
-				<img class="ui-imglazyload" src="<?=imageUrl(r(array('220x220','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url']), '362x457')?>"/>
-			<?php else:?>
-				<img class="ui-imglazyload" src="<?=imageUrl('/img/no_photo.png', '362x457')?>" data-url="<?=imageUrl(r(array('220x220','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url']), '362x457')?>"/>
-			<?php endif?>
-			<?php if($promo['invalid']):?><div class="st"><img src="<?=MY_STATIC_URL?>/img/promotion/st_<?=$promo['invalid']?>.png" /></div><?php endif?>
+			<!--<div class="mod-mark mark-new">new</div>-->
+			<!--<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>-->
+			<img class="ui-imglazyload" src="<?=imageUrl('/img/no_photo.png', '362x457')?>" data-url="<?=imageUrl(r(array('220x220','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url']), '362x457')?>"/>
 		</div>
 		<div class="mod-desc border-not">
-			<?=strtotime($promo['hd_expire'])>0?'<span class="color">【限时'.date('n月d',strtotime($promo['hd_expire'])).'】</span>':''?><?=$promo['name']?>
+			<span class="color"></span><?=$promo['name']?>
 		</div>
 		<div class="mod-price clearfix">
 			<div class="price-info">
 				<small>&yen;<?=priceYuan($promo['price_now'])?></small>
 				<del>&yen;<?=priceYuan($promo['price_avg'])?></del>
 			</div>
-			<div class="price-rate"><?=discount($promo['price_now'], $promo['price_avg'])?>折</div>
+			<?php if(!stripos($promo['price_now'], '?')):?>
+			<div class="price-rate"><?php if(isPrice($promo['price_now'])):?><?=discount($promo['price_now'], $promo['price_avg'])?>折<?php else:?>惊喜价<?php endif?></div>
+			<?php else:?>
+			<div class="price-rate">惊喜价</div>
+			<?php endif?>
 		</div>
 	</a>
-	<?php if(taobaoSp($promo['sp']) && !isset($promo['sclick'])):?>
-		<div style="position:absolute;top:0;width:100%;height:100%;overflow:hidden">
-			<a data-type="0" biz-itemid="<?=$promo['url_id']?>" data-tmpl="1000x1000" data-tmplid="4548" data-rd="2" data-style="2" data-border="0" href="jump:<?=promoUrl($promo['sp'], $promo['goods_id'], D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi'))?>" style="display:block;width:100%;height:100%"></a>
-		</div>
-	<?php endif?>
 </dl>

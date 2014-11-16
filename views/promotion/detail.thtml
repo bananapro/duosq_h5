@@ -1,0 +1,62 @@
+<div class="promo-item promo-brand-mod">
+	<a href="<?=promoUrl($promo['sp'], $promo['goods_id'], D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi'))?>" target="_blank">
+		<div class="mod-img">
+			<?php if(isset($promo['is_new'])&&0):?>
+				<div class="mod-mark mark-new">new</div>
+			<?php endif?>
+			<div class="saled">月销量 <?=$promo['saled']?> &nbsp; 收藏数 <?=saledByRand($promo['name'])?></div>
+			<img src="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $promo['pic_url']), '600x600')?>" width="100%"/>
+		</div>
+		<div class="mod-desc border-not">
+			<?=strtotime($promo['hd_expire'])>0?'<span class="color">【限时'.date('n月d',strtotime($promo['hd_expire'])).'】</span>':''?><?=$promo['name']?>
+		</div>
+		<div class="mod-price clearfix">
+			<div class="price-info">
+				<small>&yen;<?=priceYuan($promo['price_now'])?></small>
+				<del>&yen;<?=priceYuan($promo['price_avg'])?></del>
+			</div>
+			<div class="get-fl color">
+				<strong>今日省<?=rateDiff($promo['price_now'], $promo['price_avg'])?>%</strong>
+			</div>
+		</div>
+		<div>
+			<?php if($promo['invalid'] == 'sell_out'):?>
+				<div id="submit-btn-enable" class="submit-btn">可能已售罄，去<?=D('shop')->getName($promo['sp'])?>看看 >></div>
+			<?php elseif($promo['invalid'] == 'invalid'):?>
+				<div id="submit-btn-enable" class="submit-btn">已下架，去<?=D('shop')->getName($promo['sp'])?>看看 >></div>
+			<?php else:?>
+				<?php if($promo && $promo['invalid']):?>
+					<div id="submit-btn-enable" class="submit-btn important">已涨价，跳转到<?=D('shop')->getName($promo['sp'])?>购买 >></div>
+				<?php else:?>
+					<div id="submit-btn-enable" class="submit-btn important">去<?=D('shop')->getName($promo['sp'])?>购买 >></div>
+				<?php endif?>
+			<?php endif?>
+		</div>
+	</a>
+	<?php if(taobaoSp($promo['sp'])):?>
+		<div style="position:absolute;top:0;width:100%;height:100%;overflow:hidden;">
+			<a data-type="0" biz-itemid="<?=$promo['url_id']?>" data-tmpl="1000x1000" data-tmplid="4547" data-rd="2" data-style="2" data-border="0" href="<?=promoUrl($promo['sp'], $promo['goods_id'], D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi'))?>" style="display:block;width:100%;height:100%"></a>
+		</div>
+	<?php endif?>
+</div>
+<script>
+(function(win,doc){
+
+	var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+	if (!win.alimamatk_show) {
+		s.charset = "gbk";
+		s.async = true;
+		s.src = "http://static.duosq.com/js/tkapi/tkapi.js";
+		h.insertBefore(s, h.firstChild);
+	};
+	var o = {
+		pid: "<?=C('keys', 'taobao_mm')?>",
+		appkey: "<?=C('keys', 'taobao_outcode_appkey')?>",
+		unid: "0",
+		rd:1
+	};
+
+	win.alimamatk_onload = win.alimamatk_onload || [];
+	win.alimamatk_onload.push(o);
+})(window,document);
+</script>

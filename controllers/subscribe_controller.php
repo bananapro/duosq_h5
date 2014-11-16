@@ -38,7 +38,7 @@ class SubscribeController extends AppController {
 	//消息列表，第一次进入配置页面
 	function index(){
 
-		$lists = D('ablum')->getNewAblum($this->device_id, $this->platform);
+		$lists = D('album')->getNewAlbum($this->device_id, $this->platform);
 		$this->set('lists', $lists);
 		$this->set('title', '最新特卖');
 	}

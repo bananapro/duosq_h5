@@ -117,7 +117,7 @@ class ajaxSubscribeController extends AppController {
 	}
 
 	//向上查询最新专辑
-	function getUpAblum(){
+	function getUpAlbum(){
 
 		$device_id = $_GET['device_id'];
 		$platform = @$_GET['platform'];
@@ -125,12 +125,12 @@ class ajaxSubscribeController extends AppController {
 			$this->_error('请安装最新版本应用程序！');
 		}
 
-		$lists = D('ablum')->getNewAblum($device_id, $platform, true);
-		$this->_rendAblumList($lists);
+		$lists = D('album')->getNewAlbum($device_id, $platform, true);
+		$this->_rendAlbumList($lists);
 	}
 
 	//向下查询旧专辑，算法改良，应该是上次看过的
-	function getDownAblum(){
+	function getDownAlbum(){
 
 		$device_id = $_GET['device_id'];
 		$platform = $_GET['platform'];
@@ -138,24 +138,24 @@ class ajaxSubscribeController extends AppController {
 			$this->_error('请安装最新版本应用程序！');
 		}
 
-		$lists = D('ablum')->getOldAblum($device_id, $platform);
-		$this->_rendAblumList($lists);
+		$lists = D('album')->getOldAlbum($device_id, $platform);
+		$this->_rendAlbumList($lists);
 	}
 
 	//添加或删除专辑收藏
 	function cangToggle(){
 
-		$ablum_id = intval($_GET['ablum_id']);
+		$album_id = intval($_GET['album_id']);
 		$device_id = $_GET['device_id'];
 		$platform = $_GET['platform'];
 		$action = $_GET['action'];
 
-		if(!$ablum_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+		if(!$album_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
 			$this->_error('请安装最新版本应用程序！');
 		}
 
 		//加锁防止当天重复提取任务
-		$lock = D()->redis('lock')->getlock(\Redis\Lock::LOCK_SUBSCRIBE_CANG, $account.':'.$ablum_id);
+		$lock = D()->redis('lock')->getlock(\Redis\Lock::LOCK_SUBSCRIBE_CANG, $account.':'.$album_id);
 		if(!$lock)die();
 
 		$detail = D('subscribe')->detail($device_id, $platform);
@@ -164,9 +164,9 @@ class ajaxSubscribeController extends AppController {
 		}
 
 		if($action == 'add'){
-			$ret = D('cang')->add($device_id, $platform, $ablum_id);
+			$ret = D('cang')->add($device_id, $platform, $album_id);
 		}else{
-			$ret = D('cang')->del($device_id, $platform, $ablum_id);
+			$ret = D('cang')->del($device_id, $platform, $album_id);
 		}
 
 		if($ret)
@@ -187,7 +187,7 @@ class ajaxSubscribeController extends AppController {
 		$lists = D('cang')->getList($this->Pagination, array('account'=>$device_id, 'channel'=>$platform, 'status'=>1), 4);
 
 		if($lists){
-			$this->_rendAblumList($lists, 'cang');
+			$this->_rendAlbumList($lists, 'cang');
 		}else{
 			if($_GET['page']>1){
 				$this->_error('无更多收藏！');
@@ -197,10 +197,10 @@ class ajaxSubscribeController extends AppController {
 		}
 	}
 
-	private function _rendAblumList($lists=array(), $mode='index'){
+	private function _rendAlbumList($lists=array(), $mode='index'){
 
 		$data = array();
-		$ablum_ids = array();
+		$album_ids = array();
 
 		$i=0;
 		foreach($lists as $list){
@@ -215,11 +215,7 @@ class ajaxSubscribeController extends AppController {
 					$selected = ' cang-selected';
 				}
 
-				if($_GET['width'] && $list['cover_width']){
-					$height = 'min-height:'.intval($list['cover_height']/($list['cover_width']/$_GET['width'])).'px';
-				}else{
-					$height = 'min-height:200px';
-				}
+
 
 				if($list['more']){
 					//显示长遮罩背景
@@ -231,18 +227,17 @@ class ajaxSubscribeController extends AppController {
 				/*
 				if($list['more']){
 					//显示more模式
-					$more = '<a class="more" ref="ablum_'.$list['id'].'_'.$i.'" href="javascript:void(0)">more</a>';
+					$more = '<a class="more" ref="album_'.$list['id'].'_'.$i.'" href="javascript:void(0)">more</a>';
 				}
 				*/
 
-				if(isset($_GET['width']) && intval($_GET['width'])>0){
-					$height = intval((intval($_GET['width'])-10)*0.625);
-					$height = 'height:'.$height.'px';
-				}else{
-					$height = '';
-				}
-
 				$selected = ' cang-selected';
+			}
+
+			if($_GET['width'] && $list['cover_width']){
+				$height = 'min-height:'.intval($list['cover_height']/($list['cover_width']/($_GET['width']-10))).'px';
+			}else{
+				$height = 'min-height:200px';
 			}
 
 			$cang = '<a class="cang'.$selected.'" href="javascript:void(0)" onclick="cang(this, '.$list['id'].')">cang</a>';
@@ -259,11 +254,11 @@ class ajaxSubscribeController extends AppController {
 
 			$data[] = array(
 				'html'=>'<li>
-				<a href="'.$jump.promoUrl($list['sp'], 0, $list['link']).'">
-					<div class="cover" id="ablum_'.$list['id'].'_'.$i.'" style="'.$height.'"><img id="ablum_'.$list['id'].'_'.$i.'_img" src="'.uploadImageUrl($list['cover_1']).'" width="100%"/></div>
-					<dl '.$h_mask.'>'.$expire_class.'<dd class="brand"><span>'.tagIco($list['sp'], 'width="100%"').'</span>'.$list['brand_names'].'</dd><dd class="title">'.$list['title'].'</dd>'.$expire.'</dl>
+				<a href="'.$jump.albumUrl($list['id']).'">
+					<div class="cover" id="album_'.$list['id'].'_'.$i.'" style="'.$height.'"><img id="album_'.$list['id'].'_'.$i.'_img" src="'.uploadImageUrl($list['cover_1']).'" width="100%"/>'.$expire.'</div>
+					<div class="title">'.$list['brand_names'].$list['title'].'</div>
 				</a>'.$more.$cang.'</li>',
-				'ablum_id'=>$list['id']
+				'album_id'=>$list['id']
 			);
 			$i++;
 		}

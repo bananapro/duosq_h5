@@ -27,20 +27,25 @@ function promoUrl($sp, $goods_id, $url, $tc='app'){
 	//获取跳转驱动
 	if(D('go')->getDriver($sp)){
 
-		if($sp == 'tmall' || $sp == 'taobao' || $sp == 'ju'){
-			//淘宝移动端hack跳转跟单
-			if($goods_id){
-				$url = MY_WWW_URL .'/item-'.$sp.'-'.$goods_id.'?tc='.$tc;
-			}else{
-				//sclick模式|无跟单模式
-				$url = MY_WWW_URL . "/go/{$sp}?tc={$tc}&t=".urlencode($url);
-			}
-		}else{
-			$url = MY_WWW_URL . "/go/{$sp}?tc={$tc}&t=".urlencode($url);
-		}
+		//sclick模式|taobao无跟单模式|B2C跟单跳转
+		$url = MY_WWW_URL . "/go/{$sp}?tc={$tc}&t=".urlencode($url);
 	}
 
 	return $url;
+}
+
+//专辑列表链接
+function albumUrl($album_id){
+
+	if(!$album_id)return;
+	return MY_HOMEPAGE_URL . '/promotion/album/'.$album_id;
+}
+
+//商品详情页
+function goodsUrl($sp, $goods_id){
+
+	if(!$sp || !$goods_id)return;
+	return MY_HOMEPAGE_URL . '/promotion/detail/'.$sp.'/'.$goods_id;
 }
 
 //获取APP版本

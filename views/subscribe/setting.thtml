@@ -1,7 +1,7 @@
 <div class="subscribe-options">
 	<!--<h1 class="purple">❤ 选择您要的特卖分类</h1>-->
 	<ul class="new-cat-options clearfix">
-		<?php $setting_type = 'setting_ablumcat'?>
+		<?php $setting_type = 'setting_albumcat'?>
 		<?php $options = C('options', 'subscribe_'.$setting_type)?>
 		<?php foreach($options as $value => $label):?>
 		<li ref="<?=$setting_type?>" class="clearfix <?=$setting_type?><?php if(in_array($value, $setting[$setting_type]))echo ' selected'?>" onclick="selectProfileMulti(this, '<?=$value?>')">
@@ -12,7 +12,7 @@
 		<?php endforeach?>
 	</ul>
 
-	<fieldset id="fieldset_girl" <?php if(!in_array(1, $setting['setting_ablumcat']) && !in_array(2, $setting['setting_ablumcat']))echo 'style="display:none"'?>>
+	<fieldset id="fieldset_girl" <?php if(!in_array(1, $setting['setting_albumcat']) && !in_array(2, $setting['setting_albumcat']))echo 'style="display:none"'?>>
 		<legend class="purple"><img src="<?=MY_STATIC_URL?>/img/app/avatar_girl.png" height="20" align="absmiddle"/> 女士个性定制</legend>
 		<div class="cat-options">
 		<ul>
@@ -22,12 +22,12 @@
 				<?php $display=''?>
 				<?php
 					if($setting_type=='setting_clothes_style_girl' || $setting_type=='setting_clothes_size_girl'){
-						if(!in_array(1, $setting['setting_ablumcat'])){
+						if(!in_array(1, $setting['setting_albumcat'])){
 							$display='style="display:none"';
 						}
 					}
 					if($setting_type=='setting_shoes_size_girl'){
-						if(!in_array(2, $setting['setting_ablumcat'])){
+						if(!in_array(2, $setting['setting_albumcat'])){
 							$display='style="display:none"';
 						}
 					}
@@ -46,7 +46,7 @@
 		</div>
 	</fieldset>
 
-	<fieldset id="fieldset_boy" <?php if(!in_array(5, $setting['setting_ablumcat']) && !in_array(6, $setting['setting_ablumcat']))echo 'style="display:none"'?>>
+	<fieldset id="fieldset_boy" <?php if(!in_array(5, $setting['setting_albumcat']) && !in_array(6, $setting['setting_albumcat']))echo 'style="display:none"'?>>
 		<legend class="blue"><img src="<?=MY_STATIC_URL?>/img/app/avatar_boy.png" height="20" align="absmiddle"/> 男士个性定制</legend>
 		<div class="cat-options">
 		<ul>
@@ -56,12 +56,12 @@
 				<?php $display=''?>
 				<?php
 					if($setting_type=='setting_clothes_style_boy' || $setting_type=='setting_clothes_size_boy'){
-						if(!in_array(5, $setting['setting_ablumcat'])){
+						if(!in_array(5, $setting['setting_albumcat'])){
 							$display='style="display:none"';
 						}
 					}
 					if($setting_type=='setting_shoes_size_boy'){
-						if(!in_array(6, $setting['setting_ablumcat'])){
+						if(!in_array(6, $setting['setting_albumcat'])){
 							$display='style="display:none"';
 						}
 					}
@@ -90,7 +90,7 @@ function selectProfileMulti(obj, value){
 	ref = $(obj).attr('ref');
 	if($(obj).attr('class').indexOf('selected') > 0){
 		saveOption(ref, value, 'del', function(){$(obj).removeClass('selected');})
-		if(ref == 'setting_ablumcat' && (value==1 || value==2)){
+		if(ref == 'setting_albumcat' && (value==1 || value==2)){
 
 			if(value==1){
 				$('#li_setting_clothes_style_girl').hide();
@@ -105,7 +105,7 @@ function selectProfileMulti(obj, value){
 			}
 		}
 
-		if(ref == 'setting_ablumcat' && (value==5 || value==6)){
+		if(ref == 'setting_albumcat' && (value==5 || value==6)){
 
 			if(value==5){
 				$('#li_setting_clothes_style_boy').hide();
@@ -122,7 +122,7 @@ function selectProfileMulti(obj, value){
 
 	}else{
 		saveOption(ref, value, 'add', function(){$(obj).addClass('selected');})
-		if(ref == 'setting_ablumcat' && (value==1 || value==2)){
+		if(ref == 'setting_albumcat' && (value==1 || value==2)){
 			$('#fieldset_girl').show();
 			if(value==1){
 				$('#li_setting_clothes_style_girl').show();
@@ -133,7 +133,7 @@ function selectProfileMulti(obj, value){
 			}
 		}
 
-		if(ref == 'setting_ablumcat' && (value==5 || value==6)){
+		if(ref == 'setting_albumcat' && (value==5 || value==6)){
 			$('#fieldset_boy').show();
 			if(value==5){
 				$('#li_setting_clothes_style_boy').show();

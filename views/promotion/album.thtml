@@ -1,0 +1,19 @@
+<div class="limit-hd clearfix">
+	<h3 class="t"><?=$album['title']?></h3>
+</div>
+<div class="promo-bd">
+	<div style="display:block;">
+
+		<?php if($lists):?>
+
+			<?php foreach($lists as $promo):?>
+				<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
+			<?php endforeach?>
+
+		<?php else:?>
+			<br />
+			<br />
+			<img src="<?=MY_STATIC_URL?>/img/app/album_error.png" width="100%"/>
+		<?php endif?>
+	</div>
+</div>

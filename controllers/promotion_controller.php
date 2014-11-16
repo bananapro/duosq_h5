@@ -12,6 +12,22 @@ class PromotionController extends AppController {
 		$this->set('title', '发现特卖');
 	}
 
+	//专辑特卖列表页
+	function album($album_id){
+
+		if($album_id){
+			$album = D('album')->detail($album_id);
+			//判断过期
+			if($album['status']){
+				$lists = D('album')->getGoods($album_id);
+				$this->set('lists', $lists);
+				$this->set('album', $album);
+			}
+		}
+
+		$this->set('title', $album['brand_names'] . $album['title']);
+	}
+
 	//特卖分类商品列表
 	function cat($cat, $midcat=''){
 
@@ -114,7 +130,7 @@ class PromotionController extends AppController {
 			$this->set('error', '关键词无效，请重新输入关键词!');
 		}else{
 
-			$this->redirect('http://s8.taobao.com/search?pid=mm_13127418_2548659_10790582&unid=0&q='.urlencode($k).'&taoke_type=1');
+			$this->redirect('http://s8.taobao.com/search?pid=mm_36614165_4544181_15182721&unid=0&q='.urlencode($k).'&taoke_type=1');
 			$promo_goods = array();
 
 			//模板需要用到常量
@@ -133,6 +149,7 @@ class PromotionController extends AppController {
 	}
 
 	//制造h5 referer头部进行淘宝hack跳转
+	//已废除
 	function jump(){
 
 		if(!$_GET['t'])die('参数错误');
@@ -140,6 +157,20 @@ class PromotionController extends AppController {
 		$this->layout = 'hint';
 		$this->set('title', '商品跳转中');
 		$this->set('tlink', $_GET['t']);
+	}
+
+	//商品详情页
+	function detail($sp, $goods_id){
+
+		if(!$sp || !$goods_id)$this->flash('参数错误，系统自动返回首页', '/', 2);
+
+		$promo = D('promotion')->promoDetail($sp, $goods_id);
+		$goods = D('promotion')->goodsDetail($sp, $goods_id);
+		if(!$goods)$this->redirect('/', 301);
+
+		$promo = D('promotion')->renderPromoDetail(array($promo));
+		$this->set('promo', array_pop($promo));
+		$this->set('title', $goods['name']);
 	}
 }
 ?>
