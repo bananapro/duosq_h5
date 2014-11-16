@@ -11,17 +11,14 @@
 <div class="limit-hd clearfix">
 	<h3 class="t">汇聚天猫TOP100品牌爆款，件件确保真实5折</h3>
 </div>
-<div class="promo-bd">
-	<div style="display:block;">
-		<?php $i=0?>
-		<?php foreach($lists as $promo):?>
-		<?php if($promo['invalid'])continue?>
-		<?php if(strpos($promo['name'],'成人用品')||strpos($promo['name'],'情趣')||strpos($promo['name'],'神油')||strpos($promo['name'],'自慰')||strpos($promo['name'],'性用品'))continue?>
-		<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
-		<?php $i++?>
-		<?php endforeach?>
-	</div>
+<div style="display:block;">
+	<?php foreach($lists as $promo):?>
+	<?php if($promo['invalid'])continue?>
+	<?php if(strpos($promo['name'],'成人用品')||strpos($promo['name'],'情趣')||strpos($promo['name'],'神油')||strpos($promo['name'],'自慰')||strpos($promo['name'],'性用品'))continue?>
+	<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
+	<?php endforeach?>
 </div>
+
 <script>
 $(function(){
 	$('#back_to_top').gotop({useAnimation:true,useHide:true,position:{bottom: 10, right: 10}});

@@ -72,5 +72,6 @@ $(function(){
 			load();
 		}
 	});
+	$('#back_to_top').gotop({useAnimation:true,useHide:true,position:{bottom: 10, right: 10}});
 })
 </script>

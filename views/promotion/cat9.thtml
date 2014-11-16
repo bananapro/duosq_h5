@@ -8,13 +8,11 @@
 	</ul>
 </div>
 <section class="place-holder-nav"></section>
-<div class="promo-bd">
-	<div class="limit-hd clearfix">
-		<h3 class="t">每日10点，特卖大量上新，大量包邮</h3>
-	</div>
-	<ul class="promo-list"></ul>
-	<div id="loading" class="more-loading"></div>
+<div class="limit-hd clearfix">
+	<h3 class="t">每日10点，特卖大量上新，大量包邮</h3>
 </div>
+<ul class="promo-list"></ul>
+<div id="loading" class="more-loading"></div>
 
 <script>
 var down_page = 1;
