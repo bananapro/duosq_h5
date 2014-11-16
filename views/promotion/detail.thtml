@@ -35,7 +35,7 @@
 	</a>
 	<?php if(taobaoSp($promo['sp'])):?>
 		<div style="position:absolute;top:0;width:100%;height:100%;overflow:hidden;">
-			<a data-type="0" biz-itemid="<?=$promo['url_id']?>" data-tmpl="1000x1000" data-tmplid="4547" data-rd="2" data-style="2" data-border="0" href="<?=promoUrl($promo['sp'], $promo['goods_id'], D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi'))?>" style="display:block;width:100%;height:100%"></a>
+			<a data-type="0" biz-itemid="<?=$promo['url_id']?>" data-tmpl="1000x1000" data-tmplid="4547" data-rd="2" data-style="2" data-border="0" href="#" style="display:block;width:100%;height:100%"></a>
 		</div>
 	<?php endif?>
 </div>

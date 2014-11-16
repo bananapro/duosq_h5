@@ -144,7 +144,7 @@ function bindClick(me){
 }
 
 var down_end = false;
-var display_albums_min_id = <?=$list['id']?>;
+var display_albums_min_id = <?=intval(@$list['id'])?>;
 var global_reflesh = false;
 function initRefresh(){
 
@@ -227,12 +227,16 @@ function doRefresh(){
 	//alert('点击了刷新!');
 }
 
+//zepto.gotop.iscroll.min
+(function(n){n.ui.gotop.register(function(){return{pluginName:"iscroll",_init:function(){var i=this,t=i._data,r=i.root(),n=t.iScrollInstance,u=n.options.onScrollMove,f=n.options.onScrollEnd;n.options.onScrollMove=function(){u&&u.call(n,arguments),t.useHide&&i.hide()},n.options.onScrollEnd=function(){f&&f.call(n,arguments),i._check(Math.abs(n.y)),t._scrollClick&&(i.trigger("afterScroll"),t._scrollClick=!1)};r.on("click",function(){t._scrollClick=!0,n.scrollTo(0,0)});i.on("destroy",function(){n.options.onScrollMove=u,n.options.onScrollEnd=f});return t.useFix&&r.fix(t.position),t.root=r[0],i}}})})(Zepto);
+
 $(function(){
 
 	//li单元自适应高度
 	//$('.cover').height(($('body').width()-10)*0.625);
 	$('.hint').css('left', ($('body').width()/2-75)+'px');
 	initRefresh();
+	$('#back_to_top').gotop({iScrollInstance:global_reflesh._data.iScroll,position:{bottom: 10, right: 10}});
 })
 
 </script>
