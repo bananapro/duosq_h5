@@ -53,5 +53,12 @@ $(function(){
 	});
 
 	$('#back_to_top').gotop({useAnimation:true,useHide:true,position:{bottom: 10, right: 10}});
+
+	//逼IOS旧版升级(iphone4无法看到抽奖页面)
+	<?php if(getBrowser() == 'ios' && getVersion()<2):?>
+	if(confirm('2.0新版发布，11月18号起集分宝抽奖正式开放大奖，请立刻升级') || 1){
+		window.location.href = 'https://itunes.apple.com/cn/app/te-mai-ding-yue/id908726457';
+	}
+	<?php endif?>
 })
 </script>

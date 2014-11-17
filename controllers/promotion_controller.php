@@ -31,12 +31,16 @@ class PromotionController extends AppController {
 	//特卖分类商品列表
 	function cat($cat, $midcat=''){
 
-		//双11临时改版
-		$this->cat11($cat, $midcat);
+
 		if(!$cat)
 			$cat = '服装鞋子';
 		else
 			$cat = urldecode($cat);
+
+		//map跳转到9.9分页
+		$cat2jiu = array('服装鞋子'=>'女装', '家居日用'=>'居家', '箱包配饰'=>'包包配饰', '美妆个护'=>'美妆', '母婴用品'=>'母婴', '美食生鲜'=>'美食', '家用电器'=>'数码家电', '手机数码'=>'数码家电');
+		$jiu = $cat2jiu[$cat];
+		$this->redirect('/promotion/cat9?category='.urlencode($jiu));
 
 		$all_goods_cat = D('promotion')->getCatConfig(true);
 		$cond = array();
@@ -63,42 +67,6 @@ class PromotionController extends AppController {
 		$this->set('cat', $cat);
 		$this->set('midcat', $midcat);
 		$this->set('all_goods_cat', $all_goods_cat);
-	}
-
-	//双11爆款分类
-	function cat11($cat, $midcat=''){
-
-		if(!$cat)
-			$cat = '服装鞋子';
-		else
-			$cat = urldecode($cat);
-
-		if($midcat)$midcat = urldecode($midcat);
-
-		$all_goods_cat = C('11_goods');
-
-		if($cat=='服装鞋子' && !$midcat)$midcat = '女装';
-		if($cat=='箱包配饰' && !$midcat)$midcat = '箱包';
-
-		if($midcat){
-			$lists = $all_goods_cat[$cat][$midcat];
-		}else{
-
-			$lists = $all_goods_cat[$cat];
-		}
-
-		$this->set('all_goods_cat', $all_goods_cat);
-		$this->set('cat', $cat);
-		$this->set('midcat', $midcat);
-		$this->set('lists', $lists);
-
-		if($midcat){
-			$word = $midcat;
-		}else{
-			$word = $cat;
-		}
-		$this->set('title', '双11'.$word.'爆款，价格当日生效');
-		$this->render();
 	}
 
 	//9.9分类列表

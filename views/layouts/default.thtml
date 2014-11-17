@@ -15,5 +15,4 @@
 	<?php echo $javascript->link(MY_STATIC_URL.'/js/h5_main');?>
 </head>
 	<body><div class="float-hint hide"></div><a id="back_to_top" href="javascript:;"></a><?=$content_for_layout;?><?=$cakeDebug?></body>
-	<div style="display:none"><script src="http://s95.cnzz.com/stat.php?id=1253580384&web_id=1253580384" language="JavaScript"></script></div>
 </html>
