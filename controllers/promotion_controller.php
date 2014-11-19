@@ -31,7 +31,6 @@ class PromotionController extends AppController {
 	//特卖分类商品列表
 	function cat($cat, $midcat=''){
 
-
 		if(!$cat)
 			$cat = '服装鞋子';
 		else
