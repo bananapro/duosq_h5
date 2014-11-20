@@ -4,6 +4,7 @@ class ajaxSubscribeController extends AppController {
 
 	var $name = 'ajaxSubscribe';
 	var $components = array('Pagination');
+	var $layout = 'ajax';
 
 	/**
 	 * 实时根据关键词进行品牌匹配
@@ -145,17 +146,18 @@ class ajaxSubscribeController extends AppController {
 	//添加或删除专辑收藏
 	function cangToggle(){
 
-		$album_id = intval($_GET['album_id']);
+		$id = $_GET['id'];
+		$type = $_GET['type'];
 		$device_id = $_GET['device_id'];
 		$platform = $_GET['platform'];
 		$action = $_GET['action'];
 
-		if(!$album_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+		if(!$id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android')) || !in_array($type, array('album','goods'))){
 			$this->_error('请安装最新版本应用程序！');
 		}
 
 		//加锁防止当天重复提取任务
-		$lock = D()->redis('lock')->getlock(\Redis\Lock::LOCK_SUBSCRIBE_CANG, $account.':'.$album_id);
+		$lock = D()->redis('lock')->getlock(\Redis\Lock::LOCK_SUBSCRIBE_CANG, $device_id.':'.$type.':'.$id);
 		if(!$lock)die();
 
 		$detail = D('subscribe')->detail($device_id, $platform);
@@ -164,9 +166,9 @@ class ajaxSubscribeController extends AppController {
 		}
 
 		if($action == 'add'){
-			$ret = D('cang')->add($device_id, $platform, $album_id);
+			$ret = D('cang')->add($device_id, $platform, $type, $id);
 		}else{
-			$ret = D('cang')->del($device_id, $platform, $album_id);
+			$ret = D('cang')->del($device_id, $platform, $type, $id);
 		}
 
 		if($ret)
@@ -176,23 +178,26 @@ class ajaxSubscribeController extends AppController {
 	}
 
 	//读取收藏专辑列表
-	function cangList(){
+	function cangList($type=''){
 
 		$device_id = $_GET['device_id'];
 		$platform = $_GET['platform'];
-		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))|| !in_array($type, array('album','goods'))){
 			$this->_error('请安装最新版本应用程序！');
 		}
 
-		$lists = D('cang')->getList($this->Pagination, array('account'=>$device_id, 'channel'=>$platform, 'status'=>1), 4);
+		$lists = D('cang')->getList($this->Pagination, $type, array('account'=>$device_id, 'channel'=>$platform, 'status'=>1), 6);
 
 		if($lists){
-			$this->_rendAlbumList($lists, 'cang');
+			if($type == 'album')
+				$this->_rendAlbumList($lists, 'cang');
+			else
+				$this->_rendGoodsList($lists, 'cang');
 		}else{
 			if($_GET['page']>1){
 				$this->_error('无更多收藏！');
 			}else{
-				$this->_error('您暂无收藏，点击 <img src="'.MY_STATIC_URL.'/img/app/p-cang.png" width="20" height="20" align="absmiddle" /> 即可收藏!');
+				$this->_success(array(array('html'=>'<dl class="no-cang"><dt><img src="http://static.sxedm1.com/assets/m/i/images/wish/activity.png"></dt></dl>')));
 			}
 		}
 	}
@@ -201,66 +206,22 @@ class ajaxSubscribeController extends AppController {
 
 		$data = array();
 		$album_ids = array();
+		$view = new View($this);
 
-		$i=0;
-		foreach($lists as $list){
+		foreach($lists as $album){
+			$data[] = array('html'=>$view->renderElement('promo_album', array('album'=>$album)), 'album_id'=>$album['id']);
+		}
 
-			//首页模式
-			$h_mask = '';
+		$this->_success($data);
+	}
 
-			if($mode == 'index'){
+	private function _rendGoodsList($lists=array()){
 
-				$selected = false;
-				if(D('cang')->has($_GET['device_id'], $_GET['platform'], $list['id'])){
-					$selected = ' cang-selected';
-				}
+		$this->action = '';
+		$view = new View($this);
 
-
-
-				if($list['more']){
-					//显示长遮罩背景
-					$h_mask = 'class="h-mask"';
-				}
-
-			}else{
-				//收藏夹模式
-				/*
-				if($list['more']){
-					//显示more模式
-					$more = '<a class="more" ref="album_'.$list['id'].'_'.$i.'" href="javascript:void(0)">more</a>';
-				}
-				*/
-
-				$selected = ' cang-selected';
-			}
-
-			if($_GET['width'] && $list['cover_width']){
-				$height = 'min-height:'.intval($list['cover_height']/($list['cover_width']/($_GET['width']-10))).'px';
-			}else{
-				$height = 'min-height:200px';
-			}
-
-			$cang = '<a class="cang'.$selected.'" href="javascript:void(0)" onclick="cang(this, '.$list['id'].')">cang</a>';
-			if(getVersion()>1){
-				$jump = 'jump:history:';
-			}else{
-				$jump = 'jump:';
-			}
-			if(isset($list['expire'])){
-				$expire = '<dd class="time">'.$list['expire'].'</dd>';
-			}else{
-				$expire_class = '<br >';
-			}
-
-			$data[] = array(
-				'html'=>'<li>
-				<a href="'.$jump.albumUrl($list['id']).'">
-					<div class="cover" id="album_'.$list['id'].'_'.$i.'" style="'.$height.'"><img id="album_'.$list['id'].'_'.$i.'_img" src="'.uploadImageUrl($list['cover_1']).'" width="100%"/>'.$expire.'</div>
-					<div class="title">'.$list['brand_names'].$list['title'].'</div>
-				</a>'.$more.$cang.'</li>',
-				'album_id'=>$list['id']
-			);
-			$i++;
+		foreach ($lists as $list) {
+			$data[] = array('html'=>$view->renderElement('promo_cat_goods', array('promo'=>$list)));
 		}
 
 		$this->_success($data);

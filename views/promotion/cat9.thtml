@@ -1,9 +1,12 @@
+<style>
+body{background:#FFF}
+</style>
 <div id="tab_nav" class="second-nav clearfix">
 	<ul class="ui-navigator-list">
-		<li><a class="J-nav-classify<?php if(!@$_GET['category']):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat9', 'category')?>">全部</a></li>
+		<li><a class="J-nav-classify<?php if(!@$_GET['category']):?> cur<?php endif?>" href="<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/cat9', 'category')?>">全部</a></li>
 		<?php $config = C('comm', 'category_9')?>
 		<?php foreach($config as $i_category => $value):?>
-		<li><a class="J-nav-classify<?php if(@$_GET['category'] == $i_category):?> cur<?php endif?>" href="<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode($i_category))?>"><?=$i_category?></a></li>
+		<li><a class="J-nav-classify<?php if(@$_GET['category'] == $i_category):?> cur<?php endif?>" href="<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode($i_category))?>"><?=$i_category?></a></li>
 		<?php endforeach?>
 	</ul>
 </div>

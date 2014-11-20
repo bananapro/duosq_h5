@@ -1,25 +1,28 @@
 <style>
-body{background-color:#ECECEC;}
+.cang_nav {background-color: #FFF;position: relative;margin-bottom: 8px;width: 100%;z-index: 444;}
+.cang_nav li {float: left;height: 16px;line-height: 16px;width: 50%;text-align: center;padding: 12px 0px 12px 0px;}
+.cang_nav li a {font-size: 14px;color: #414141;display: block;border-right: 1px solid #E5E5E5;}
+.cang_nav .on {border-bottom: 3px solid #FC2157;padding: 12px 0px 9px 0px;}
+.no-cang {margin:10px}
+.no-cang .list {background-color: #fff;width: 100%;}
+.no-cang dt img {display: block;width: 100%;min-height: 130px;}
+.no-cang dt {border-bottom:7px solid #FFF}
 </style>
-<div class="border-one-px"></div>
+
 <?php if(@$warning && !@$error):?><div class="subscribe-warning"><?=$warning?></div><?php endif?>
-<ul class="data-list">
+<ul class="cang_nav clearfix">
+	<li <?php if($type=='goods'):?>class="on"<?php endif?>><a href="<?=urlWithParam($_GET, '/subscribe/cang/goods')?>">宝贝收藏</a></li>
+	<li <?php if($type=='album'):?>class="on"<?php endif?>><a href="<?=urlWithParam($_GET, '/subscribe/cang/album')?>">活动收藏</a></li>
 </ul>
+
+<?php if($type=='album'):?>
+	<ul id="data" class="album-list"></ul>
+<?php elseif($type=='goods'):?>
+	<ul id="data" class="promo-list-two"></ul>
+<?php endif?>
+
 <div id="loading" class="more-loading"></div>
 <script>
-function bindClick(me){
-	$('.more').unbind("click").click(function(){
-		if(!this.myheight){
-			this.myheight = $('#'+$(this).attr('ref')).height();
-			$('#'+$(this).attr('ref')).animate({ height: $('#'+$(this).attr('ref')+'_img').height()}, 100, 'ease-in', function(){me.afterDataLoading('down');});
-
-		}else{
-			$('#'+$(this).attr('ref')).animate({ height: this.myheight}, 100, 'ease-in', function(){me.afterDataLoading('down');});
-			this.myheight = false;
-		}
-		$(this).toggleClass('on-more');
-	})
-}
 
 var down_page = 1;
 var locked = false;
@@ -29,13 +32,13 @@ function load(){
 	locked = true;
 	if(down_page == 'end')return;
 	$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 正在加载收藏...');
-	call_url = '<?=urlWithParam(array(),'/ajaxSubscribe/cangList')?>&width='+$('body').width()+'&page='+down_page;
+	call_url = '<?=urlWithParam(array(),'/ajaxSubscribe/cangList/'.$type)?>&width='+$('body').width()+'&page='+down_page;
 
 	$.getJSON(call_url, function (data) {
 
 		if(data.status == 1){
 
-			var $list = $('.data-list'),
+			var $list = $('#data'),
 				html = (function (data) {//数据渲染
 					var liArr = [];
 					$.each(data, function () {
@@ -54,6 +57,7 @@ function load(){
 				down_page = 'end';
 			}
 
+			$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.sxedm2.com/assets/m/i/images/placeholder/cat_detailScroll242x242.png" />'});
 		}else{
 			$('#loading').html(data.message);
 			down_page = 'end';

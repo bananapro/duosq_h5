@@ -1,45 +1,127 @@
-<div class="promo-item promo-brand-mod">
-	<a href="<?=promoUrl($promo['sp'], $promo['goods_id'], D('promotion')->buildUrl($promo['url_tpl'], $promo['url_id'], 'mobi'))?>" target="_blank">
+<div class="promo-item">
+	<a href="jump:<?=promoUrl($goods['sp'], $goods['id'], D('promotion')->buildUrl($goods['url_tpl'], $goods['url_id'], 'mobi'))?>">
 		<div class="mod-img">
 			<?php if(isset($promo['is_new'])&&0):?>
 				<div class="mod-mark mark-new">new</div>
 			<?php endif?>
-			<div class="saled">月销量 <?=$promo['saled']?> &nbsp; 收藏数 <?=saledByRand($promo['name'])?></div>
-			<img src="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $promo['pic_url']), '600x600')?>" width="100%"/>
+			<div class="saled">月销量 <?=$goods['saled']?$goods['saled']:saledByRand($goods['name'].'key')?> &nbsp; &nbsp; &nbsp; &nbsp; 收藏数 <?=saledByRand($goods['name'])?></div>
+			<img src="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $goods['pic_url']), '600x600')?>" width="100%"/>
+			<i class="cang <?php if(D('cang')->has($_GET['device_id'], $_GET['platform'], 'goods', $goods['sp'].':'.$goods['id'])):?> cang-selected<?php endif?>" onclick="return cang(this, 'goods', '<?=$goods['sp']?>:<?=$goods['id']?>')"></i>
 		</div>
 		<div class="mod-desc border-not">
-			<?=strtotime($promo['hd_expire'])>0?'<span class="color">【限时'.date('n月d',strtotime($promo['hd_expire'])).'】</span>':''?><?=$promo['name']?>
+			<?=strtotime($promo['hd_expire'])>0?'<span class="color">【限时'.date('n月d',strtotime($promo['hd_expire'])).'】</span>':''?><?=$goods['name_long']?$goods['name_long']:$goods['name']?>
 		</div>
 		<div class="mod-price clearfix">
 			<div class="price-info">
-				<small>&yen;<?=priceYuan($promo['price_now'])?></small>
-				<del>&yen;<?=priceYuan($promo['price_avg'])?></del>
+				<small>&yen;<?=priceYuan($promo['price_now']?$promo['price_now']:$goods['price_now'])?></small>
+				<?php if($promo['price_avg']):?><del>&yen;<?=priceYuan($promo['price_avg'])?></del><?php endif?>
 			</div>
-			<div class="get-fl color">
-				<strong>今日省<?=rateDiff($promo['price_now'], $promo['price_avg'])?>%</strong>
+			<div class="today">
+				<?php if($promo['price_avg']):?><strong>今日省<?=rateDiff($promo['price_now'], $promo['price_avg'])?>%</strong><?php endif?>
 			</div>
 		</div>
 		<div>
 			<?php if($promo['invalid'] == 'sell_out'):?>
-				<div id="submit-btn-enable" class="submit-btn">可能已售罄，去<?=D('shop')->getName($promo['sp'])?>看看 >></div>
+				<div class="submit-btn">已售罄，去<?=D('shop')->getName($promo['sp'])?>看看 >></div>
 			<?php elseif($promo['invalid'] == 'invalid'):?>
-				<div id="submit-btn-enable" class="submit-btn">已下架，去<?=D('shop')->getName($promo['sp'])?>看看 >></div>
+				<div class="submit-btn">已下架，去<?=D('shop')->getName($promo['sp'])?>看看 >></div>
 			<?php else:?>
 				<?php if($promo && $promo['invalid']):?>
-					<div id="submit-btn-enable" class="submit-btn important">已涨价，跳转到<?=D('shop')->getName($promo['sp'])?>购买 >></div>
+					<div class="submit-btn submit-btn-important">已涨价，跳转到<?=D('shop')->getName($promo['sp'])?>购买 >></div>
 				<?php else:?>
-					<div id="submit-btn-enable" class="submit-btn important">去<?=D('shop')->getName($promo['sp'])?>购买 >></div>
+					<div class="submit-btn submit-btn-important">去<?=D('shop')->getName($promo['sp'])?>购买</div>
 				<?php endif?>
 			<?php endif?>
 		</div>
 	</a>
-	<?php if(taobaoSp($promo['sp'])):?>
+	<?php if(taobaoSp($goods['sp']) && !isDevelop()):?>
 		<div style="position:absolute;top:0;width:100%;height:100%;overflow:hidden;">
-			<a data-type="0" biz-itemid="<?=$promo['url_id']?>" data-tmpl="1000x1000" data-tmplid="4547" data-rd="2" data-style="2" data-border="0" href="#" style="display:block;width:100%;height:100%"></a>
+			<a data-type="0" biz-itemid="<?=$goods['url_id']?>" data-tmpl="1000x1000" data-tmplid="4548" data-rd="2" data-style="2" data-border="0" href="jump:<?=promoUrl($goods['sp'], $goods['id'], D('promotion')->buildUrl($goods['url_tpl'], $goods['url_id'], 'mobi'))?>" style="display:block;width:100%;height:100%"></a>
 		</div>
 	<?php endif?>
 </div>
+<div class="promo-item">
+	<?php if(0):?>
+	<div class="shops">
+		<div class="shops_warp clearfix">
+			<dl class="shops_logo clearfix">
+				<dt>
+					<img src="http://img.sxedm2.com/uploads/brands/1696/1696_71b97fa8391b09b63d345ef96d074295.png" onerror="javascript:this.src='http://static.sxedm2.com/assets/m/i/images/placeholder/cat_detailLogo82x64.png'"></dt>
+				<dd>
+					<p class="name">comfast旗舰店</p>
+				</dd>
+			</dl>
+			<div class="go_shop">
+				<a page_click_button="去店铺" href="http://s.click.taobao.com/t?e=m%3D2%26s%3Dl5hMxNIu0EUcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMSPWNEzWF6F6MMgx22UI05alsz15bND7ZBpnEkk0GOdE6H8%2BXhYCepQDv7VuyS36HjueY8oZfGbK">进入店铺 <i></i></a>
+			</div>
+		</div>
+		<ul class="goodwill">
+			<li><span>描述相符&nbsp;<i>4.8</i></span></li>
+			<li><span>服务态度&nbsp;<i>4.7</i></span></li>
+			<li><span>发货速度&nbsp;<i>4.7</i></span></li>
+		</ul>
+	</div>
+	<?php endif?>
+
+	<?php if($goods['shop_id']&&0):?>
+	<div class="shops">
+		<a data-type="1" biz-sellerid="<?=$goods['shop_id']?>" data-tmpl="320x78" data-tmplid="4644" data-rd="2" data-style="2" data-border="1" href="#"></a>
+	</div>
+	<?php endif?>
+
+	<?php if($goods['comment'] && $comments = unserialize($goods['comment'])):?>
+	<div class="comment">
+		<div class="title">买家评论 (<?=count($comments)?>条)</div>
+		<dl>
+			<?php $head = array_slice($comments, 0 ,2)?>
+			<?php foreach($head as $comment):?>
+			<dt><?=$comment['user']?> <span>/<?=$comment['date']?></span></dt>
+			<dd><?=$comment['content']?></dd>
+			<?php endforeach?>
+
+			<?php if(count($comments)>2):?>
+			<?php $tail = array_slice($comments, 2)?>
+			<div class="more-comment" style="display:none">
+				<?php foreach($tail as $comment):?>
+				<dt><?=$comment['user']?> <span>/<?=$comment['date']?></span></dt>
+				<dd><?=$comment['content']?></dd>
+				<?php endforeach?>
+			</div>
+			<div class="more"><span class="t1" onclick="showMoreComment()">查看更多评论</span><span class="t2" onclick="hideMoreComment()">隐藏更多评论</span> &nbsp;<i></i></div>
+			<?php endif?>
+		</dl>
+	</div>
+	<?php endif?>
+
+	<?php if($goods['intro'] && (stripos($goods['intro'], 'ui-imglazyload')!==false || $images = unserialize($goods['intro']))):?>
+	<div class="intro">
+		<div class="title">图文详情</div>
+		<div class="content">
+			<?php if(isset($images)):?>
+				<?php foreach($images['images'] as $img):?>
+					<?php if(stripos($img, 'imglazyload')!==false)continue;?>
+					<?php if(stripos($img, '.gif')!==false)continue;?>
+					<div class="ui-imglazyload" data-url="<?=imageUrl($img, '640x')?>"></div>
+				<?php endforeach?>
+			<?php else:?>
+				<?=$goods['intro']?>
+			<?php endif?>
+		</div>
+	</div>
+	<?php endif?>
+</div>
 <script>
+function showMoreComment(){
+	$('.more').addClass('on');
+	$('.more-comment').show();
+}
+
+function hideMoreComment(){
+	$('.more').removeClass('on');
+	$('.more-comment').hide();
+}
+
+<?php if(taobaoSp($goods['sp']) && !isDevelop()):?>
 (function(win,doc){
 
 	var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
@@ -59,4 +141,9 @@
 	win.alimamatk_onload = win.alimamatk_onload || [];
 	win.alimamatk_onload.push(o);
 })(window,document);
+<?php endif?>
+
+$(function(){
+	$('#back_to_top').gotop({useAnimation:true,useHide:true,position:{bottom: 10, right: 10}});
+})
 </script>

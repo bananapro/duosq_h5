@@ -57,9 +57,12 @@ class SubscribeController extends AppController {
 	}
 
 	//我的收藏列表
-	function cang(){
+	function cang($type=''){
 
 		$push_token = @$_GET['push_token'];
+		$type = myisset($type, @$_COOKIE['default_cang_type']);
+		if(!$type) $type = 'goods';
+
 		if(!valid($push_token, 'push_token')){
 			$push_token = '';
 			$push_token = D('subscribe')->detail($this->device_id, $this->platform, 'push_token');
@@ -69,6 +72,8 @@ class SubscribeController extends AppController {
 			$this->set('warning', '请在“设置-通知”开启通知，以免错过特卖通知！');
 		}
 
+		setcookie('default_cang_type', $type, time()+YEAR, '/', CAKE_SESSION_DOMAIN);
+		$this->set('type', $type);
 		$this->set('title', '我的收藏');
 	}
 }

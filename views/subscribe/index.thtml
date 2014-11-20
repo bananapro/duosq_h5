@@ -1,6 +1,6 @@
 <?=navButton('订阅设置', urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting'))?>
 <style>
-body{background-color:#ECECEC;}
+body{background:#DADADA}
 .ui-loading {
 	width: 40px;
 	height: 40px;
@@ -100,24 +100,9 @@ body{background-color:#ECECEC;}
 <div class="border-one-px"></div>
 <div class="ui-refresh">
 	<div class="ui-refresh-up"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
-	<ul class="data-list">
-		<?php foreach($lists as $list):?>
-		<li class="clearfix">
-			<?php
-				if(getVersion()>1){
-					$jump = 'jump:history:';
-				}else{
-					$jump = 'jump:';
-				}
-			?>
-			<a href="<?=$jump?><?=albumUrl($list['id'])?>">
-				<div class="cover" id="album_<?=$list['id']?>"><img id="album_<?=$list['id']?>_img" onload="reloadRefresh()" src="<?=uploadImageUrl($list['cover_1'])?>" width="100%"/><div class="time"><?=$list['expire']?></div></div>
-				<div class="title"><?=$list['brand_names']?><?=$list['title']?></div>
-				<?php if(isset($list['expire'])):?>
-				<?php endif?>
-			</a>
-			<a class="cang<?php if(D('cang')->has($device_id, $platform, $list['id'])):?> cang-selected<?php endif?>" href="javascript:void(0)" onclick="cang(this, <?=$list['id']?>)">cang</a>
-		</li>
+	<ul class="album-list">
+		<?php foreach($lists as $album):?>
+			<?=$this->renderElement('promo_album', array('album'=>$album))?>
 		<?php endforeach?>
 	</ul>
 	<div class="ui-refresh-down"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
@@ -129,22 +114,9 @@ body{background-color:#ECECEC;}
 <?php if(getVersion()<2):?><a class="wishlists" href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/cang')?>"><span></span>我的收藏</a><?php endif?>
 
 <script>
-function bindClick(me){
-	$('.more').unbind("click").click(function(){
-		if(!this.myheight){
-			this.myheight = $('#'+$(this).attr('ref')).height();
-			$('#'+$(this).attr('ref')).animate({ height: $('#'+$(this).attr('ref')+'_img').height()}, 100, 'ease-in', function(){me.afterDataLoading('down');});
-
-		}else{
-			$('#'+$(this).attr('ref')).animate({ height: this.myheight}, 100, 'ease-in', function(){me.afterDataLoading('down');});
-			this.myheight = false;
-		}
-		$(this).toggleClass('more-on');
-	})
-}
 
 var down_end = false;
-var display_albums_min_id = <?=intval(@$list['id'])?>;
+var display_albums_min_id = <?=intval(@$album['id'])?>;
 var global_reflesh = false;
 function initRefresh(){
 
@@ -169,7 +141,7 @@ function initRefresh(){
 
 					if(data.message.length>0){
 
-						var $list = $('.data-list'),
+						var $list = $('.album-list'),
 							html = (function (data) {//数据渲染
 								var liArr = [];
 								$.each(data, function () {
@@ -185,8 +157,6 @@ function initRefresh(){
 							})(data.message);
 
 						$list[dir == 'up' ? 'prepend' : 'append'](html);
-
-						bindClick(me);
 
 						if(dir == 'up'){
 							//提示找到更新

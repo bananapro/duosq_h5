@@ -135,8 +135,13 @@ class PromotionController extends AppController {
 		$goods = D('promotion')->goodsDetail($sp, $goods_id);
 		if(!$goods)$this->redirect('/', 301);
 
-		$promo = D('promotion')->renderPromoDetail(array($promo));
-		$this->set('promo', array_pop($promo));
+		if(!$goods['name_long']){
+			$succ = D('promotion')->updateGoodsDeepInfo($sp, $goods_id, $goods['url_id']);
+			if($succ)$goods = array_merge($goods, $succ);
+		}
+
+		$this->set('promo', $promo);
+		$this->set('goods', $goods);
 		$this->set('title', $goods['name']);
 	}
 }

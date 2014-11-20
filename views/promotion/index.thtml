@@ -1,5 +1,4 @@
 <style>
-body{background-color:#ECECEC;}
 .faxian_b_tools{height:45px;width:100%;background-color:#FFF;box-sizing: border-box; color:#333; border-bottom:1px solid #E0E0E0}
 .faxian_b_tools .tools{width:100%;border-right:1px solid #E0E0E0;height:30px;text-align:center;line-height:30px;box-sizing: border-box;font-size:14px;}
 .faxian_b_tools .noborder{border:0}
@@ -42,7 +41,7 @@ function load(){
 	locked = true;
 	if(down_page == 'end')return;
 	$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 正在加载...');
-	call_url = '<?=urlWithParam(array(),'/ajaxPromotion/cat9/')?>&width='+$('body').width()+'&page='+down_page;
+	call_url = '<?=urlWithParam($_GET,'/ajaxPromotion/cat9/')?>&width='+$('body').width()+'&page='+down_page;
 
 	$.get(call_url, function (data) {
 

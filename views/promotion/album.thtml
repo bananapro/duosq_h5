@@ -1,19 +1,44 @@
+<style>
+.limit-hd .t .cang {
+position: absolute;
+top: 0px;
+right: 0px;
+width: 40px;
+height: 35px;
+overflow: hidden;
+display: block;
+background: url('<?=MY_STATIC_URL?>/img/app/p-cang.png') 8px 0 no-repeat;
+-webkit-background-size: 24px 24px;
+text-indent: -1000px;
+}
+
+.limit-hd .t .cang-selected {
+background: url('<?=MY_STATIC_URL?>/img/app/p-cang-on.png') 8px 0 no-repeat;
+-webkit-background-size: 24px 24px;
+}
+</style>
 <div class="limit-hd clearfix">
-	<h3 class="t"><?=$album['title']?></h3>
+	<h3 class="t">
+		剩余时间：<?=timeDiff(strtotime($album['expire_end']))?>
+		<a class="cang<?php if(D('cang')->has($_GET['device_id'], $_GET['platform'], 'album', $album['id'])):?> cang-selected<?php endif?>" href="javascript:void(0)" onclick="cang(this, 'album', <?=$album['id']?>)">cang</a>
+	</h3>
 </div>
-<div class="promo-bd">
-	<div style="display:block;">
+<div class="promo-list-two">
+	<?php if($lists):?>
+		<?php foreach($lists as $promo):?>
+			<?php
+				if(in_array(1, $album['setting_albumcat']) || in_array(5, $album['setting_albumcat'])){
+					$cover_size_type = 's';//竖
+				}else{
+					$cover_size_type = 'f';//方
+				}
+			?>
+			<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo, 'cover_size_type'=>$cover_size_type, 'no_cang'=>true))?>
+		<?php endforeach?>
 
-		<?php if($lists):?>
-
-			<?php foreach($lists as $promo):?>
-				<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
-			<?php endforeach?>
-
-		<?php else:?>
-			<br />
-			<br />
-			<img src="<?=MY_STATIC_URL?>/img/app/album_error.png" width="100%"/>
-		<?php endif?>
-	</div>
+	<?php else:?>
+		<br />
+		<br />
+		<img src="<?=MY_STATIC_URL?>/img/app/album_error.png" width="100%"/>
+	<?php endif?>
 </div>

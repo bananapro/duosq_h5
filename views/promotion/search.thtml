@@ -1,4 +1,4 @@
-<div class="promo-bd">
+<div class="promo-list-two">
 	<div class="limit-hd clearfix">
 
 		<?php if(!@$error):?>
