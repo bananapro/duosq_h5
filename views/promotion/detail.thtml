@@ -40,6 +40,11 @@
 		</div>
 	<?php endif?>
 </div>
+<?php if(in_array($_GET['device_id'], array('9ABA5F5F-AEBB-4B00-ADCF-9A287160C509', '71E47D29-ED86-4569-9916-FFF589E114F0'))):?>
+<div class="promo-item">
+	<a href='jump:<?=urlWithParam($_GET, 'http://admincp.duosq.com/Promotion/reviewDone/'.$goods['sp'].'/'.$goods['id'].'/1')?>'><div class="submit-btn submit-btn-important">隐藏特卖</div></a>
+</div>
+<?php endif?>
 <div class="promo-item">
 	<?php if(0):?>
 	<div class="shops">
