@@ -16,6 +16,7 @@ body{background:#FFF}
 </div>
 <ul class="promo-list"></ul>
 <div id="loading" class="more-loading"></div>
+<?php if(getVersion()<2):?><a class="wishlists" href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/cang')?>"><span></span>我的收藏</a><?php endif?>
 
 <script>
 var down_page = 1;

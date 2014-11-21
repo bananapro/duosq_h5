@@ -1,8 +1,8 @@
 <style>
 .cang_nav {background-color: #FFF;position: relative;margin-bottom: 8px;width: 100%;z-index: 444;}
-.cang_nav li {float: left;height: 16px;line-height: 16px;width: 50%;text-align: center;padding: 12px 0px 12px 0px;}
-.cang_nav li a {font-size: 14px;color: #414141;display: block;border-right: 1px solid #E5E5E5;}
-.cang_nav .on {border-bottom: 3px solid #FC2157;padding: 12px 0px 9px 0px;}
+.cang_nav a {display:block;float: left;height: 40px;line-height: 40px;width: 50%;text-align: center;box-sizing: border-box;border-right: 1px solid #E5E5E5;font-size: 14px;color: #414141;height: 40px;line-height: 40px;}
+.cang_nav a:last-of-type{border:0}
+.cang_nav a.on {border-bottom: 3px solid #FC2157;}
 .no-cang {margin:10px}
 .no-cang .list {background-color: #fff;width: 100%;}
 .no-cang dt img {display: block;width: 100%;min-height: 130px;}
@@ -10,10 +10,10 @@
 </style>
 
 <?php if(@$warning && !@$error):?><div class="subscribe-warning"><?=$warning?></div><?php endif?>
-<ul class="cang_nav clearfix">
-	<li <?php if($type=='goods'):?>class="on"<?php endif?>><a href="<?=urlWithParam($_GET, '/subscribe/cang/goods')?>">宝贝收藏</a></li>
-	<li <?php if($type=='album'):?>class="on"<?php endif?>><a href="<?=urlWithParam($_GET, '/subscribe/cang/album')?>">活动收藏</a></li>
-</ul>
+<div class="cang_nav clearfix">
+	<a href="<?=urlWithParam($_GET, '/subscribe/cang/goods')?>" <?php if($type=='goods'):?>class="on"<?php endif?>>宝贝收藏</a>
+	<a href="<?=urlWithParam($_GET, '/subscribe/cang/album')?>" <?php if($type=='album'):?>class="on"<?php endif?>>活动收藏</a>
+</div>
 
 <?php if($type=='album'):?>
 	<ul id="data" class="album-list"></ul>

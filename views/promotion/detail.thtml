@@ -115,6 +115,7 @@
 	</div>
 	<?php endif?>
 </div>
+<?php if(getVersion()<2):?><a class="wishlists" href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/cang')?>"><span></span>我的收藏</a><?php endif?>
 <script>
 function showMoreComment(){
 	$('.more').addClass('on');
