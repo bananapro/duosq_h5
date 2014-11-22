@@ -51,7 +51,7 @@ class ajaxSubscribeController extends AppController {
 			$this->_error('网络故障100，请返回重试！');
 		}
 
-		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+		if(!$device_id || !$platform){
 			$this->_error('请安装最新版本应用程序！');
 		}
 
@@ -71,15 +71,15 @@ class ajaxSubscribeController extends AppController {
 		}
 
 		$sess_id = $_GET['sess_id'];
-		$device_id = $_GET['device_id'];
-		$platform = @$_GET['platform'];
+		$device_id = device_id();
+		$platform = platform();
 		$push_token = @$_GET['push_token'];
 
 		if(!D('subscribe')->sessCheck($sess_id)){
 			$this->_error('网络故障200，请退出应用重试！');
 		}
 
-		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+		if(!$device_id || !$platform){
 			$this->_error('请安装最新版本应用程序！');
 		}
 
@@ -95,8 +95,8 @@ class ajaxSubscribeController extends AppController {
 	//直接保存订阅选项
 	function saveOptionNew(){
 
-		$device_id = $_GET['device_id'];
-		$platform = @$_GET['platform'];
+		$device_id = device_id();
+		$platform = platform();
 		$option = $_GET['option'];
 		$value = $_GET['value'];
 		$action = $_GET['action'];
@@ -105,7 +105,7 @@ class ajaxSubscribeController extends AppController {
 			$this->_error('网络故障300，请返回重试！');
 		}
 
-		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+		if(!$device_id || !$platform){
 			$this->_error('请安装最新版本应用程序！');
 		}
 
@@ -120,9 +120,9 @@ class ajaxSubscribeController extends AppController {
 	//向上查询最新专辑
 	function getUpAlbum(){
 
-		$device_id = $_GET['device_id'];
-		$platform = @$_GET['platform'];
-		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+		$device_id = device_id();
+		$platform = platform();
+		if(!$device_id || !$platform){
 			$this->_error('请安装最新版本应用程序！');
 		}
 
@@ -133,9 +133,9 @@ class ajaxSubscribeController extends AppController {
 	//向下查询旧专辑，算法改良，应该是上次看过的
 	function getDownAlbum(){
 
-		$device_id = $_GET['device_id'];
-		$platform = $_GET['platform'];
-		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+		$device_id = device_id();
+		$platform = platform();
+		if(!$device_id || !$platform){
 			$this->_error('请安装最新版本应用程序！');
 		}
 
@@ -148,11 +148,11 @@ class ajaxSubscribeController extends AppController {
 
 		$id = $_GET['id'];
 		$type = $_GET['type'];
-		$device_id = $_GET['device_id'];
-		$platform = $_GET['platform'];
+		$device_id = device_id();
+		$platform = platform();
 		$action = $_GET['action'];
 
-		if(!$id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android')) || !in_array($type, array('album','goods'))){
+		if(!$id || !$device_id || !$platform || !in_array($type, array('album','goods'))){
 			$this->_error('请安装最新版本应用程序！');
 		}
 
@@ -180,9 +180,9 @@ class ajaxSubscribeController extends AppController {
 	//读取收藏专辑列表
 	function cangList($type=''){
 
-		$device_id = $_GET['device_id'];
-		$platform = $_GET['platform'];
-		if(!valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))|| !in_array($type, array('album','goods'))){
+		$device_id = device_id();
+		$platform = platform();
+		if(!$device_id || !$platform|| !in_array($type, array('album','goods'))){
 			$this->_error('请安装最新版本应用程序！');
 		}
 

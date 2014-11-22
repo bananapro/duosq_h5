@@ -17,8 +17,10 @@ class AppController extends Controller {
 		$push_token = @$_GET['push_token'];
 
 		D('subscribe')->savePushToken($device_id, $platform, $push_token);
-		//种下APP来源cookie
-		setcookie('jump_app', 1, time()+WEEK, '/', CAKE_SESSION_DOMAIN);
+		//种下device_id && platform && push_token
+		if($device_id)setcookie('device_id', $device_id, time()+DAY, '/', CAKE_SESSION_DOMAIN);
+		if($platform)setcookie('platform', $platform, time()+DAY, '/', CAKE_SESSION_DOMAIN);
+		if($push_token)setcookie('push_token', $push_token, time()+DAY, '/', CAKE_SESSION_DOMAIN);
 	}
 
 	//自动识别ajax

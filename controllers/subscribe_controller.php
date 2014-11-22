@@ -9,10 +9,11 @@ class SubscribeController extends AppController {
 
 	function beforeFilter(){
 
-		$device_id = @$_GET['device_id'];
-		$platform = @$_GET['platform'];
+		parent::beforeFilter();
+		$device_id = device_id();
+		$platform = platform();
 
-		if(!$device_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+		if(!$device_id || !$platform){
 			die('请下载最新应用');
 		}
 
@@ -59,11 +60,11 @@ class SubscribeController extends AppController {
 	//我的收藏列表
 	function cang($type=''){
 
-		$push_token = @$_GET['push_token'];
+		$push_token = pushToken();
 		$type = myisset($type, @$_COOKIE['default_cang_type']);
 		if(!$type) $type = 'goods';
 
-		if(!valid($push_token, 'push_token')){
+		if(!$push_token){
 			$push_token = '';
 			$push_token = D('subscribe')->detail($this->device_id, $this->platform, 'push_token');
 		}

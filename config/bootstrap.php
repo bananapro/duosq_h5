@@ -54,4 +54,28 @@ function getVersion(){
 	$ver = intval(@$_GET['app_ver']);
 	return $ver;
 }
+
+//获取device_id
+function device_id(){
+
+	$device_id = @$_GET['device_id']?$_GET['device_id']:$_COOKIE['device_id'];
+	if(!valid($device_id, 'device_id'))return false;
+	return $device_id;
+}
+
+//获取platform
+function platform(){
+
+	$platform = @$_GET['platform']?$_GET['platform']:$_COOKIE['platform'];
+	if(!in_array($platform, array('ios','android')))return false;
+	return $platform;
+}
+
+//获取push_token
+function pushToken(){
+
+	$push_token = @$_GET['push_token']?$_GET['push_token']:$_COOKIE['push_token'];
+	if(!in_array($push_token, array('ios','android')))return false;
+	return $push_token;
+}
 ?>

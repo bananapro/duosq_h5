@@ -6,10 +6,10 @@ class HuodongController extends AppController {
 
 	function beforeFilter(){
 
-		$device_id = @$_GET['device_id'];
-		$platform = @$_GET['platform'];
+		$device_id = device_id();
+		$platform = platform();
 
-		if(!$device_id || !valid($device_id, 'device_id') || !in_array($platform, array('ios','android'))){
+		if(!$device_id || !$platform){
 			die('请下载最新应用');
 		}
 	}
@@ -62,7 +62,7 @@ class HuodongController extends AppController {
 			}
 		}
 
-		$alipay = D('subscribe')->getAlipay($_GET['device_id'], $_GET['platform']);
+		$alipay = D('subscribe')->getAlipay(device_id(), platform());
 
 		if(!$alipay){
 			$alipay = @$_GET['alipay'];
@@ -87,7 +87,7 @@ class HuodongController extends AppController {
 
 			if(!$ret)$this->redirect(urlWithParam($_GET+array('hint'=>'系统登录错误，请重试'), '/huodong'));
 
-			if($no_relative_alipay)D('subscribe')->saveAlipay($_GET['device_id'], $_GET['platform'], $alipay);
+			if($no_relative_alipay)D('subscribe')->saveAlipay(device_id(), platform(), $alipay);
 
 			//判断是否恶意注册
 			if(!$exist)D('protect')->attackReg();
@@ -106,7 +106,7 @@ class HuodongController extends AppController {
 			$ret = D('myuser')->changeAlipay($alipay, $err);
 			if(!$ret)$this->redirect(urlWithParam($_GET+array('hint'=>$err), '/huodong'));
 
-			D('subscribe')->saveAlipay($_GET['device_id'], $_GET['platform'], $alipay);
+			D('subscribe')->saveAlipay(device_id(), platform(), $alipay);
 
 		}else{
 			die('您尚未输入支付宝!');

@@ -39,7 +39,7 @@ class PromotionController extends AppController {
 		//map跳转到9.9分页
 		$cat2jiu = array('服装鞋子'=>'女装', '家居日用'=>'居家', '箱包配饰'=>'包包配饰', '美妆个护'=>'美妆', '母婴用品'=>'母婴', '美食生鲜'=>'美食', '家用电器'=>'数码家电', '手机数码'=>'数码家电');
 		$jiu = $cat2jiu[$cat];
-		$this->redirect('/promotion/cat9?category='.urlencode($jiu));
+		$this->redirect(urlWithParam($_GET, '/promotion/cat9?category='.urlencode($jiu)));
 
 		$all_goods_cat = D('promotion')->getCatConfig(true);
 		$cond = array();
