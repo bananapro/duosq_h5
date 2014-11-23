@@ -16,9 +16,9 @@
 </div>
 
 <?php if($type=='album'):?>
-	<ul id="data" class="album-list"></ul>
+	<ul id="data" class="album-list clearfix"></ul>
 <?php elseif($type=='goods'):?>
-	<ul id="data" class="promo-list-two"></ul>
+	<ul id="data" class="promo-list-two clearfix"></ul>
 <?php endif?>
 
 <div id="loading" class="more-loading"></div>
@@ -52,7 +52,7 @@ function load(){
 			down_page++;
 
 			//防止第一次加载不够拖动距离，永远出现“下拉加载更多”
-			if(data.message.length < 4){
+			if(data.message.length < 5){
 				$('#loading').hide();
 				down_page = 'end';
 			}
@@ -61,6 +61,7 @@ function load(){
 		}else{
 			$('#loading').html(data.message);
 			down_page = 'end';
+			$('#loading').hide();
 		}
 
 		locked = false;
@@ -78,4 +79,6 @@ $(function(){
 	});
 	$('#back_to_top').gotop({useAnimation:true,useHide:true,position:{bottom: 10, right: 10}});
 })
+
+
 </script>
