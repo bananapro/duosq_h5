@@ -57,7 +57,7 @@ function load(){
 				down_page = 'end';
 			}
 
-			//$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.sxedm2.com/assets/m/i/images/placeholder/cat_detailScroll242x242.png" />'});
+			$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.sxedm2.com/assets/m/i/images/placeholder/cat_detailScroll242x242.png" />'});
 		}else{
 			$('#loading').html(data.message);
 			down_page = 'end';
