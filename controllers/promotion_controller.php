@@ -9,6 +9,27 @@ class PromotionController extends AppController {
 	//发现首页
 	function index(){
 
+		//特卖分类各出一副图
+		$config = C('comm', 'category');
+
+		D()->db('promotion.queue_promo');
+		$first_temai = array();
+		foreach($config as $category_name => $subcat_config){
+			$cond = array();
+			if(is_array($subcat_config)){
+				foreach ($subcat_config as $subcat_name => $subcat_condition) {
+					$cond['subcat'] = array_merge(@(array)$cond['subcat'], $subcat_condition);
+				}
+			}else{
+				$cond['cat'] = explode(',', $subcat_config);
+			}
+
+			$cond['type'] = \DB\QueuePromo::TYPE_DISCOUNT;
+			$lists = D('promotion')->getList($this->Pagination, $cond, 1, false);
+			$first_temai[$category_name] = $lists[0];
+		}
+
+		$this->set('first_temai', $first_temai);
 		$this->set('title', '发现特卖');
 	}
 
@@ -29,52 +50,38 @@ class PromotionController extends AppController {
 	}
 
 	//特卖分类商品列表
-	function cat($cat, $midcat=''){
+	function cat($category='', $category_sub=''){
 
-		if(!$cat)
-			$cat = '服装鞋子';
-		else
-			$cat = urldecode($cat);
+		$category = urldecode($category);
+		$category_sub = urldecode($category_sub);
 
-		//map跳转到9.9分页
-		$cat2jiu = array('服装鞋子'=>'女装', '家居日用'=>'居家', '箱包配饰'=>'包包配饰', '美妆个护'=>'美妆', '母婴用品'=>'母婴', '美食生鲜'=>'美食', '家用电器'=>'数码家电', '手机数码'=>'数码家电');
-		$jiu = $cat2jiu[$cat];
-		$this->redirect(urlWithParam($_GET, '/promotion/cat9?category='.urlencode($jiu)));
-
-		$all_goods_cat = D('promotion')->getCatConfig(true);
-		$cond = array();
-		$cond['cat'] = $cat;
-		if($midcat){
-			$midcat = urldecode($midcat);
-			$cond['subcat'] = D('promotion')->midcat2subcat($midcat);
-
-			//临时屏蔽成人内容
-			if($key = array_search('成人用品', $cond['subcat'])){
-				unset($cond['subcat'][$key]);
-			}
+		//map跳转APP旧版分类到新分类
+		$cat2jiu = array('服装鞋子'=>'女装', '家居日用'=>'居家', '箱包配饰'=>'鞋包饰', '美妆个护'=>'美妆', '母婴用品'=>'母婴', '美食生鲜'=>'美食', '家用电器'=>'数码', '手机数码'=>'数码');
+		if(isset($cat2jiu[$category])){
+			$category = $cat2jiu[$category];
 		}
 
-		$lists = D('promotion')->getList($this->Pagination, $cond, C('comm', 'h5_promo_cat_goods_pre_page'), false);
-
-		if($midcat){
-			$this->set('title', '今日'.$midcat.'特卖');
+		if($category_sub){
+			$this->set('title', '今日'.$category_sub.'特卖');
+		}elseif($category){
+			$this->set('title', '今日'.$category.'特卖');
 		}else{
-			$this->set('title', '今日'.$cat.'特卖');
+			$this->set('title', '今日精选特卖');
 		}
-
-		$this->set('lists', $lists);
-		$this->set('cat', $cat);
-		$this->set('midcat', $midcat);
-		$this->set('all_goods_cat', $all_goods_cat);
+		$this->set('category', $category);
+		$this->set('category_sub', $category_sub);
 	}
 
-	//9.9分类列表
-	function cat9(){
-		if($_GET['category']){
-			$this->set('title', '9.9包邮 - '.urldecode($_GET['category']));
+	//9.9分类商品列表
+	function cat9($category=''){
+
+		if($category){
+			$category = urldecode($category);
+			$this->set('title', '9.9包邮 - '.$category);
 		}else{
 			$this->set('title', '9.9包邮特惠');
 		}
+		$this->set('category', $category);
 	}
 
 	//手机快速充值
@@ -135,7 +142,7 @@ class PromotionController extends AppController {
 		$goods = D('promotion')->goodsDetail($sp, $goods_id);
 		if(!$goods)$this->redirect('/', 301);
 
-		if(!$goods['name_long']){
+		if(!$goods['shop_id']){
 			$succ = D('promotion')->updateGoodsDeepInfo($sp, $goods_id, $goods['url_id']);
 			if($succ)$goods = array_merge($goods, $succ);
 		}

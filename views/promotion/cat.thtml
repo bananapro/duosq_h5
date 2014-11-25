@@ -1,29 +1,70 @@
-<style>
-body{background:#FFF}
-</style>
+<?php
+	$config = C('comm', 'category');
+	$config_category = $config[$category];
+	if(is_array($config_category)):
+?>
 <div id="tab_nav" class="second-nav clearfix">
 	<ul class="ui-navigator-list">
-		<li><a class="J-nav-classify<?php if(!$midcat):?> cur<?php endif?>" href="<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat))?>">全部</a></li>
-		<?php foreach($all_goods_cat[$cat] as $i_midcat => $subcats):?>
-		<li><a class="J-nav-classify<?php if($midcat == $i_midcat):?> cur<?php endif?>" href="<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($cat).'/'.urlencode($i_midcat))?>"><?=$i_midcat?></a></li>
+		<li><a class="J-nav-classify<?php if(!$category_sub):?> cur<?php endif?>" href="<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($category))?>">全部</a></li>
+		<?php foreach($config_category as $subcat_name => $config_subcat):?>
+		<li><a class="J-nav-classify<?php if($subcat_name == $category_sub):?> cur<?php endif?>" href="<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($category).'/'.urlencode($subcat_name))?>"><?=$subcat_name?></a></li>
 		<?php endforeach?>
 	</ul>
 </div>
 <section class="place-holder-nav"></section>
+<?php endif;?>
 <div class="limit-hd clearfix">
-	<h3 class="t">汇聚天猫TOP100品牌爆款，件件确保款式质量</h3>
+	<h3 class="t">每日上新，合作商家限时特卖，3天活动期</h3>
 </div>
-<div style="display:block;">
-	<?php foreach($lists as $promo):?>
-	<?php if($promo['invalid'])continue?>
-	<?php if(strpos($promo['name'],'成人用品')||strpos($promo['name'],'情趣')||strpos($promo['name'],'神油')||strpos($promo['name'],'自慰')||strpos($promo['name'],'性用品'))continue?>
-	<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo))?>
-	<?php endforeach?>
-</div>
+<ul class="promo-list-two"></ul>
+<div id="loading" class="more-loading"></div>
 <?php if(getVersion()<2):?><a class="wishlists" href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/cang')?>"><span></span>我的收藏</a><?php endif?>
 
 <script>
+var down_page = 1;
+var locked = false;
+
+function load(){
+
+	if(locked)return;
+	locked = true;
+	if(down_page == 'end')return;
+	$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 正在加载...');
+	call_url = '<?=urlWithParam($_GET+array('category'=>$category, 'category_sub'=>$category_sub),'/ajaxPromotion/cat/')?>&page='+down_page;
+
+	$.get(call_url, function (data) {
+
+		if(data != 'empty'){
+			var $list = $('.promo-list-two');
+			$list['append'](data);
+			$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
+			down_page++;
+		}else{
+			$('#loading').hide();
+			down_page = 'end';
+		}
+
+		locked = false;
+	});
+}
+
 $(function(){
+	load();
+	$(window).scroll( function() {
+		total_height = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+
+		if ($(document).height()-10 < total_height) {  // 说明滚动条已达底部
+			load();
+		}
+	});
+
 	$('#back_to_top').gotop({useAnimation:true,useHide:true,position:{bottom: 10, right: 10}});
+
+	//逼IOS旧版升级(iphone4无法看到抽奖页面)
+	<?php if(getBrowser() == 'ios' && getVersion()<2):?>
+	if(confirm('2.0新版发布，11月18号起集分宝抽奖正式开放大奖，请立刻升级') || 1){
+		window.location.href = 'https://itunes.apple.com/cn/app/te-mai-ding-yue/id908726457';
+	}
+	<?php endif?>
 })
 </script>

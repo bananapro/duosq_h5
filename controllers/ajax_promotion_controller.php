@@ -9,6 +9,38 @@ class ajaxPromotionController extends AppController {
 	//特卖列表
 	function cat(){
 
+		D('promotion')->db('promotion.queue_promo');
+
+		$cond = array();
+		$cond['type'] = \DB\QueuePromo::TYPE_DISCOUNT;
+
+		if(@$_GET['category']){
+
+			$config = C('comm', 'category');
+			$config_category = $config[urldecode($_GET['category'])];
+			if($config_category){
+				if(is_array($config_category)){
+					if(isset($_GET['category_sub']) && $_GET['category_sub']){
+						$cond['subcat'] = $config_category[$_GET['category_sub']];
+					}else{
+						foreach ($config_category as $subcat_name => $subcat_condition) {
+							$cond['subcat'] = array_merge(@(array)$cond['subcat'], $subcat_condition);
+						}
+					}
+				}else{
+					$cond['cat'] = explode(',', $config_category);
+				}
+			}
+		}
+
+		$lists = D('promotion')->getList($this->Pagination, $cond, 8, false);
+		$this->layout = 'ajax';
+
+		if($lists){
+			$this->set('lists', $lists);
+		}else{
+			echo 'empty';die();
+		}
 	}
 
 	//9.9列表

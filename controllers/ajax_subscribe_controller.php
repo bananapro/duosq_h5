@@ -209,7 +209,7 @@ class ajaxSubscribeController extends AppController {
 		$view = new View($this);
 
 		foreach($lists as $album){
-			$data[] = array('html'=>$view->renderElement('promo_album', array('album'=>$album)), 'album_id'=>$album['id']);
+			$data[] = array('html'=>$view->renderElement('promo_album_list', array('album'=>$album)), 'album_id'=>$album['id']);
 		}
 
 		$this->_success($data);
@@ -221,7 +221,7 @@ class ajaxSubscribeController extends AppController {
 		$view = new View($this);
 
 		foreach ($lists as $list) {
-			$data[] = array('html'=>$view->renderElement('promo_cat_goods', array('promo'=>$list)));
+			$data[] = array('html'=>$view->renderElement('promo_album_goods_list', array('promo'=>$list)));
 		}
 
 		$this->_success($data);

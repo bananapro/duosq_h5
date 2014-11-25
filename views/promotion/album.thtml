@@ -33,7 +33,7 @@ background: url('<?=MY_STATIC_URL?>/img/app/p-cang-on.png') 8px 0 no-repeat;
 					$cover_size_type = 'f';//方
 				}
 			?>
-			<?=$this->renderElement('promo_cat_goods', array('promo'=>$promo, 'cover_size_type'=>$cover_size_type, 'no_cang'=>true))?>
+			<?=$this->renderElement('promo_album_goods_list', array('promo'=>$promo, 'cover_size_type'=>$cover_size_type, 'no_cang'=>true))?>
 		<?php endforeach?>
 
 	<?php else:?>

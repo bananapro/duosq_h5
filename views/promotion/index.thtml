@@ -8,7 +8,18 @@
 .faxian_b_jiukuaijiu{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:6px}
 .faxian_b_jiukuaijiu div{width:33%;float:left;font-size: 0;}
 
-.faxian_b_promo{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:6px;}
+.faxian_b_temai{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:6px}
+.faxian_b_temai .title{font-size:14px; font-weight:bold; color:#333; padding-bottom:2px; border-bottom:1px solid #E0E0E0}
+.faxian_b_temai .title span{display:block; border-left:4px solid #22A9D8; margin-left:10px;margin-top:10px; margin-bottom:4px;}
+
+.faxian_b_temai a{display:block;box-sizing:border-box; width:50%; height:90px; float:left;overflow:hide; padding:10px; background:url(<?=MY_STATIC_URL?>/img/app/p-one-line.png) repeat-x;background-size:auto 1px;background-position: 0 bottom}
+.faxian_b_temai a:nth-child(even) {padding-right:2px}
+.faxian_b_temai a:nth-child(odd) {padding-left:2px;padding-right:0}
+.faxian_b_temai a img{width:70px;height:70px;float:left;display:block}
+.faxian_b_temai a div{float:left; width:70px; margin-left:8px; margin-top:12px; line-height:10px;}
+.faxian_b_temai a div span{ font-size:15px; font-weight:bold; color:#333; display:block; line-height:24px;}
+.faxian_b_temai a div i{ font-size:10px; color:#909090; font-style:normal}
+.faxian_b_promo{width:100%;box-sizing:border-box;color:#333;margin-top:6px;}
 </style>
 
 <div class="faxian_b_tools">
@@ -19,14 +30,24 @@
 
 <div class="faxian_b_jiukuaijiu clearfix">
 	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9')?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c1.png" width="100%"></a></div>
-	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode('居家'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c2.png" width="100%"></a></div>
-	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode('女装'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c3.png" width="100%"></a></div>
-	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode('美食'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c4.png" width="100%"></a></div>
-	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9?category='.urlencode('男人'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c5.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('居家'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c2.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('女装'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c3.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('美食'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c4.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('男人'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c5.png" width="100%"></a></div>
 </div>
 
-<div class="faxian_b_promo">
-	<ul class="promo-list"></ul>
+<div class="faxian_b_temai clearfix">
+	<div class="title"><span>&nbsp;今日特卖精选</span></div>
+	<?php
+		$sub_title = array('女装'=>'冬时尚的秘密','美妆'=>'小编每日精选','居家'=>'海量特惠床品、日用','男人志'=>'潮男必备','母婴'=>'宝贝冬装一站逛','鞋包饰'=>'潮包精品汇','美食'=>'吃货速来','数码'=>'科技酷玩，限时特惠');
+	?>
+	<?php foreach($first_temai as $category => $first):?>
+	<a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($category))?>" target="_blank"><img src="<?=imageUrl($first['pic_url'], '160x160')?>"><div><span><?=$category?></span><i><?=$sub_title[$category]?></i></div></a>
+	<?php endforeach?>
+</div>
+
+<div class="faxian_b_promo clearfix">
+	<ul class="promo-list-two"></ul>
 </div>
 
 <div id="loading" class="more-loading"></div>
@@ -41,12 +62,12 @@ function load(){
 	locked = true;
 	if(down_page == 'end')return;
 	$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 正在加载...');
-	call_url = '<?=urlWithParam($_GET,'/ajaxPromotion/cat9/')?>&width='+$('body').width()+'&page='+down_page;
+	call_url = '<?=urlWithParam($_GET,'/ajaxPromotion/cat/')?>&page='+down_page;
 
 	$.get(call_url, function (data) {
 
 		if(data != 'empty'){
-			var $list = $('.promo-list');
+			var $list = $('.promo-list-two');
 			$list['append'](data);
 			$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
 			down_page++;

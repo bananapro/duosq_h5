@@ -9,7 +9,7 @@
 			<i class="cang <?php if(D('cang')->has($_GET['device_id'], $_GET['platform'], 'goods', $goods['sp'].':'.$goods['id'])):?> cang-selected<?php endif?>" onclick="return cang(this, 'goods', '<?=$goods['sp']?>:<?=$goods['id']?>')"></i>
 		</div>
 		<div class="mod-desc border-not">
-			<?=strtotime($promo['hd_expire'])>0?'<span class="color">【限时'.date('n月d',strtotime($promo['hd_expire'])).'】</span>':''?><?=$goods['name_long']?$goods['name_long']:$goods['name']?>
+			<?=strtotime($promo['hd_expire'])>0?'<span class="color">【限时'.date('n月d',strtotime($promo['hd_expire'])).'】</span>':''?><?=$goods['name']?>
 		</div>
 		<div class="mod-price clearfix">
 			<div class="price-info">
@@ -43,6 +43,8 @@
 <?php if(in_array($_GET['device_id'], array('9ABA5F5F-AEBB-4B00-ADCF-9A287160C509', '71E47D29-ED86-4569-9916-FFF589E114F0'))):?>
 <div class="promo-item">
 	<a href='jump:<?=urlWithParam($_GET, 'http://admincp.duosq.com/Promotion/reviewDone/'.$goods['sp'].'/'.$goods['id'].'/1')?>'><div class="submit-btn submit-btn-important">隐藏特卖</div></a>
+	<a href='jump:<?=urlWithParam($_GET, 'http://admincp.duosq.com/Promotion/removeCatFromWomen/'.$goods['sp'].'/'.$goods['id'].'/1')?>'><div class="submit-btn submit-btn-important">去除女装分类</div></a>
+	<a href='jump:<?=urlWithParam($_GET, 'http://admincp.duosq.com/promotion/detail/'.$goods['sp'].'/'.$goods['id'])?>'><div class="submit-btn submit-btn-important">管理详情</div></a>
 </div>
 <?php endif?>
 <div class="promo-item">

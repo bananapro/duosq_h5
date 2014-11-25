@@ -1,0 +1,34 @@
+<li>
+	<a href="jump:<?=urlWithParam($_GET, goodsUrl($promo['sp'], $promo['goods_id']))?>">
+		<div class="mod-img">
+			<!--<div class="mod-mark mark-new">new</div>-->
+			<!--<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>-->
+			<?php
+
+				if(@$cover_size_type=='s'){
+					$size = '362x457';
+				}else{
+					$size = '362x362';
+				}
+			?>
+			<img class="ui-imglazyload" src="<?=imageUrl('/img/no_photo.png', $size)?>" data-url="<?=imageUrl(r(array('220x220','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url_cover']?$promo['pic_url_cover']:$promo['pic_url']), $size)?>"/>
+			<?php if(!@$no_cang):?>
+			<a class="cang<?php if(D('cang')->has($_GET['device_id'], $_GET['platform'], 'goods', $promo['sp'].':'.$promo['goods_id'])):?> cang-selected<?php endif?>" href="javascript:void(0)" onclick="cang(this, 'goods', '<?=$promo['sp']?>:<?=$promo['goods_id']?>')">cang</a>
+			<?php endif?>
+		</div>
+		<div class="mod-desc border-not">
+			<span class="color"></span><?=$promo['name_short']?$promo['name_short']:$promo['name']?>
+		</div>
+		<div class="mod-price clearfix">
+			<div class="price-info">
+				<small>&yen;<?=priceYuan($promo['price_now'])?></small>
+				<del>&yen;<?=priceYuan($promo['price_avg'])?></del>
+			</div>
+			<?php if(!stripos($promo['price_now'], '?')):?>
+			<div class="price-rate"><?php if(isPrice($promo['price_now'])):?><?=discount($promo['price_now'], $promo['price_avg'])?>折<?php else:?>惊喜价<?php endif?></div>
+			<?php else:?>
+			<div class="price-rate">惊喜价</div>
+			<?php endif?>
+		</div>
+	</a>
+</li>

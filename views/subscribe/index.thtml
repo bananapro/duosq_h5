@@ -97,12 +97,11 @@ body{background:#DADADA}
 </style>
 
 <?php if($lists):?>
-<div class="border-one-px"></div>
 <div class="ui-refresh">
 	<div class="ui-refresh-up"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
 	<ul class="album-list">
 		<?php foreach($lists as $album):?>
-			<?=$this->renderElement('promo_album', array('album'=>$album))?>
+			<?=$this->renderElement('promo_album_list', array('album'=>$album))?>
 		<?php endforeach?>
 	</ul>
 	<div class="ui-refresh-down"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
