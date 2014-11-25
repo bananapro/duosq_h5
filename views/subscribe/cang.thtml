@@ -22,8 +22,8 @@
 <?php endif?>
 
 <div id="loading" class="more-loading"></div>
-<script>
 
+<script>
 var down_page = 1;
 var locked = false;
 function load(){
@@ -57,7 +57,7 @@ function load(){
 				down_page = 'end';
 			}
 
-			$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.sxedm2.com/assets/m/i/images/placeholder/cat_detailScroll242x242.png" />'});
+			//$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.sxedm2.com/assets/m/i/images/placeholder/cat_detailScroll242x242.png" />'});
 		}else{
 			$('#loading').html(data.message);
 			down_page = 'end';
@@ -79,6 +79,5 @@ $(function(){
 	});
 	$('#back_to_top').gotop({useAnimation:true,useHide:true,position:{bottom: 10, right: 10}});
 })
-
 
 </script>

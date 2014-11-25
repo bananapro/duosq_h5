@@ -95,117 +95,202 @@ body{background:#DADADA}
 .ui-refresh .ui-refresh-up .ui-refresh-label,
 .ui-refresh .ui-refresh-down .ui-refresh-label{margin-left:5px;}
 </style>
+<?php if(getVersion()<2):?><a class="wishlists" href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/cang')?>"><span></span>我的收藏</a><?php endif?>
 
-<?php if($lists):?>
-<div class="ui-refresh">
-	<div class="ui-refresh-up"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
+<?php if(platform() != 'android'):?>
+
+	<?php if($lists):?>
+	<div class="ui-refresh">
+		<div class="ui-refresh-up"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
+		<ul class="album-list">
+			<?php foreach($lists as $album):?>
+				<?=$this->renderElement('promo_album_list', array('album'=>$album))?>
+			<?php endforeach?>
+		</ul>
+		<div class="ui-refresh-down"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
+	</div>
+	<?php else:?>
+		<div style="text-align:center; line-height:200px; font-size:24px">该分类特卖本周推出！</div>
+	<?php endif?>
+
+	<script>
+	var down_end = false;
+	var display_albums_min_id = <?=intval(@$album['id'])?>;
+	var global_reflesh = false;
+	function initRefresh(){
+
+		//新版首页，固定好容器高度，开始支持拖动
+		$('.ui-refresh').css('height', window.innerHeight).refresh({
+			statechange: function (e, $elem, state, dir) {
+				if (state == 'loading') {   //只修改loading的状态
+					e.preventDefault();
+					var refreshInfo = this._data.refreshInfo[dir];
+					refreshInfo['$icon'].removeClass().addClass('ui-loading');
+					refreshInfo['$label'].html(dir == 'up' ? '正在刷新中...' : '数据加载中...');
+				}
+			},
+			ready: function (dir, type) {
+				var me = this;
+				if(dir == 'down' && down_end)return;
+
+				call_url = dir == 'up'?'<?=urlWithParam($_GET,'/ajaxSubscribe/getUpAlbum')?>': '<?=urlWithParam($_GET,'/ajaxSubscribe/getDownAlbum')?>';
+				$.getJSON(call_url, {'width':$('body').width(), 'display_albums_min_id':display_albums_min_id}, function (data) {
+
+					if(data.status == 1){
+
+						if(data.message.length>0){
+
+							var $list = $('.album-list'),
+								html = (function (data) {//数据渲染
+									var liArr = [];
+									$.each(data, function () {
+										liArr.push(this.html);
+
+										if(parseInt(this.album_id) < display_albums_min_id){
+											display_albums_min_id = parseInt(this.album_id);
+											//console.log(this.album_id + '|' + display_albums_min_id);
+										}
+
+									});
+									return liArr.join('');
+								})(data.message);
+
+							$list[dir == 'up' ? 'prepend' : 'append'](html);
+
+							if(dir == 'up'){
+								//提示找到更新
+								showHint('找到'+data.message.length+'条新特卖活动');
+							}
+
+						}else{
+							//无数据
+							if(dir == 'up'){
+								showHint('当前已没新的特卖');
+							}else{
+								me.disable('down', true);
+								down_end = true;
+							}
+						}
+
+						me.afterDataLoading(dir);//数据加载完成后改变状态
+					}else{
+						//提示网络错误
+						showHint('网络错误，请重试');
+					}
+				});
+			}
+		});
+	}
+
+	function reloadRefresh(){
+		global_reflesh.afterDataLoading('up');
+	}
+
+	//重新加载页面
+	function doReload(){
+		location.reload();
+	}
+
+	//点击刷新按钮
+	function doRefresh(){
+		global_reflesh._data.ready('up', '');
+	}
+
+	//zepto.gotop.iscroll.min
+	(function(n){n.ui.gotop.register(function(){return{pluginName:"iscroll",_init:function(){var i=this,t=i._data,r=i.root(),n=t.iScrollInstance,u=n.options.onScrollMove,f=n.options.onScrollEnd;n.options.onScrollMove=function(){u&&u.call(n,arguments),t.useHide&&i.hide()},n.options.onScrollEnd=function(){f&&f.call(n,arguments),i._check(Math.abs(n.y)),t._scrollClick&&(i.trigger("afterScroll"),t._scrollClick=!1)};r.on("click",function(){t._scrollClick=!0,n.scrollTo(0,0)});i.on("destroy",function(){n.options.onScrollMove=u,n.options.onScrollEnd=f});return t.useFix&&r.fix(t.position),t.root=r[0],i}}})})(Zepto);
+
+	$(function(){
+
+		//li单元自适应高度
+		//$('.cover').height(($('body').width()-10)*0.625);
+		$('.hint').css('left', ($('body').width()/2-75)+'px');
+
+		//安卓使用原生list
+		initRefresh();
+		$('#back_to_top').gotop({iScrollInstance:global_reflesh._data.iScroll,position:{bottom: 10, right: 10}});
+	})
+	</script>
+
+<?php else:?>
+
+	<?php if($lists):?>
 	<ul class="album-list">
 		<?php foreach($lists as $album):?>
 			<?=$this->renderElement('promo_album_list', array('album'=>$album))?>
 		<?php endforeach?>
 	</ul>
-	<div class="ui-refresh-down"></div><!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
-</div>
-<?php else:?>
-	<div style="text-align:center; line-height:200px; font-size:24px">该分类特卖本周推出！</div>
-<?php endif?>
+	<?php else:?>
+		<div style="text-align:center; line-height:200px; font-size:24px">该分类特卖本周推出！</div>
+	<?php endif?>
 
-<?php if(getVersion()<2):?><a class="wishlists" href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/cang')?>"><span></span>我的收藏</a><?php endif?>
+	<div id="loading" class="more-loading"></div>
 
-<script>
+	<script>
+	var locked = false;
+	var display_albums_min_id = <?=intval(@$album['id'])?>;
+	var down_page = 1;
+	function load(){
 
-var down_end = false;
-var display_albums_min_id = <?=intval(@$album['id'])?>;
-var global_reflesh = false;
-function initRefresh(){
+		if(locked)return;
+		locked = true;
+		if(down_page == 'end')return;
+		$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 数据加载中...');
+		call_url = '<?=urlWithParam($_GET,'/ajaxSubscribe/getDownAlbum')?>';
 
-	//新版首页，固定好容器高度，开始支持拖动
-	$('.ui-refresh').css('height', window.innerHeight).refresh({
-		statechange: function (e, $elem, state, dir) {
-			if (state == 'loading') {   //只修改loading的状态
-				e.preventDefault();
-				var refreshInfo = this._data.refreshInfo[dir];
-				refreshInfo['$icon'].removeClass().addClass('ui-loading');
-				refreshInfo['$label'].html(dir == 'up' ? '正在刷新中...' : '数据加载中...');
-			}
-		},
-		ready: function (dir, type) {
-			var me = this;
-			if(dir == 'down' && down_end)return;
+		$.getJSON(call_url, {'width':$('body').width(), 'display_albums_min_id':display_albums_min_id}, function (data) {
 
-			call_url = dir == 'up'?'<?=urlWithParam(array(),'/ajaxSubscribe/getUpAlbum')?>': '<?=urlWithParam(array(),'/ajaxSubscribe/getDownAlbum')?>';
-			$.getJSON(call_url, {'width':$('body').width(), 'display_albums_min_id':display_albums_min_id}, function (data) {
+			if(data.status == 1){
 
-				if(data.status == 1){
+				if(data.message.length>0){
 
-					if(data.message.length>0){
+					var $list = $('.album-list'),
+						html = (function (data) {//数据渲染
+							var liArr = [];
+							$.each(data, function () {
+								liArr.push(this.html);
+								if(parseInt(this.album_id) < display_albums_min_id){
+									display_albums_min_id = parseInt(this.album_id);
+								}
+							});
+							return liArr.join('');
+						})(data.message);
 
-						var $list = $('.album-list'),
-							html = (function (data) {//数据渲染
-								var liArr = [];
-								$.each(data, function () {
-									liArr.push(this.html);
+					$list['append'](html);
+					$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
 
-									if(parseInt(this.album_id) < display_albums_min_id){
-										display_albums_min_id = parseInt(this.album_id);
-										//console.log(this.album_id + '|' + display_albums_min_id);
-									}
-
-								});
-								return liArr.join('');
-							})(data.message);
-
-						$list[dir == 'up' ? 'prepend' : 'append'](html);
-
-						if(dir == 'up'){
-							//提示找到更新
-							showHint('找到'+data.message.length+'条新特卖活动');
-						}
-
-					}else{
-						//无数据
-						if(dir == 'up'){
-							showHint('当前已没新的特卖');
-						}else{
-							me.disable('down', true);
-							down_end = true;
-						}
-					}
-
-					me.afterDataLoading(dir);//数据加载完成后改变状态
 				}else{
-					//提示网络错误
-					showHint('网络错误，请重试');
+					$('#loading').hide();
+					down_page = 'end';
 				}
-			});
-		}
-	});
-}
+			}else{
+				showHint('网络错误，请重试');
+			}
 
-function reloadRefresh(){
-	global_reflesh.afterDataLoading('up');
-}
+			locked = false;
+		});
+	}
 
-//重新加载页面
-function doReload(){
-	location.reload();
-}
+	//重新加载页面
+	function doReload(){
+		location.reload();
+	}
 
-//点击刷新按钮
-function doRefresh(){
-	global_reflesh._data.ready('up', '');
-}
+	//点击刷新按钮
+	function doRefresh(){
+		load();
+	}
 
-//zepto.gotop.iscroll.min
-(function(n){n.ui.gotop.register(function(){return{pluginName:"iscroll",_init:function(){var i=this,t=i._data,r=i.root(),n=t.iScrollInstance,u=n.options.onScrollMove,f=n.options.onScrollEnd;n.options.onScrollMove=function(){u&&u.call(n,arguments),t.useHide&&i.hide()},n.options.onScrollEnd=function(){f&&f.call(n,arguments),i._check(Math.abs(n.y)),t._scrollClick&&(i.trigger("afterScroll"),t._scrollClick=!1)};r.on("click",function(){t._scrollClick=!0,n.scrollTo(0,0)});i.on("destroy",function(){n.options.onScrollMove=u,n.options.onScrollEnd=f});return t.useFix&&r.fix(t.position),t.root=r[0],i}}})})(Zepto);
+	$(function(){
+		$(window).scroll( function() {
 
-$(function(){
+			total_height = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+			if ($(document).height()-10 < total_height) {  // 说明滚动条已达底部
+				load();
+			}
+		});
+		$('#back_to_top').gotop({useAnimation:true,useHide:true,position:{bottom: 10, right: 10}});
+	})
 
-	//li单元自适应高度
-	//$('.cover').height(($('body').width()-10)*0.625);
-	$('.hint').css('left', ($('body').width()/2-75)+'px');
-	initRefresh();
-	$('#back_to_top').gotop({iScrollInstance:global_reflesh._data.iScroll,position:{bottom: 10, right: 10}});
-})
+	</script>
 
-</script>
+<?php endif?>
