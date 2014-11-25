@@ -9,13 +9,16 @@
 				if(!@$_GET['category']){
 					$size = '304x202';
 				}else{
-					$size = '330x';
+					//$size = '330x';
 					if($_GET['category'] == '女装'){
-
+						$size = '330x361';
+						$style = "style='min-height:166px'";
+					}else{
+						$size = '304x202';
 					}
 				}
 			?>
-			<img class="ui-imglazyload" src="<?=imageUrl(r(array('220x220','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url']), $size)?>"/>
+			<img class="ui-imglazyload" <?=@$style?> src="<?=imageUrl(r(array('220x220','230x230','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url']), $size)?>"/>
 		</div>
 		<div class="mod-desc border-not">
 			<span class="color"></span><?=$promo['name_short']?$promo['name_short']:$promo['name']?>

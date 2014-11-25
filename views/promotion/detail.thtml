@@ -26,7 +26,7 @@
 			<?php elseif($promo['invalid'] == 'invalid'):?>
 				<div class="submit-btn">已下架，去<?=D('shop')->getName($promo['sp'])?>看看 >></div>
 			<?php else:?>
-				<?php if($promo && $promo['invalid']):?>
+				<?php if(($promo && $promo['invalid']) || !$promo):?>
 					<div class="submit-btn submit-btn-important">已涨价，跳转到<?=D('shop')->getName($promo['sp'])?>购买 >></div>
 				<?php else:?>
 					<div class="submit-btn submit-btn-important">去<?=D('shop')->getName($promo['sp'])?>购买</div>
