@@ -28,7 +28,7 @@ function load(){
 	locked = true;
 	if(down_page == 'end')return;
 	$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 正在加载...');
-	call_url = '<?=urlWithParam(array(),'/ajaxPromotion/cat9/')?>&page='+down_page;
+	call_url = '<?=urlWithParam($_GET+array('category'=>$category),'/ajaxPromotion/cat9/')?>&page='+down_page;
 
 	$.get(call_url, function (data) {
 
