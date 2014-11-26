@@ -92,4 +92,13 @@ $(function(){
 
 	$('#back_to_top').gotop({useAnimation:true,useHide:true,position:{bottom: 10, right: 10}});
 })
+
+//超过2小时自动刷新页面
+setInterval(function(){
+	var timestamp=new Date().getTime();
+	timestamp = timestamp/1000;
+	if(timestamp > <?=(time()+HOUR*2)?>){
+		location.reload();
+	}
+},2000)
 </script>

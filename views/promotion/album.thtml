@@ -19,7 +19,8 @@ background: url('<?=MY_STATIC_URL?>/img/app/p-cang-on.png') 8px 0 no-repeat;
 </style>
 <div class="limit-hd clearfix">
 	<h3 class="t">
-		剩余时间：<?=timeDiff(strtotime($album['expire_end']))?>
+		<?php $time = timeDiff(strtotime($album['expire_end']));?>
+		剩余时间：<?=$time==-1?'活动已结束':$time?>
 		<a class="cang<?php if(D('cang')->has($_GET['device_id'], $_GET['platform'], 'album', $album['id'])):?> cang-selected<?php endif?>" href="javascript:void(0)" onclick="cang(this, 'album', <?=$album['id']?>)">cang</a>
 	</h3>
 </div>
