@@ -56,7 +56,7 @@
 		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('风格'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_style.png"/></a>
 	</div>
 </div>
-<?php endforeach?>
+<?php endif;?>
 
 <div class="faxian_temai clearfix">
 	<div class="title"><span>&nbsp;今日特卖精选</span></div>
