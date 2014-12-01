@@ -1,0 +1,51 @@
+<style>
+body{background:#FFF}
+.banner{padding:5px 10px;width:100%;box-sizing: border-box;}
+.banner img{width:100%;}
+.tag{padding:5px 10px;width:100%;box-sizing: border-box;}
+.tag li{display:block; width:33.3333333%;box-sizing: border-box; padding:5px;float:left; min-height:79px}
+.tag li.split{width:100%; min-height:38px}
+.tag li span{display:block; height:24px; line-height:24px; color:#f69; font-size:12px; text-align:center}
+.tag li img{width:100%}
+</style>
+<?php if($nv_category):?>
+	<?php
+		$config = C('comm', 'category_nv_ren_jie');
+			$recommend_cat = array();
+			$normal_cat = array();
+			if(isset($config[$nv_category])){
+				foreach($config[$nv_category] as $nv_cat => $conf){
+					if($conf['recommend']){
+						$recommend_cat[$nv_cat] = $conf;
+					}else{
+						$normal_cat[$nv_cat] = $conf;
+					}
+				}
+			}
+	?>
+	<?php if($nv_category == '风格'):?>
+		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoNvRenUrl($conf['subcat']))?>"><img src="<?=MY_STATIC_URL?>/img/app/nv_ren_jie/<?=$nv_category?>.png"/></a></div>
+	<?php else:?>
+		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoNvRenUrl($conf['subcat']))?>"><img src="<?=MY_STATIC_URL?>/img/app/nv_ren_jie/<?=$nv_category?>.png"/></a></div>
+	<?php endif?>
+
+	<ul class="tag">
+		<?php
+
+			if($recommend_cat){
+				foreach($recommend_cat as $nv_cat => $conf){
+					echo '<li><a href="jump:'.<?=urlWithParam($_GET,promoNvRenUrl($conf['subcat'], $conf['tag'])).'"><img class="ui-imglazyload" data-url="'.MY_STATIC_URL.'/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png" /><span>'.$nv_cat.'</span></a></li>';
+				}
+				echo '<li class="split"><img src="'.MY_STATIC_URL.'/img/app/p-category-split.png" /></li>';
+			}
+
+			if($normal_cat){
+				foreach($normal_cat as $nv_cat => $conf){
+					echo '<li><a href="jump:'.<?=urlWithParam($_GET,promoNvRenUrl($conf['subcat'], $conf['tag'])).'"><img class="ui-imglazyload" data-url="'.MY_STATIC_URL.'/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png" /><span>'.$nv_cat.'</span></a></li>';
+				}
+			}
+		?>
+	</ul>
+<?php else:?>
+	此处显示全分类导航
+<?php endif?>

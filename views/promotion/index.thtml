@@ -1,42 +1,64 @@
 <style>
-.faxian_b_tools{height:45px;width:100%;background-color:#FFF;box-sizing: border-box; color:#333; border-bottom:1px solid #E0E0E0}
-.faxian_b_tools .tools{width:100%;border-right:1px solid #E0E0E0;height:30px;text-align:center;line-height:30px;box-sizing: border-box;font-size:14px;}
-.faxian_b_tools .noborder{border:0}
-.faxian_b_tools img{margin-top:-2px}
-.faxian_b_tools a{color:#333;display:block; width:33%;height:100%;float:left; padding-top:8px;box-sizing:border-box;}
+.faxian_tools{height:45px;width:100%;box-sizing: border-box; color:#333; background:#FFF url(<?=MY_STATIC_URL?>/img/app/p-one-line.png) repeat-x;background-size:auto 1px;background-position: 0 bottom}
+.faxian_tools .tools{width:100%;border-right:1px solid #E0E0E0;height:30px;text-align:center;line-height:30px;box-sizing: border-box;font-size:14px;}
+.faxian_tools .noborder{border:0}
+.faxian_tools img{margin-top:-2px}
+.faxian_tools a{color:#333;display:block; width:33%;height:100%;float:left; padding-top:8px;box-sizing:border-box;}
 
-.faxian_b_jiukuaijiu{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:6px}
-.faxian_b_jiukuaijiu div{width:33%;float:left;font-size: 0;}
+.faxian_jiukuaijiu{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:6px}
+.faxian_jiukuaijiu div{width:33%;float:left;font-size: 0;}
 
-.faxian_b_temai{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:6px}
-.faxian_b_temai .title{font-size:14px; font-weight:bold; color:#333; padding-bottom:2px; border-bottom:1px solid #E0E0E0}
-.faxian_b_temai .title span{display:block; border-left:4px solid #22A9D8; margin-left:10px;margin-top:10px; margin-bottom:4px;}
+.faxian_jie{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:8px}
+.faxian_jie .title{font-size:14px; font-weight:bold; color:#333; padding-bottom:2px; background:url(<?=MY_STATIC_URL?>/img/app/p-one-line.png) repeat-x;background-size:auto 1px;background-position: 0 bottom}
+.faxian_jie .title span{display:block; border-left:6px solid #FF8BB5; margin-left:10px;margin-top:10px; margin-bottom:6px;}
+.faxian_jie a{display:block; width:25%; box-sizing:border-box; float:left; min-height:75px;}
+.faxian_jie a img{width:100%}
 
-.faxian_b_temai a{display:block;box-sizing:border-box; width:50%; height:90px; float:left;overflow:hide; padding:10px; background:url(<?=MY_STATIC_URL?>/img/app/p-one-line.png) repeat-x;background-size:auto 1px;background-position: 0 bottom}
-.faxian_b_temai a:nth-child(even) {padding-right:2px}
-.faxian_b_temai a:nth-child(odd) {padding-left:2px;padding-right:0}
-.faxian_b_temai a img{width:70px;height:70px;float:left;display:block}
-.faxian_b_temai a div{float:left; width:70px; margin-left:8px; margin-top:12px; line-height:10px;}
-.faxian_b_temai a div span{ font-size:15px; font-weight:bold; color:#333; display:block; line-height:24px;}
-.faxian_b_temai a div i{ font-size:10px; color:#909090; font-style:normal}
-.faxian_b_promo{width:100%;box-sizing:border-box;color:#333;margin-top:6px;}
+.faxian_temai{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:8px}
+.faxian_temai .title{font-size:14px; font-weight:bold; color:#333; padding-bottom:2px; background:url(<?=MY_STATIC_URL?>/img/app/p-one-line.png) repeat-x;background-size:auto 1px;background-position: 0 bottom}
+.faxian_temai .title span{display:block; border-left:6px solid #22A9D8; margin-left:10px;margin-top:10px; margin-bottom:6px;}
+
+.faxian_temai a{display:block;box-sizing:border-box; width:50%; height:94px; float:left;overflow:hide; padding:12px; background:url(<?=MY_STATIC_URL?>/img/app/p-one-line.png) repeat-x;background-size:auto 1px;background-position: 0 bottom}
+.faxian_temai a:nth-child(even) {padding-right:2px}
+.faxian_temai a:nth-child(odd) {padding-left:2px;padding-right:0}
+.faxian_temai a img{width:70px;height:70px;float:left;display:block}
+.faxian_temai a div{float:left; width:67px; margin-left:8px; margin-top:12px; line-height:10px;}
+.faxian_temai a div span{ font-size:15px; font-weight:bold; color:#000; display:block; line-height:24px;}
+.faxian_temai a div i{ font-size:10px; color:#888888; font-style:normal}
+.faxian_promo{width:100%;box-sizing:border-box;color:#333;margin-top:6px;}
 </style>
 
-<div class="faxian_b_tools">
-	<a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/huodong')?>" target="_blank"><div class="tools"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-top1.png" width="18" height="18" style="vertical-align:middle" /> 每日抽奖</div></a>
-	<a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/charge')?>" target="_blank"><div class="tools"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-top2.png" width="18" height="18" style="vertical-align:middle" /> 充值</div></a>
+<div class="faxian_tools">
+	<a href="jump:<?=urlWithParam($_GET,MY_HOMEPAGE_URL.'/huodong')?>" target="_blank"><div class="tools"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-top1.png" width="18" height="18" style="vertical-align:middle" /> 每日抽奖</div></a>
+	<a href="jump:<?=urlWithParam($_GET,MY_HOMEPAGE_URL.'/promotion/charge')?>" target="_blank"><div class="tools"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-top2.png" width="18" height="18" style="vertical-align:middle" /> 充值</div></a>
 	<a href="jump:history:http://ai.m.taobao.com/bu.html?id=1&pid=mm_36614165_8052601_27736645"><div class="tools noborder"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-top3.png" width="18" height="18" style="vertical-align:middle" /> 精选特价</div></a>
 </div>
 
-<div class="faxian_b_jiukuaijiu clearfix">
-	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9')?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c1.png" width="100%"></a></div>
-	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('居家'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c2.png" width="100%"></a></div>
-	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('女装'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c3.png" width="100%"></a></div>
-	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('美食'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c4.png" width="100%"></a></div>
-	<div><a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('男人'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c5.png" width="100%"></a></div>
+<div class="faxian_jiukuaijiu clearfix">
+	<div><a href="jump:<?=urlWithParam($_GET,MY_HOMEPAGE_URL.'/promotion/cat9')?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c1.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam($_GET,MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('居家'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c2.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam($_GET,MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('女装'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c3.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam($_GET,MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('美食'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c4.png" width="100%"></a></div>
+	<div><a href="jump:<?=urlWithParam($_GET,MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('男人'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c5.png" width="100%"></a></div>
 </div>
 
-<div class="faxian_b_temai clearfix">
+<?php if(isDevelop() || in_array($_GET['device_id'], array('9ABA5F5F-AEBB-4B00-ADCF-9A287160C509', '71E47D29-ED86-4569-9916-FFF589E114F0'))):?>
+<div class="faxian_jie clearfix">
+	<div class="title"><span>&nbsp;女人街</span></div>
+	<div style="padding: 5px 10px" class="clearfix">
+		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('上衣'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_jacket.png"/></a>
+		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('裙子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_skirt.png"/></a>
+		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('裤子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_trousers.png"/></a>
+		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('鞋子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_shoes.png"/></a>
+		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('包包'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_bags.png"/></a>
+		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('配饰'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_accessory.png"/></a>
+		<a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode('美妆'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_beauty.png"/></a>
+		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('风格'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_style.png"/></a>
+	</div>
+</div>
+<?php endforeach?>
+
+<div class="faxian_temai clearfix">
 	<div class="title"><span>&nbsp;今日特卖精选</span></div>
 	<?php
 		$sub_title = array('女装'=>'冬时尚的秘密','美妆'=>'小编每日精选','居家'=>'海量特惠床品、日用','男人志'=>'潮男必备','母婴'=>'宝贝冬装一站逛','鞋包饰'=>'潮包精品汇','美食'=>'吃货速来','数码'=>'科技酷玩，限时特惠');
@@ -46,8 +68,9 @@
 	<?php endforeach?>
 </div>
 
-<div class="faxian_b_promo clearfix">
-	<ul class="promo-list-two"></ul>
+<div class="faxian_promo clearfix">
+	<ul class="promo-list-two promo-l1"></ul>
+	<ul class="promo-list-two promo-l2"></ul>
 </div>
 
 <div id="loading" class="more-loading"></div>
@@ -67,8 +90,18 @@ function load(){
 	$.get(call_url, function (data) {
 
 		if(data != 'empty'){
-			var $list = $('.promo-list-two');
-			$list['append'](data);
+			var cell = data.split('|||');
+			var odd = 1;
+			for(i in cell){
+
+				$list = $('.promo-l'+odd);
+				$list['append'](cell[i]);
+
+				if(odd == 1)
+					odd = 2;
+				else
+					odd = 1;
+			}
 			$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
 			down_page++;
 		}else{
@@ -80,13 +113,14 @@ function load(){
 	});
 }
 
+var last_scroll_height = 0;
 $(function(){
 	load();
 	$(window).scroll( function() {
-		total_height = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
 
-		if ($(document).height()-10 < total_height) {  // 说明滚动条已达底部
+		if (parseFloat($(window).scrollTop()) - last_scroll_height > parseFloat($(window).height())/2.5) {  // 说明滚动条已达底部
 			load();
+			last_scroll_height = parseFloat($(window).scrollTop());
 		}
 	});
 

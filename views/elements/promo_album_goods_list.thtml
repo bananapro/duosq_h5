@@ -7,13 +7,13 @@
 				$style = '';
 				if(@$cover_size_type=='s'){
 					$size = '362x457';
-					$style = "style='min-height:226px'";
+					//$style = "style='min-height:226px'";
 				}else{
 					$size = '362x362';
-					$style = "style='min-height:179px'";
+					//$style = "style='min-height:179px'";
 				}
 			?>
-			<img <?=$style?> src="<?=imageUrl(r(array('220x220','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url']), $size)?>"/>
+			<img class="ui-imglazyload" <?=$style?> src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl(r(array('220x220','230x230','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url_orig']?$promo['pic_url_orig']:$promo['pic_url']), $size)?>"/>
 			<?php if(!@$no_cang):?>
 			<a class="cang<?php if(D('cang')->has($_GET['device_id'], $_GET['platform'], 'goods', $promo['sp'].':'.$promo['goods_id'])):?> cang-selected<?php endif?>" href="javascript:void(0)" onclick="cang(this, 'goods', '<?=$promo['sp']?>:<?=$promo['goods_id']?>')">cang</a>
 			<?php endif?>
@@ -24,10 +24,10 @@
 		<div class="mod-price clearfix">
 			<div class="price-info">
 				<small>&yen;<?=priceYuan($promo['price_now'])?></small>
-				<del>&yen;<?=priceYuan($promo['price_avg'])?></del>
+				<?php if(@$promo['price_avg']):?><del>&yen;<?=priceYuan($promo['price_avg'])?></del><?php endif?>
 			</div>
-			<?php if(!stripos($promo['price_now'], '?')):?>
-			<div class="price-rate"><?php if(isPrice($promo['price_now'])):?><?=discount($promo['price_now'], $promo['price_avg'])?>折<?php else:?>惊喜价<?php endif?></div>
+			<?php if(@$promo['price_avg'] && $promo['price_now']):?>
+			<div class="price-rate"><?=discount($promo['price_now'], $promo['price_avg'])?>折</div>
 			<?php else:?>
 			<div class="price-rate">惊喜价</div>
 			<?php endif?>

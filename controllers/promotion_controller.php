@@ -84,6 +84,45 @@ class PromotionController extends AppController {
 		$this->set('category', $category);
 	}
 
+	//女人街分类导航
+	function catNvRenNav($nv_category=''){
+
+		if($nv_category){
+			$nv_category = urldecode($nv_category);
+			$this->set('title', '女人街 - '.$nv_category);
+		}else{
+			$this->set('title', '女人街分类导航');
+		}
+		$this->set('nv_category', $nv_category);
+	}
+
+	//女人街分类商品列表
+	function catNvRen($subcat, $tag=''){
+
+		if(!$subcat)$this->flash('参数错误，系统自动返回首页', '/', 2);
+
+		$subcat = urldecode($subcat);
+		$tag = urldecode($tag);
+
+		$this->set('subcat', $subcat);
+		$this->set('tag', $tag);
+		$conf = D('promotion')->nvRenSubcat2conf($subcat, $tag);
+
+		if($conf){
+			if($subcat && !$tag){
+				$this->set('title', '女人街·'.$conf['nv_category'].'街');
+			}else{
+				$this->set('title', $conf['nv_category'].'·'.$conf['nv_cat']);
+			}
+		}else{
+			if($subcat && !$tag){
+				$this->set('title', $subcat.'分类');
+			}else{
+				$this->set('title', $subcat.'·'.$tag);
+			}
+		}
+	}
+
 	//手机快速充值
 	function charge(){
 		$this->set('title', '自动匹配最优惠手机充值');

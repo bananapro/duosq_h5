@@ -35,8 +35,15 @@ function load(){
 		if(data != 'empty'){
 			var $list = $('.promo-list');
 			$list['append'](data);
-			$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
-			down_page++;
+
+			reg = new RegExp('jump:', "ig");
+			if(data.match(reg).length<6){
+				$('#loading').hide();
+				down_page = 'end';
+			}else{
+				$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
+				down_page++;
+			}
 		}else{
 			$('#loading').hide();
 			down_page = 'end';
@@ -46,13 +53,14 @@ function load(){
 	});
 }
 
+var last_scroll_height = 0;
 $(function(){
 	load();
 	$(window).scroll( function() {
-		total_height = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
 
-		if ($(document).height()-10 < total_height) {  // 说明滚动条已达底部
+		if (parseFloat($(window).scrollTop()) - last_scroll_height > parseFloat($(window).height())/3) {  // 说明滚动条已达底部
 			load();
+			last_scroll_height = parseFloat($(window).scrollTop());
 		}
 	});
 

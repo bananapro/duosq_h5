@@ -5,7 +5,7 @@
 				<div class="mod-mark mark-new">new</div>
 			<?php endif?>
 			<div class="saled">月销量 <?=$goods['saled']?$goods['saled']:saledByRand($goods['name'].'key')?> &nbsp; &nbsp; &nbsp; &nbsp; 收藏数 <?=saledByRand($goods['name'])?></div>
-			<img src="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $goods['pic_url']), '600x600')?>" width="100%"/>
+			<img src="<?=imageUrl(r(array('460x460','360x360','260x260'), '960x960', $goods['pic_url']), '640x')?>" width="100%"/>
 			<i class="cang <?php if(D('cang')->has($_GET['device_id'], $_GET['platform'], 'goods', $goods['sp'].':'.$goods['id'])):?> cang-selected<?php endif?>" onclick="return cang(this, 'goods', '<?=$goods['sp']?>:<?=$goods['id']?>')"></i>
 		</div>
 		<div class="mod-desc border-not">
@@ -14,7 +14,7 @@
 		<div class="mod-price clearfix">
 			<div class="price-info">
 				<small>&yen;<?=priceYuan($promo['price_now']?$promo['price_now']:$goods['price_now'])?></small>
-				<?php if($promo['price_avg']):?><del>&yen;<?=priceYuan($promo['price_avg'])?></del><?php endif?>
+				<?php if($promo['price_avg'] && $promo['price_avg'] > $promo['price_now']):?><del>&yen;<?=priceYuan($promo['price_avg'])?></del><?php endif?>
 			</div>
 			<div class="today">
 				<?php if($promo['price_avg']):?><strong>今日省<?=rateDiff($promo['price_now'], $promo['price_avg'])?>%</strong><?php endif?>

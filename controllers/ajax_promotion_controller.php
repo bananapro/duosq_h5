@@ -74,5 +74,35 @@ class ajaxPromotionController extends AppController {
 			echo 'empty';die();
 		}
 	}
+
+	//女人街列表
+	function catNvRen($subcats, $tags){
+
+		if(!$subcats){echo 'empty';die();}
+
+		D('promotion')->db('promotion.queue_promo');
+
+		$cond = array();
+		//$cond['type'] = \DB\QueuePromo::TYPE_GUANG;
+
+		$subcats = urldecode($subcats);
+		$tags = urldecode($tags);
+
+		$cond['subcat'] = explode('|', $subcats);
+
+		if(@$tags && $tags != '_'){
+			$cond['tag'] = explode('&', $tags);
+		}
+
+		$lists = D('promotion')->getTagList($this->Pagination, $cond, 8, false);
+
+		$this->layout = 'ajax';
+
+		if($lists){
+			$this->set('lists', $lists);
+		}else{
+			echo 'empty';die();
+		}
+	}
 }
 ?>
