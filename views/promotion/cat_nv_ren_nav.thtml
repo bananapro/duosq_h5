@@ -1,12 +1,13 @@
 <style>
 body{background:#FFF}
 .banner{padding:5px 10px;width:100%;box-sizing: border-box;}
-.banner img{width:100%;}
+.banner img{width:100%; min-height:88px}
 .tag{padding:5px 10px;width:100%;box-sizing: border-box;}
-.tag li{display:block; width:33.3333333%;box-sizing: border-box; padding:5px;float:left; min-height:79px}
+.tag li{display:block; width:33.3333333%;box-sizing: border-box; padding:5px;float:left; min-height:79px;}
 .tag li.split{width:100%; min-height:38px}
-.tag li span{display:block; height:24px; line-height:24px; color:#f69; font-size:12px; text-align:center}
-.tag li img{width:100%}
+.tag li.split img{min-height:38px!important}
+.tag li span{display:block; height:24px; line-height:24px; color:#f69; font-size:14px; text-align:center}
+.tag li img{width:100%;min-height:91px;border:0}
 </style>
 <?php if($nv_category):?>
 	<?php
@@ -15,7 +16,7 @@ body{background:#FFF}
 			$normal_cat = array();
 			if(isset($config[$nv_category])){
 				foreach($config[$nv_category] as $nv_cat => $conf){
-					if($conf['recommend']){
+					if(isset($conf['recommend'])){
 						$recommend_cat[$nv_cat] = $conf;
 					}else{
 						$normal_cat[$nv_cat] = $conf;
@@ -24,9 +25,9 @@ body{background:#FFF}
 			}
 	?>
 	<?php if($nv_category == '风格'):?>
-		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoNvRenUrl($conf['subcat']))?>"><img src="<?=MY_STATIC_URL?>/img/app/nv_ren_jie/<?=$nv_category?>.png"/></a></div>
+		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoNvRenUrl('女上衣', '秋季热款'))?>"><img src="<?=imageUrl('/img/app/nv_ren_jie/'.$nv_category.'.png', '')?>"/></a></div>
 	<?php else:?>
-		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoNvRenUrl($conf['subcat']))?>"><img src="<?=MY_STATIC_URL?>/img/app/nv_ren_jie/<?=$nv_category?>.png"/></a></div>
+		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoNvRenUrl($conf['subcat']))?>"><img src="<?=imageUrl('/img/app/nv_ren_jie/'.$nv_category.'.png', '')?>"/></a></div>
 	<?php endif?>
 
 	<ul class="tag">
@@ -34,14 +35,14 @@ body{background:#FFF}
 
 			if($recommend_cat){
 				foreach($recommend_cat as $nv_cat => $conf){
-					echo '<li><a href="jump:'.<?=urlWithParam($_GET,promoNvRenUrl($conf['subcat'], $conf['tag'])).'"><img class="ui-imglazyload" data-url="'.MY_STATIC_URL.'/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png" /><span>'.$nv_cat.'</span></a></li>';
-				}
+					echo '<li><a href="jump:'.urlWithParam($_GET,promoNvRenUrl($conf['subcat'], $conf['tag'])).'"><img src="'.imageUrl('/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png', '').'" /><span>'.$nv_cat.'</span></a></li>';
+				};
 				echo '<li class="split"><img src="'.MY_STATIC_URL.'/img/app/p-category-split.png" /></li>';
 			}
 
 			if($normal_cat){
 				foreach($normal_cat as $nv_cat => $conf){
-					echo '<li><a href="jump:'.<?=urlWithParam($_GET,promoNvRenUrl($conf['subcat'], $conf['tag'])).'"><img class="ui-imglazyload" data-url="'.MY_STATIC_URL.'/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png" /><span>'.$nv_cat.'</span></a></li>';
+					echo '<li><a href="jump:'.urlWithParam($_GET,promoNvRenUrl($conf['subcat'], $conf['tag'])).'"><img src="'.imageUrl('/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png', '').'" /><span>'.$nv_cat.'</span></a></li>';
 				}
 			}
 		?>
@@ -49,3 +50,9 @@ body{background:#FFF}
 <?php else:?>
 	此处显示全分类导航
 <?php endif?>
+
+<script>
+$(function(){
+	$('#back_to_top').gotop({useAnimation:true,useHide:true,position:{bottom: 10, right: 10}});
+})
+</script>

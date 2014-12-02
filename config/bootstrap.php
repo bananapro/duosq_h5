@@ -60,7 +60,6 @@ function promoNvRenUrl($subcats, $tags=''){
 	if(!$subcats)return false;
 
 	$tags = '/'.urlencode($tags);
-
 	return MY_HOMEPAGE_URL . '/promotion/catNvRen/'.urlencode($subcats).$tags;
 }
 

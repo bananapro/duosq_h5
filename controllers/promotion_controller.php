@@ -110,9 +110,12 @@ class PromotionController extends AppController {
 
 		if($conf){
 			if($subcat && !$tag){
-				$this->set('title', '女人街·'.$conf['nv_category'].'街');
+				$this->set('title', '女人街·'.$conf['nv_category'].'分类');
+				$this->set('nv_category', $conf['nv_category']);
 			}else{
 				$this->set('title', $conf['nv_category'].'·'.$conf['nv_cat']);
+				$this->set('nv_cat', $conf['nv_cat']);
+				$this->set('nv_category', $conf['nv_category']);
 			}
 		}else{
 			if($subcat && !$tag){

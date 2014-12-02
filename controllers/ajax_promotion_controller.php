@@ -76,7 +76,7 @@ class ajaxPromotionController extends AppController {
 	}
 
 	//女人街列表
-	function catNvRen($subcats, $tags){
+	function catNvRen($subcats, $tags=''){
 
 		if(!$subcats){echo 'empty';die();}
 
@@ -95,11 +95,13 @@ class ajaxPromotionController extends AppController {
 		}
 
 		$lists = D('promotion')->getTagList($this->Pagination, $cond, 8, false);
-
+		//pr($lists);die();
 		$this->layout = 'ajax';
 
 		if($lists){
 			$this->set('lists', $lists);
+			$this->set('subcats', $cond['subcat']);
+			$this->set('tags', $cond['tag']);
 		}else{
 			echo 'empty';die();
 		}

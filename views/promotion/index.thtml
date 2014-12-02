@@ -44,7 +44,7 @@
 
 <?php if(isDevelop() || in_array($_GET['device_id'], array('9ABA5F5F-AEBB-4B00-ADCF-9A287160C509', '71E47D29-ED86-4569-9916-FFF589E114F0'))):?>
 <div class="faxian_jie clearfix">
-	<div class="title"><span>&nbsp;女人街</span></div>
+	<div class="title"><span>&nbsp;女人街 - 时尚买手专业选款</span></div>
 	<div style="padding: 5px 10px" class="clearfix">
 		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('上衣'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_jacket.png"/></a>
 		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('裙子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_skirt.png"/></a>

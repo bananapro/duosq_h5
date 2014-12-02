@@ -1,25 +1,41 @@
-<?php $last=false?>
+<?php
+//固定乱序处理
+for($i = 0; $i<count($lists)-1; $i=$i+2){
+	$lists[] = $lists[$i];
+	unset($lists[$i]);
+}
+?>
 <?php foreach($lists as $promo):?>
 <li>
-	<a href="jump:<?=urlWithParam($_GET, goodsUrl($promo['sp'], $promo['goods_id']))?>">
-		<div class="mod-img">
-			<img class="ui-imglazyload" <?=@$style?> src="<?=$promo['pic_url']?>"/>
+	<div class="mod-img">
+		<a href="jump:<?=urlWithParam($_GET, goodsUrl($promo['sp'], $promo['goods_id']))?>"><img class="ui-imglazyload" <?=@$style?> src="<?=$promo['pic_url']?>"/></a>
+	</div>
+	<div class="mod-desc border-not tag">
+		<!--<span class="color"></span><?=$global->cutstr($promo['name_short']?$promo['name_short']:$promo['name'], 60, false)?>-->
+		<?php
+			if($promo['tags'][$subcats[0]]){
+				foreach($promo['tags'][$subcats[0]] as $i_tag){
+					if(!in_array($i_tag, $tags)){
+						if($display_name = tagName($subcats[0], $i_tag)){
+							echo '<a class="tag" href="jump:'.urlWithParam($_GET, promoNvRenUrl($subcats[0], $i_tag)).'">'.$display_name.'</a>';
+						}
+					}
+				}
+			}
+		?>
+	</div>
+	<div class="mod-price clearfix">
+		<div class="price-info">
+			<small>&yen;<?=priceYuan($promo['price_now'])?></small>
+			<?php if($promo['price_avg'] && $promo['price_avg']>$promo['price_now']):?><del>&yen;<?=priceYuan($promo['price_avg'])?></del><?php endif?>
 		</div>
-		<div class="mod-desc border-not">
-			<span class="color"></span><?=$promo['name_short']?$promo['name_short']:$promo['name']?>
-		</div>
-		<div class="mod-price clearfix">
-			<div class="price-info">
-				<small>&yen;<?=priceYuan($promo['price_now'])?></small>
-				<?php if($promo['price_avg'] && $promo['price_avg']>$promo['price_now']):?><del>&yen;<?=priceYuan($promo['price_avg'])?></del><?php endif?>
-			</div>
-			<?php if(!stripos($promo['price_now'], '?')):?>
-			<?php if($promo['price_avg'] && $promo['price_avg']>$promo['price_now']):?><div class="price-rate"><?=discount($promo['price_now'], $promo['price_avg'])?>折<?php endif?></div>
-			<?php else:?>
-			<div class="price-rate">惊喜价</div>
-			<?php endif?>
-		</div>
-	</a>
+		<?php if(!stripos($promo['price_now'], '?')):?>
+		<?php if($promo['price_avg'] && $promo['price_avg']>$promo['price_now']):?><div class="price-rate"><?=discount($promo['price_now'], $promo['price_avg'])?>折<?php endif?></div>
+		<?php else:?>
+		<div class="price-rate">惊喜价</div>
+		<?php endif?>
+	</div>
+
 </li>
 |||
 <?php endforeach?>

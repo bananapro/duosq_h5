@@ -16,9 +16,11 @@
 				<small>&yen;<?=priceYuan($promo['price_now']?$promo['price_now']:$goods['price_now'])?></small>
 				<?php if($promo['price_avg'] && $promo['price_avg'] > $promo['price_now']):?><del>&yen;<?=priceYuan($promo['price_avg'])?></del><?php endif?>
 			</div>
+			<?php if($promo['price_now'] && $promo['price_now'] < $promo['price_avg']):?>
 			<div class="today">
 				<?php if($promo['price_avg']):?><strong>今日省<?=rateDiff($promo['price_now'], $promo['price_avg'])?>%</strong><?php endif?>
 			</div>
+			<?php endif?>
 		</div>
 		<div>
 			<?php if($promo['invalid'] == 'sell_out'):?>
