@@ -28,7 +28,7 @@ body{background:#FFF}
 <section class="place-holder-nav"></section>
 
 <div class="limit-hd clearfix">
-	<h3 class="i">✿· 件件买手选款，件件同款最低价</h3>
+	<h3 class="i">✿·件件买手选款，件件同款最低价·✿</h3>
 </div>
 <?php endif;?>
 
@@ -40,7 +40,7 @@ body{background:#FFF}
 <?php if(getVersion()<2):?><a class="wishlists" href="jump:<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/subscribe/cang')?>"><span></span>我的收藏</a><?php endif?>
 
 <script>
-var down_page = 1;
+var down_page = 0;
 var locked = false;
 
 function load(){

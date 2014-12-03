@@ -101,7 +101,7 @@ class ajaxPromotionController extends AppController {
 		if($lists){
 			$this->set('lists', $lists);
 			$this->set('subcats', $cond['subcat']);
-			$this->set('tags', $cond['tag']);
+			$this->set('tags', @(array)$cond['tag']);
 		}else{
 			echo 'empty';die();
 		}
