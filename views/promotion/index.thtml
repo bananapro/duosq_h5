@@ -42,7 +42,6 @@
 	<div><a href="jump:<?=urlWithParam($_GET,MY_HOMEPAGE_URL.'/promotion/cat9/'.urlencode('男人'))?>" target="_blank"><img src="<?=MY_STATIC_URL?>/img/app/p-faxian-9-c5.png" width="100%"></a></div>
 </div>
 
-<?php if(isDevelop() || in_array($_GET['device_id'], array('9ABA5F5F-AEBB-4B00-ADCF-9A287160C509', '71E47D29-ED86-4569-9916-FFF589E114F0'))):?>
 <div class="faxian_jie clearfix">
 	<div class="title"><span>&nbsp;女人街 - 时尚买手专业选款</span></div>
 	<div style="padding: 5px 10px" class="clearfix">
@@ -56,7 +55,6 @@
 		<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('风格'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_style.png"/></a>
 	</div>
 </div>
-<?php endif;?>
 
 <div class="faxian_temai clearfix">
 	<div class="title"><span>&nbsp;今日特卖精选</span></div>

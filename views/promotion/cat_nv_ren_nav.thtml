@@ -8,21 +8,27 @@ body{background:#FFF}
 .tag li.split img{min-height:38px!important}
 .tag li span{display:block; height:24px; line-height:24px; color:#f69; font-size:14px; text-align:center}
 .tag li img{width:100%;min-height:91px;border:0}
+
+.faxian_jie{min-height:150px;width:100%;background-color:#FFF;box-sizing:border-box;color:#333;margin-top:8px}
+.faxian_jie .title{font-size:14px; font-weight:bold; color:#333; padding-bottom:2px; background:url(<?=MY_STATIC_URL?>/img/app/p-one-line.png) repeat-x;background-size:auto 1px;background-position: 0 bottom}
+.faxian_jie .title span{display:block; border-left:6px solid #FF8BB5; margin-left:10px;margin-top:10px; margin-bottom:6px;}
+.faxian_jie a{display:block; width:25%; box-sizing:border-box; float:left; min-height:75px;}
+.faxian_jie a img{width:100%}
 </style>
 <?php if($nv_category):?>
 	<?php
 		$config = C('comm', 'category_nv_ren_jie');
-			$recommend_cat = array();
-			$normal_cat = array();
-			if(isset($config[$nv_category])){
-				foreach($config[$nv_category] as $nv_cat => $conf){
-					if(isset($conf['recommend'])){
-						$recommend_cat[$nv_cat] = $conf;
-					}else{
-						$normal_cat[$nv_cat] = $conf;
-					}
+		$recommend_cat = array();
+		$normal_cat = array();
+		if(isset($config[$nv_category])){
+			foreach($config[$nv_category] as $nv_cat => $conf){
+				if(isset($conf['recommend'])){
+					$recommend_cat[$nv_cat] = $conf;
+				}else{
+					$normal_cat[$nv_cat] = $conf;
 				}
 			}
+		}
 	?>
 	<?php if($nv_category == '风格'):?>
 		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoNvRenUrl('女上衣', '秋季热款'))?>"><img src="<?=imageUrl('/img/app/nv_ren_jie/'.$nv_category.'.png', '')?>"/></a></div>
@@ -48,7 +54,39 @@ body{background:#FFF}
 		?>
 	</ul>
 <?php else:?>
-	此处显示全分类导航
+	<div class="faxian_jie clearfix">
+		<div style="padding: 5px 10px" class="clearfix">
+			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('上衣'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_jacket.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('裙子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_skirt.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('裤子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_trousers.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('鞋子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_shoes.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('包包'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_bags.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('配饰'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_accessory.png"/></a>
+			<a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode('美妆'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_beauty.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('风格'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_style.png"/></a>
+		</div>
+	</div>
+	<ul class="tag">
+		<li class="split"><img src="<?=MY_STATIC_URL?>/img/app/p-category-split.png" /></li>
+		<?php
+			$config = C('comm', 'category_nv_ren_jie');
+			foreach($config as $nv_category => $nv_conf){
+				$i = 0;
+				foreach($nv_conf as $nv_cat => $conf){
+					if(isset($conf['recommend'])){
+						$hot_cat[$nv_category][$nv_cat] = $conf;
+						$i++;
+						if($i>2)break;
+					}
+				}
+			}
+			foreach($hot_cat as $nv_category => $nv_conf){
+				foreach($nv_conf as $nv_cat => $conf){
+					echo '<li><a href="jump:'.urlWithParam($_GET,promoNvRenUrl($conf['subcat'], $conf['tag'])).'"><img src="'.imageUrl('/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png', '').'" /><span>'.$nv_cat.'</span></a></li>';
+				}
+			}
+		?>
+	</ul>
 <?php endif?>
 
 <script>
