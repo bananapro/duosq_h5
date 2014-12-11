@@ -31,9 +31,9 @@ body{background:#FFF}
 		}
 	?>
 	<?php if($nv_category == '风格'):?>
-		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoNvRenUrl('女上衣', '秋季热款'))?>"><img src="<?=imageUrl('/img/app/nv_ren_jie/'.$nv_category.'.png', '')?>"/></a></div>
+		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoJieUrl('女上衣', '秋季热款'))?>"><img src="<?=mImageUrl('/img/app/nv_ren_jie/'.$nv_category.'.png', '')?>"/></a></div>
 	<?php else:?>
-		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoNvRenUrl($conf['subcat']))?>"><img src="<?=imageUrl('/img/app/nv_ren_jie/'.$nv_category.'.png', '')?>"/></a></div>
+		<div class="banner"><a href="jump:<?=urlWithParam($_GET,promoJieUrl($conf['subcat']))?>"><img src="<?=mImageUrl('/img/app/nv_ren_jie/'.$nv_category.'.png', '')?>"/></a></div>
 	<?php endif?>
 
 	<ul class="tag">
@@ -41,14 +41,14 @@ body{background:#FFF}
 
 			if($recommend_cat){
 				foreach($recommend_cat as $nv_cat => $conf){
-					echo '<li><a href="jump:'.urlWithParam($_GET,promoNvRenUrl($conf['subcat'], $conf['tag'])).'"><img src="'.imageUrl('/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png', '').'" /><span>'.$nv_cat.'</span></a></li>';
+					echo '<li><a href="jump:'.urlWithParam($_GET,promoJieUrl($conf['subcat'], $conf['tag'])).'"><img src="'.mImageUrl('/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png', '').'" /><span>'.$nv_cat.'</span></a></li>';
 				};
 				echo '<li class="split"><img src="'.MY_STATIC_URL.'/img/app/p-category-split.png" /></li>';
 			}
 
 			if($normal_cat){
 				foreach($normal_cat as $nv_cat => $conf){
-					echo '<li><a href="jump:'.urlWithParam($_GET,promoNvRenUrl($conf['subcat'], $conf['tag'])).'"><img src="'.imageUrl('/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png', '').'" /><span>'.$nv_cat.'</span></a></li>';
+					echo '<li><a href="jump:'.urlWithParam($_GET,promoJieUrl($conf['subcat'], $conf['tag'])).'"><img src="'.mImageUrl('/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png', '').'" /><span>'.$nv_cat.'</span></a></li>';
 				}
 			}
 		?>
@@ -56,14 +56,14 @@ body{background:#FFF}
 <?php else:?>
 	<div class="faxian_jie clearfix">
 		<div style="padding: 5px 10px" class="clearfix">
-			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('上衣'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_jacket.png"/></a>
-			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('裙子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_skirt.png"/></a>
-			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('裤子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_trousers.png"/></a>
-			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('鞋子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_shoes.png"/></a>
-			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('包包'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_bags.png"/></a>
-			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('配饰'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_accessory.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoJieNavUrl('上衣'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_jacket.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoJieNavUrl('裙子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_skirt.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoJieNavUrl('裤子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_trousers.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoJieNavUrl('鞋子'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_shoes.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoJieNavUrl('包包'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_bags.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoJieNavUrl('配饰'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_accessory.png"/></a>
 			<a href="jump:<?=urlWithParam(array(),MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode('美妆'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_beauty.png"/></a>
-			<a href="jump:<?=urlWithParam($_GET,promoNvRenNavUrl('风格'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_style.png"/></a>
+			<a href="jump:<?=urlWithParam($_GET,promoJieNavUrl('风格'))?>"><img src="<?=MY_STATIC_URL?>/img/app/btn_jie_style.png"/></a>
 		</div>
 	</div>
 	<ul class="tag">
@@ -82,7 +82,7 @@ body{background:#FFF}
 			}
 			foreach($hot_cat as $nv_category => $nv_conf){
 				foreach($nv_conf as $nv_cat => $conf){
-					echo '<li><a href="jump:'.urlWithParam($_GET,promoNvRenUrl($conf['subcat'], $conf['tag'])).'"><img src="'.imageUrl('/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png', '').'" /><span>'.$nv_cat.'</span></a></li>';
+					echo '<li><a href="jump:'.urlWithParam($_GET,promoJieUrl($conf['subcat'], $conf['tag'])).'"><img src="'.mImageUrl('/img/app/nv_ren_jie/'.$nv_category.'_'.$nv_cat.'.png', '').'" /><span>'.$nv_cat.'</span></a></li>';
 				}
 			}
 		?>

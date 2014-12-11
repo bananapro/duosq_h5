@@ -13,7 +13,7 @@
 					//$style = "style='min-height:179px'";
 				}
 			?>
-			<img class="ui-imglazyload" <?=$style?> src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl(r(array('220x220','230x230','430x430','460x460','360x360','260x260'), '960x960', $promo['pic_url_orig']?$promo['pic_url_orig']:$promo['pic_url']), $size)?>"/>
+			<img class="ui-imglazyload" <?=$style?> src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=mImageUrl($promo['pic_url_orig']?$promo['pic_url_orig']:$promo['pic_url'], $size)?>"/>
 			<?php if(!@$no_cang):?>
 			<a class="cang<?php if(D('cang')->has($_GET['device_id'], $_GET['platform'], 'goods', $promo['sp'].':'.$promo['goods_id'])):?> cang-selected<?php endif?>" href="javascript:void(0)" onclick="cang(this, 'goods', '<?=$promo['sp']?>:<?=$promo['goods_id']?>')">cang</a>
 			<?php endif?>

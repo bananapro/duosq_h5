@@ -23,7 +23,7 @@
 				<?php $goods = D('promotion')->goodsDetail($m['sp'], $m['goods_id']);?>
 				<li class="clearfix<?php if($now==$last-1):?> noborder<?php endif?>">
 					<a href="jump:<?=D('promotion')->buildUrl($goods['url_tpl'], $goods['url_id'], 'mobi')?>">
-					<div class="goods-img"><img class="ui-imglazyload" src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=imageUrl($goods['pic_url'], '200x200')?>" /></div>
+					<div class="goods-img"><img class="ui-imglazyload" src="<?=MY_STATIC_URL?>/img/no_photo.png" data-url="<?=mImageUrl($goods['pic_url'], '200x200')?>" /></div>
 					<div class="goods-content">
 						<div class="goods-title"><?=$goods['name']?></div>
 						<div class="goods-price clearfix">

@@ -9,6 +9,10 @@ class PromotionController extends AppController {
 	//发现首页
 	function index(){
 
+		if(!$_GET['change']){
+			//$this->redirect(urlWithParam($_GET+array('change'=>1), '/subscribe'));
+		}
+
 		//特卖分类各出一副图
 		$config = C('comm', 'category');
 
@@ -85,7 +89,7 @@ class PromotionController extends AppController {
 	}
 
 	//女人街分类导航
-	function catNvRenNav($nv_category=''){
+	function catJieNav($nv_category=''){
 
 		if($nv_category){
 			$nv_category = urldecode($nv_category);
@@ -97,7 +101,7 @@ class PromotionController extends AppController {
 	}
 
 	//女人街分类商品列表
-	function catNvRen($subcat, $tag=''){
+	function catJie($subcat, $tag=''){
 
 		if(!$subcat)$this->flash('参数错误，系统自动返回首页', '/', 2);
 
@@ -184,10 +188,8 @@ class PromotionController extends AppController {
 		$goods = D('promotion')->goodsDetail($sp, $goods_id);
 		if(!$goods)$this->redirect('/', 301);
 
-		if(!$goods['shop_id']){
-			$succ = D('promotion')->updateGoodsDeepInfo($sp, $goods_id, $goods['url_id']);
-			if($succ)$goods = array_merge($goods, $succ);
-		}
+		$succ = D('promotion')->updateGoodsDeepInfo($sp, $goods_id, $goods['url_id']);
+		if($succ)$goods = array_merge($goods, $succ);
 
 		$this->set('promo', $promo);
 		$this->set('goods', $goods);

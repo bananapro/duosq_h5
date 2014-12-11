@@ -3,7 +3,7 @@ body{background:#FFF}
 </style>
 <div id="tab_nav" class="second-nav clearfix">
 	<ul class="ui-navigator-list">
-		<li><a class="J-nav-classify" href="jump:<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/catNvRenNav')?>">女人街<font style="color:red;font-size:10px">新!</font></a></li>
+		<li><a class="J-nav-classify" href="jump:<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/catJieNav')?>">女人街<font style="color:red;font-size:10px">新!</font></a></li>
 		<li><a class="J-nav-classify<?php if(!@$category):?> cur<?php endif?>" href="<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/cat9', 'category')?>">全部</a></li>
 		<?php $config = C('comm', 'category_9')?>
 		<?php foreach($config as $i_category => $value):?>

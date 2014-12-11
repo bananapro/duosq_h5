@@ -76,14 +76,14 @@ class ajaxPromotionController extends AppController {
 	}
 
 	//女人街列表
-	function catNvRen($subcats, $tags=''){
+	function catJie($subcats, $tags=''){
 
 		if(!$subcats){echo 'empty';die();}
 
 		D('promotion')->db('promotion.queue_promo');
 
 		$cond = array();
-		//$cond['type'] = \DB\QueuePromo::TYPE_GUANG;
+		//$cond['type'] = \DB\QueuePromo::TYPE_JIE;
 
 		$subcats = urldecode($subcats);
 		$tags = urldecode($tags);
@@ -94,7 +94,7 @@ class ajaxPromotionController extends AppController {
 			$cond['tag'] = explode('&', $tags);
 		}
 
-		$lists = D('promotion')->getTagList($this->Pagination, $cond, 8, false);
+		$lists = D('promotion')->getTagList($this->Pagination, $cond, 8);
 		//pr($lists);die();
 		$this->layout = 'ajax';
 

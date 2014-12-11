@@ -5,7 +5,7 @@
 ?>
 <div id="tab_nav" class="second-nav clearfix">
 	<ul class="ui-navigator-list">
-		<li><a class="J-nav-classify" href="jump:<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/catNvRenNav')?>">女人街<font style="color:red;font-size:10px">新!</font></a></li>
+		<li><a class="J-nav-classify" href="jump:<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/catJieNav')?>">女人街<font style="color:red;font-size:10px">新!</font></a></li>
 		<li><a class="J-nav-classify<?php if(!$category_sub):?> cur<?php endif?>" href="<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($category))?>">全部</a></li>
 		<?php foreach($config_category as $subcat_name => $config_subcat):?>
 		<li><a class="J-nav-classify<?php if($subcat_name == $category_sub):?> cur<?php endif?>" href="<?=urlWithParam($_GET, MY_HOMEPAGE_URL.'/promotion/cat/'.urlencode($category).'/'.urlencode($subcat_name))?>"><?=$subcat_name?></a></li>

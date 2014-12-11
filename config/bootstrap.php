@@ -49,18 +49,18 @@ function goodsUrl($sp, $goods_id){
 }
 
 //女人街分类导航页
-function promoNvRenNavUrl($nv_category=''){
+function promoJieNavUrl($nv_category=''){
 
-	return MY_HOMEPAGE_URL . '/promotion/catNvRenNav/'.urlencode($nv_category);
+	return MY_HOMEPAGE_URL . '/promotion/catJieNav/'.urlencode($nv_category);
 }
 
 //女人街分类商品列表页
-function promoNvRenUrl($subcats, $tags=''){
+function promoJieUrl($subcats, $tags=''){
 
 	if(!$subcats)return false;
 
 	$tags = '/'.urlencode($tags);
-	return MY_HOMEPAGE_URL . '/promotion/catNvRen/'.urlencode($subcats).$tags;
+	return MY_HOMEPAGE_URL . '/promotion/catJie/'.urlencode($subcats).$tags;
 }
 
 //获取APP版本

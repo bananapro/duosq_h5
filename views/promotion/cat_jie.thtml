@@ -17,11 +17,11 @@ body{background:#FFF}
 	<ul class="ui-navigator-list">
 
 		<?php if($hint && $tag && $nv_cat):?>
-			<li><a class="J-nav-classify cur" href="<?=urlWithParam($_GET, promoNvRenUrl($subcat))?>"><?=$nv_cat?></a></li>
+			<li><a class="J-nav-classify cur" href="<?=urlWithParam($_GET, promoJieUrl($subcat))?>"><?=$nv_cat?></a></li>
 		<?php endif;?>
-		<?php if($nv_category):?><li><a class="J-nav-classify<?php if(!@$tag):?> cur<?php endif?>" href="<?=urlWithParam($_GET, promoNvRenUrl($subcat=='女睡衣内衣'?'女上衣':$subcat))?>"><?=$nv_category?>推荐</a></li><?php endif?>
+		<?php if($nv_category):?><li><a class="J-nav-classify<?php if(!@$tag):?> cur<?php endif?>" href="<?=urlWithParam($_GET, promoJieUrl($subcat=='女睡衣内衣'?'女上衣':$subcat))?>"><?=$nv_category?>推荐</a></li><?php endif?>
 		<?php foreach($recommend_cat as $nv_cat => $conf):?>
-		<li><a class="J-nav-classify<?php if($conf['subcat'] == $subcat && $conf['tag'] == $tag):?> cur<?php endif?>" href="<?=urlWithParam($_GET, promoNvRenUrl($conf['subcat'], $conf['tag']))?>"><?=$nv_cat?></a></li>
+		<li><a class="J-nav-classify<?php if($conf['subcat'] == $subcat && $conf['tag'] == $tag):?> cur<?php endif?>" href="<?=urlWithParam($_GET, promoJieUrl($conf['subcat'], $conf['tag']))?>"><?=$nv_cat?></a></li>
 		<?php endforeach?>
 	</ul>
 </div>
@@ -49,7 +49,7 @@ function load(){
 	locked = true;
 	if(down_page == 'end')return;
 	$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 正在加载...');
-	call_url = '<?=urlWithParam($_GET,'/ajaxPromotion/catNvRen/'.urlencode($subcat).'/'.urlencode($tag))?>&page='+down_page;
+	call_url = '<?=urlWithParam($_GET,'/ajaxPromotion/catJie/'.urlencode($subcat).'/'.urlencode($tag))?>&page='+down_page;
 
 	$.get(call_url, function (data) {
 

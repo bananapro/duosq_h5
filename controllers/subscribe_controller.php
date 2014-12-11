@@ -39,6 +39,9 @@ class SubscribeController extends AppController {
 	//消息列表，第一次进入配置页面
 	function index(){
 
+		if(!$_GET['change']){
+			//$this->redirect(urlWithParam($_GET+array('change'=>1), '/promotion'));
+		}
 		$lists = D('album')->getNewAlbum($this->device_id, $this->platform);
 		$this->set('lists', $lists);
 		$this->set('title', '最新特卖');
