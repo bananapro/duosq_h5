@@ -6,7 +6,7 @@
 			<?php endif?>
 			<div class="saled">月销量 <?=$goods['saled']?$goods['saled']:saledByRand($goods['name'].'key')?> &nbsp; &nbsp; &nbsp; &nbsp; 收藏数 <?=saledByRand($goods['name'])?></div>
 			<img src="<?=mImageUrl($goods['pic_url'], '640x800')?>" width="100%"/>
-			<i class="cang <?php if(D('cang')->has($_GET['device_id'], $_GET['platform'], 'goods', $goods['sp'].':'.$goods['id'])):?> cang-selected<?php endif?>" onclick="return cang(this, 'goods', '<?=$goods['sp']?>:<?=$goods['id']?>')"></i>
+			<i class="cang <?php if(D('cang')->has(@$_GET['device_id'], @$_GET['platform'], 'goods', $goods['sp'].':'.$goods['id'])):?> cang-selected<?php endif?>" onclick="return cang(this, 'goods', '<?=$goods['sp']?>:<?=$goods['id']?>')"></i>
 		</div>
 		<div class="mod-desc border-not">
 			<?=strtotime($promo['hd_expire'])>0?'<span class="color">【限时'.date('n月d',strtotime($promo['hd_expire'])).'】</span>':''?><?=$goods['name']?>
@@ -42,7 +42,7 @@
 		</div>
 	<?php endif?>
 </div>
-<?php if(in_array($_GET['device_id'], array('9ABA5F5F-AEBB-4B00-ADCF-9A287160C509', '71E47D29-ED86-4569-9916-FFF589E114F0'))):?>
+<?php if(in_array(@$_GET['device_id'], array('9ABA5F5F-AEBB-4B00-ADCF-9A287160C509', '71E47D29-ED86-4569-9916-FFF589E114F0'))):?>
 <div class="promo-item">
 	<a href='jump:<?=urlWithParam($_GET, 'http://admincp.duosq.com/Promotion/reviewDone/'.$goods['sp'].'/'.$goods['id'].'/1')?>'><div class="submit-btn submit-btn-important">隐藏特卖</div></a>
 	<a href='jump:<?=urlWithParam($_GET, 'http://admincp.duosq.com/Promotion/removeCatFromWomen/'.$goods['sp'].'/'.$goods['id'].'/1')?>'><div class="submit-btn submit-btn-important">去除女装分类</div></a>
@@ -78,21 +78,24 @@
 	</div>
 	<?php endif?>
 
-	<?php if($goods['comment'] && $comments = unserialize($goods['comment'])):?>
+	<?php if($goods['comment'])$comments = unserialize($goods['comment'])?>
+	<?php if($comments && isset($comments[0]['content'])):?>
 	<div class="comment">
 		<div class="title">买家评论 (<?=count($comments)?>条)</div>
 		<dl>
-			<?php $head = array_slice($comments, 0 ,2)?>
+			<?php $head = array_slice($comments, 0, 2)?>
 			<?php foreach($head as $comment):?>
-			<dt><?=$comment['user']?> <span>/<?=$comment['date']?></span></dt>
-			<dd><?=$comment['content']?></dd>
+			<?php $user = avatarByRand($comment['user']); ?>
+			<dt><img src="<?=imageUrl($user['avatar'], '26x26')?>" width="26" height="26" align="absmiddle"/> <?=$user['name']?> <span>/<?=$comment['date']?></span></dt>
+			<dd><?=$comment['content']?$comment['content']:$goods['recommend']?></dd>
 			<?php endforeach?>
 
 			<?php if(count($comments)>2):?>
 			<?php $tail = array_slice($comments, 2)?>
 			<div class="more-comment" style="display:none">
 				<?php foreach($tail as $comment):?>
-				<dt><?=$comment['user']?> <span>/<?=$comment['date']?></span></dt>
+				<?php $user = avatarByRand($comment['user']); ?>
+				<dt><img src="<?=imageUrl($user['avatar'], '26x26')?>" width="26" height="26" align="absmiddle"/> <?=$user['name']?> <span>/<?=$comment['date']?></span></dt>
 				<dd><?=$comment['content']?></dd>
 				<?php endforeach?>
 			</div>
