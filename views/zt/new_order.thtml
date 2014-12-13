@@ -1,0 +1,36 @@
+<style>
+h1 {display:block; text-align:center; line-height:40px; font-size:18px; font-weight:bold; margin-top:15px;color:#7A0046}
+p { border-bottom:1px dotted #BFBFBF; padding-bottom:10px}
+body{background-color:#F4D100}
+.guide{border-radius:10px; background-color:#FFF; margin:10px; padding:0 20px 20px; overflow:hidden}
+.guide{font-size:14px; line-height:28px}
+</style>
+<div><img src="<?=MY_STATIC_URL?>/img/app/zt/new_order.png" width="100%"></div>
+<div class="guide">
+<h1>活动细则</h1>
+<p>未参与过满减活动的新老会员，即日起购物满50元(运费不计)，即返还10元现金</p>
+
+<h1>如何领取返还现金？</h1>
+<p>1、购物下单(可购买多种商品，需用同一淘宝账号)<br />2、请在淘宝后台确认收货后7天内，在下方填入订单信息<br />3、我们将在2个工作日内确认并支付</p>
+
+<?php if(!@$status):?>
+<h1>提交任意淘宝订单号末6位</h1>
+<p>
+	<form action="/zt/newOrder" method="POST">
+		<input type="hidden" name="post" value=1 />
+		淘宝订单末6位：<input placeholder="" name="taobao_no" autocomplete="off" size="40"><br />
+		支付宝账号： &nbsp; &nbsp; <input placeholder="" name="alipay" autocomplete="off" size="40"><br />
+		联系邮箱(返现通知)： &nbsp; &nbsp; <input placeholder="" name="email" autocomplete="off" size="40"><br />
+		<input style="font-size:20px; width:160px; height:55px; line-height:55px" type="submit" value="提交信息，领取返现"/>
+	</form>
+</p>
+<?php elseif($status == 'wait'):?>
+<h1>已提交申请，2个工作日内返现</h1>
+<?php elseif($status == 'pass'):?>
+<h1>已经返现，请查收</h1>
+<?php else:?>
+<h1>无法找到您的订单，请联系<?=C('comm', 'kefu_email')?></h1>
+<?php endif?>
+
+<span class="ft"><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting')?>" class="subscribe-submit subscribe-submit-save">如有疑问(留下Email)</a></span>
+</div>
