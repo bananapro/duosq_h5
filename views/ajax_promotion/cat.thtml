@@ -1,22 +1,25 @@
+<?php
+if(!@$_GET['category']){
+	$size = '304x202';
+	$style = "<style>.mod-img img{min-height:101px}</style>";
+}else{
+	if($_GET['category'] == '女装'){
+		$size = '330x361';
+		$style = "<style>.mod-img img{min-height:166px}</style>";
+	}else{
+		$size = '304x202';
+		$style = "<style>.mod-img img{min-height:101px}</style>";
+	}
+}
+echo $style;
+?>
 <?php foreach($lists as $promo):?>
 <li>
 	<a href="jump:<?=urlWithParam($_GET, goodsUrl($promo['sp'], $promo['goods_id']))?>">
 		<div class="mod-img">
 			<!--<div class="mod-mark mark-new">new</div>-->
 			<!--<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>-->
-			<?php
-				if(!@$_GET['category']){
-					$size = '304x202';
-				}else{
-					if($_GET['category'] == '女装'){
-						$size = '330x361';
-						$style = "style='min-height:166px'";
-					}else{
-						$size = '304x202';
-					}
-				}
-			?>
-			<img class="ui-imglazyload" <?=@$style?> src="<?=mImageUrl($promo['pic_url'], $size)?>"/>
+			<img class="ui-imglazyload" src="http://static.duosq.com/img/spacer.png" data-url="<?=mImageUrl($promo['pic_url'], $size)?>"/>
 		</div>
 		<div class="mod-desc border-not">
 			<span class="color"></span><?=$promo['name_short']?$promo['name_short']:$promo['name']?>

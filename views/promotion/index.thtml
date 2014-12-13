@@ -31,7 +31,7 @@
 <?php if(getIp()=='115.174.13.55' && 0):?>
 <br />
 <a href="jump:history:http://www.baidu.com">jump_history</a>
-<a href="android_share://duosq.com/最强的特卖/一般人我不告诉他/aHR0cDovL3d3dy5kdW9zcS5jb20vYnJhbmQtMjEwMw==/aHR0cDovL3N0YXRpYy5kdW9zcS5jb20vaW1nL2JyYW5kL2xvZ28vMjEwMy5wbmc=/callback(22)"
+<a href="androidshare://duosq.com/最强的特卖/一般人我不告诉他/aHR0cDovL3d3dy5kdW9zcS5jb20vYnJhbmQtMjEwMw==/aHR0cDovL3N0YXRpYy5kdW9zcS5jb20vaW1nL2JyYW5kL2xvZ28vMjEwMy5wbmc=/callback(22)"
 >share</a>
 <script>
 function callback(num){
@@ -116,6 +116,7 @@ function load(){
 				else
 					odd = 1;
 			}
+			$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.duosq.com/img/spacer.png" />'});
 			$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
 			down_page++;
 		}else{

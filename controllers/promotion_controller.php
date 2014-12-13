@@ -60,9 +60,9 @@ class PromotionController extends AppController {
 		$category_sub = urldecode($category_sub);
 
 		//map跳转APP旧版分类到新分类
-		$cat2jiu = array('服装鞋子'=>'女装', '家居日用'=>'居家', '箱包配饰'=>'鞋包饰', '美妆个护'=>'美妆', '母婴用品'=>'母婴', '美食生鲜'=>'美食', '家用电器'=>'数码', '手机数码'=>'数码');
-		if(isset($cat2jiu[$category])){
-			$category = $cat2jiu[$category];
+		$cat2new = array('服装鞋子'=>'女装', '家居日用'=>'居家', '箱包配饰'=>'鞋包饰', '美妆个护'=>'美妆', '母婴用品'=>'母婴', '美食生鲜'=>'美食', '家用电器'=>'数码', '手机数码'=>'数码');
+		if(isset($cat2new[$category])){
+			$category = $cat2new[$category];
 		}
 
 		if($category_sub){

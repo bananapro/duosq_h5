@@ -33,7 +33,7 @@ class ajaxPromotionController extends AppController {
 			}
 		}
 
-		$lists = D('promotion')->getList($this->Pagination, $cond, 8, false);
+		$lists = D('promotion')->getList($this->Pagination, $cond, 10, false);
 		$this->layout = 'ajax';
 
 		if($lists){
@@ -64,7 +64,7 @@ class ajaxPromotionController extends AppController {
 			}
 		}
 
-		$lists = D('promotion')->getList($this->Pagination, $cond, 8, false);
+		$lists = D('promotion')->getList($this->Pagination, $cond, 10, false);
 
 		$this->layout = 'ajax';
 

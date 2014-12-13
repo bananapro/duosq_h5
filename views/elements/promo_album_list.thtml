@@ -22,8 +22,6 @@ if(getVersion()>1){
 	<a href="<?=$jump?><?=urlWithParam($_GET, albumUrl($album['id']))?>">
 		<div class="cover" style="<?=$height?>"><img src="<?=uploadImageUrl($album['cover_1'])?>" width="100%"/><div class="time"><?=$album['expire']?></div></div>
 		<div class="title"><?=$album['brand_names']?><?=$album['title']?></div>
-		<?php if(isset($album['expire'])):?>
-		<?php endif?>
 	</a>
 	<a class="cang<?php if(D('cang')->has($_GET['device_id'], $_GET['platform'], 'album', $album['id'])):?> cang-selected<?php endif?>" href="javascript:void(0)" onclick="cang(this, 'album', <?=$album['id']?>)">cang</a>
 </li>

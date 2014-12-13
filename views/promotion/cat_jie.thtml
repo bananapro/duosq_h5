@@ -67,6 +67,8 @@ function load(){
 					odd = 1;
 			}
 
+			$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.duosq.com/img/spacer.png" />'});
+
 			reg = new RegExp('jump:', "ig");
 			if(data.match(reg).length<6){
 				$('#loading').hide();
