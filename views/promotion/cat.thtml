@@ -49,7 +49,8 @@ function load(){
 				else
 					odd = 1;
 			}
-			$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.duosq.com/img/spacer.png" />'});
+			$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.duosq.com/img/placeholder_goods.png" />'});
+			//$('.ui-imglazyload').removeClass('ui-imglazyload');
 
 			reg = new RegExp('jump:', "ig");
 			if(data.match(reg).length<6){
@@ -73,9 +74,9 @@ $(function(){
 	load();
 	$(window).scroll( function() {
 
-		if (parseFloat($(window).scrollTop()) - last_scroll_height > parseFloat($(window).height())/3) {  // 说明滚动条已达底部
+		//if (parseFloat($(window).scrollTop()) - last_scroll_height > parseFloat($(window).height())/3) {  // 说明滚动条已达底部
+		if (parseFloat($(window).scrollTop()) + parseFloat($(window).height()) > $(document).height()-100) {  // 说明滚动条已达底部
 			load();
-			last_scroll_height = parseFloat($(window).scrollTop());
 		}
 	});
 

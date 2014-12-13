@@ -19,7 +19,7 @@ echo $style;
 		<div class="mod-img">
 			<!--<div class="mod-mark mark-new">new</div>-->
 			<!--<span><img src="<?=MY_STATIC_URL?>/img/shop_logo/<?=$promo['sp']?>.png"></span>-->
-			<img class="ui-imglazyload" src="http://static.duosq.com/img/spacer.png" data-url="<?=mImageUrl($promo['pic_url'], $size)?>"/>
+			<img class="ui-imglazyload" src="http://static.duosq.com/img/placeholder_goods.png" data-url="<?=mImageUrl($promo['pic_url'], $size)?>"/>
 		</div>
 		<div class="mod-desc border-not">
 			<span class="color"></span><?=$promo['name_short']?$promo['name_short']:$promo['name']?>

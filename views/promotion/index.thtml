@@ -116,7 +116,7 @@ function load(){
 				else
 					odd = 1;
 			}
-			$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.duosq.com/img/spacer.png" />'});
+			$('.ui-imglazyload').imglazyload({placeHolder:'<img src="http://static.duosq.com/img/placeholder_goods.png" />'});
 			$('#loading').html('<a href="javascript:void(0)" onclick="load()">下拉加载更多</a>');
 			down_page++;
 		}else{

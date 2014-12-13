@@ -9,7 +9,7 @@ for($i = 0; $i<count($lists)-1; $i=$i+2){
 <?php foreach($lists as $promo):?>
 <li>
 	<div class="mod-img">
-		<a href="jump:<?=urlWithParam($_GET, goodsUrl($promo['sp'], $promo['goods_id']))?>"><img class="ui-imglazyload" src="http://static.duosq.com/img/spacer.png" data-url="<?=$promo['pic_url']?>"/></a>
+		<a href="jump:<?=urlWithParam($_GET, goodsUrl($promo['sp'], $promo['goods_id']))?>"><img class="ui-imglazyload" src="http://static.duosq.com/img/placeholder_goods.png" data-url="<?=$promo['pic_url']?>"/></a>
 	</div>
 	<div class="mod-desc border-not tag">
 		<!--<span class="color"></span><?=$global->cutstr($promo['name_short']?$promo['name_short']:$promo['name'], 60, false)?>-->
