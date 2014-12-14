@@ -1,7 +1,7 @@
-<style>.mod-img img{min-height:101px}</style>
+<style>.promo-img img{min-height:101px; width:100%}</style>
 <?php foreach($lists as $promo):?>
 <li>
-	<div class="promo-img"><a href="jump:<?=urlWithParam($_GET, goodsUrl($promo['sp'], $promo['goods_id']))?>" target="_blank"><img src="http://static.duosq.com/img/placeholder_goods.png" data-url="<?=mImageUrl($promo['pic_url'], '200x200')?>" width="100%"/></a></div>
+	<div class="promo-img"><a href="jump:<?=urlWithParam($_GET, goodsUrl($promo['sp'], $promo['goods_id']))?>" target="_blank"><img class="ui-imglazyload" src="http://static.duosq.com/img/placeholder_goods.png" data-url="<?=mImageUrl($promo['pic_url'], '200x200')?>"/></a></div>
 	<div class="promo-info">
 		<div class="title"><?=$promo['name_short']?$promo['name_short']:$promo['name']?></div>
 		<div class="old-price">原价<del>￥<?=priceYuan($promo['price_avg'])?></del></div>

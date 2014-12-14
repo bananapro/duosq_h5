@@ -133,7 +133,8 @@ $(function(){
 	load();
 	$(window).scroll( function() {
 
-		if (parseFloat($(window).scrollTop()) - last_scroll_height > parseFloat($(window).height())/2.5) {  // 说明滚动条已达底部
+		//if (parseFloat($(window).scrollTop()) - last_scroll_height > parseFloat($(window).height())/2.5) {  // 说明滚动条已达底部
+		if (parseFloat($(window).scrollTop()) + parseFloat($(window).height()) > $(document).height()-100) {  // 说明滚动条已达底部
 			load();
 			last_scroll_height = parseFloat($(window).scrollTop());
 		}
@@ -145,7 +146,7 @@ $(function(){
 //超过2小时自动刷新页面
 setInterval(function(){
 	var timestamp=new Date().getTime();
-	timestamp = timestamp/1000;
+	timestamp = parseInt(timestamp/1000);
 	if(timestamp > <?=(time()+HOUR*2)?>){
 		location.reload();
 	}
