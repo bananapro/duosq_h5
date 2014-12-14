@@ -21,7 +21,7 @@ body{background-color:#F4D100}
 		淘宝订单末6位：<input placeholder="" name="taobao_no" autocomplete="off" size="40"><br />
 		支付宝账号： &nbsp; &nbsp; <input placeholder="" name="alipay" autocomplete="off" size="40"><br />
 		联系邮箱(返现通知)： &nbsp; &nbsp; <input placeholder="" name="email" autocomplete="off" size="40"><br />
-		<input style="font-size:20px; width:160px; height:55px; line-height:55px" type="submit" value="提交信息，领取返现"/>
+		<input style="font-size:18px; width:200px; height:40px; line-height:40px; margin-top:10px" type="submit" value="提交信息，领取返现"/>
 	</form>
 </p>
 <?php elseif($status == 'wait'):?>
@@ -32,5 +32,5 @@ body{background-color:#F4D100}
 <h1>无法找到您的订单，请联系<?=C('comm', 'kefu_email')?></h1>
 <?php endif?>
 
-<span class="ft"><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting')?>" class="subscribe-submit subscribe-submit-save">如有疑问(留下Email)</a></span>
+<span class="ft"><a href="jump:feedback" class="subscribe-submit subscribe-submit-save">如有疑问(留下Email)</a></span>
 </div>
