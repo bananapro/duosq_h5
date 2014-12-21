@@ -28,8 +28,3 @@ body{background-color:#F35AB4}
 <h1>有没有简单的方法？</h1>
 <span class="ft"><a href="jump:<?=urlWithParam(array(), MY_HOMEPAGE_URL.'/subscribe/setting')?>" class="subscribe-submit subscribe-submit-save">马上订阅特卖</a></span>
 </div>
-<script>
-function callback(){
-	alert('back');
-}
-</script>
