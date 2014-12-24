@@ -94,7 +94,7 @@ class ajaxPromotionController extends AppController {
 			$cond['tag'] = explode('&', $tags);
 		}
 
-		$lists = D('promotion')->getTagList($this->Pagination, $cond, 8);
+		$lists = D('promotion')->getTagList($this->Pagination, $cond, 10);
 		//pr($lists);die();
 		$this->layout = 'ajax';
 

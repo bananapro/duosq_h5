@@ -284,7 +284,7 @@ body{background:#DADADA}
 		$(window).scroll( function() {
 
 			total_height = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
-			if ($(document).height()-10 < total_height) {  // 说明滚动条已达底部
+			if ($(document).height()-100 < total_height) {  // 说明滚动条已达底部
 				load();
 			}
 		});
