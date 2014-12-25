@@ -9,7 +9,7 @@ class PromotionController extends AppController {
 	//发现首页
 	function index(){
 
-		if(!$_GET['change']){
+		if(!@$_GET['change']){
 			//$this->redirect(urlWithParam($_GET+array('change'=>1), '/subscribe'));
 		}
 
@@ -29,8 +29,8 @@ class PromotionController extends AppController {
 			}
 
 			$cond['type'] = \DB\QueuePromo::TYPE_DISCOUNT;
-			$lists = D('promotion')->getList($this->Pagination, $cond, 1, false);
-			$first_temai[$category_name] = $lists[0];
+			$lists = D('promotion')->getList($this->Pagination, $cond, 3, false);
+			$first_temai[$category_name] = array_pop($lists);
 		}
 
 		$this->set('first_temai', $first_temai);
