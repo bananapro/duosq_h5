@@ -270,6 +270,46 @@ body{background:#DADADA}
 		});
 	}
 
+	function loadUp(){
+
+		if(locked)return;
+		locked = true;
+		if(down_page == 'end')return;
+		$('#loading').html('<img src="<?=MY_STATIC_URL?>/img/loading.gif" width="20" height="20" align="absmiddle"> 数据加载中...');
+		call_url = '<?=urlWithParam($_GET,'/ajaxSubscribe/getUpAlbum')?>';
+
+		$.getJSON(call_url, {'width':$('body').width(), 'display_albums_min_id':display_albums_min_id}, function (data) {
+
+			if(data.status == 1){
+
+				if(data.message.length>0){
+
+					var $list = $('.album-list'),
+						html = (function (data) {//数据渲染
+							var liArr = [];
+							$.each(data, function () {
+								liArr.push(this.html);
+								if(parseInt(this.album_id) < display_albums_min_id){
+									display_albums_min_id = parseInt(this.album_id);
+								}
+							});
+							return liArr.join('');
+						})(data.message);
+
+					$list['prepend'](html);
+					showHint('找到'+data.message.length+'条新特卖活动');
+
+				}else{
+					showHint('没有新的特卖活动');
+				}
+			}else{
+				showHint('网络错误，请重试');
+			}
+
+			locked = false;
+		});
+	}
+
 	//重新加载页面
 	function doReload(){
 		location.reload();
@@ -277,7 +317,7 @@ body{background:#DADADA}
 
 	//点击刷新按钮
 	function doRefresh(){
-		load();
+		loadUp();
 	}
 
 	$(function(){

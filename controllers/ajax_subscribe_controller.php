@@ -197,7 +197,7 @@ class ajaxSubscribeController extends AppController {
 			if($_GET['page']>1){
 				$this->_error('无更多收藏！');
 			}else{
-				$this->_success(array(array('html'=>'<dl class="no-cang"><dt><img src="http://static.sxedm1.com/assets/m/i/images/wish/activity.png"></dt></dl>')));
+				$this->_success(array(array('html'=>'<dl class="no-cang"><dt><img src="'.MY_STATIC_URL.'/img/app/p-cang-activity.png"></dt></dl>')));
 			}
 		}
 	}
