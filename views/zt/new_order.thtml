@@ -37,3 +37,12 @@ body{background-color:#F4D100}
 
 <span class="ft"><a href="jump:feedback" class="subscribe-submit subscribe-submit-save">如有疑问(留下Email)</a></span>
 </div>
+<?php if(0):?>
+<a href="androidshare://duosq.com/最强的特卖/一般人我不告诉他/aHR0cDovL3d3dy5kdW9zcS5jb20vYnJhbmQtMjEwMw==/aHR0cDovL3N0YXRpYy5kdW9zcS5jb20vaW1nL2JyYW5kL2xvZ28vMjEwMy5wbmc=/callback(22)"
+>share</a>
+<script>
+function callback(num){
+    alert(num);
+}
+</script>
+<?php endif?>

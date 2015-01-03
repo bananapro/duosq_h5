@@ -9,7 +9,7 @@ class AppController extends Controller {
 	function beforeFilter() {
 
 		parent::beforeFilter();
-		$this->set('title', '特卖订阅');
+		$this->set('title', '多省钱');
 		header('Content-Type: text/html; charset=UTF-8');
 		//判断push_token是否改变，进行更新
 		$device_id = @$_GET['device_id'];
