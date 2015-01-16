@@ -145,8 +145,8 @@ function hideMoreComment(){
 		h.insertBefore(s, h.firstChild);
 	};
 	var o = {
-		pid: "<?=C('keys', 'taobao_mm')?>",
-		appkey: "<?=C('keys', 'taobao_outcode_appkey')?>",
+		pid: "<?=C('keys', 'taobao_mm_tdj')?>",
+		appkey: "<?=C('keys', 'taobao_outcode_appkey_tdj')?>",
 		unid: "0",
 		rd:1
 	};
