@@ -17,6 +17,8 @@ class HuodongController extends AppController {
 	//显示抽奖界面
 	function index(){
 
+		die('活动下线！');
+
 		//中奖配置
 		$config = array(
 			1=>0,
@@ -50,6 +52,8 @@ class HuodongController extends AppController {
 
 	//领取奖励
 	function getPrize(){
+
+		die('活动下线！');
 
 		$this->layout = 'hint';
 
