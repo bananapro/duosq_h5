@@ -150,7 +150,7 @@ class PromotionController extends AppController {
 			$this->set('error', '关键词无效，请重新输入关键词!');
 		}else{
 
-			$this->redirect('http://s8.taobao.com/search?pid=mm_30123955_8720279_29352369&unid=0&q='.urlencode($k).'&taoke_type=1');
+			$this->redirect('http://s8.taobao.com/search?pid='.C('keys', 'taobao_mm').'&unid=0&q='.urlencode($k).'&taoke_type=1');
 			$promo_goods = array();
 
 			//模板需要用到常量
